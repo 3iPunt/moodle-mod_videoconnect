@@ -22,6 +22,8 @@
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+use mod_tresipuntvimeo\output\view_page;
+
 require(__DIR__.'/../../config.php');
 require_once(__DIR__.'/lib.php');
 
@@ -69,5 +71,9 @@ $PAGE->set_heading(format_string($course->fullname));
 $PAGE->set_context($modulecontext);
 
 echo $OUTPUT->header();
+
+$output = $PAGE->get_renderer('mod_tresipuntvimeo');
+$page = new view_page($cm->id);
+echo $output->render($page);
 
 echo $OUTPUT->footer();

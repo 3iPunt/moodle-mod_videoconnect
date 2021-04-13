@@ -27,5 +27,9 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Tresipunt Vimeo';
 $string['pluginname'] = 'Tresipunt Vimeo';
-$string['modulename'] = 'Tresipunt Vimeos';
+$string['modulename'] = 'Tresipunt Vimeo';
 $string['modulenameplural'] = 'Tresipunt Vimeos';
+$string['tresipuntvimeoname'] = 'Name';
+$string['tresipuntvimeoname_help'] = 'Select a name for this resource';
+$string['selectvideo'] = 'Select a video';
+$string['pluginadministration'] = 'Tresipunt Vimeo Administration';

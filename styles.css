@@ -1,0 +1,9 @@
+div[data-region="mod_tresipuntvimeo"] .iframe_container {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+
+div[data-region="mod_tresipuntvimeo"] .intro {
+    padding: 60px;
+}

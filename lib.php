@@ -30,7 +30,7 @@ defined('MOODLE_INTERNAL') || die();
  * @param string $feature Constant representing the feature.
  * @return int True if the feature is supported, null otherwise.
  */
-function tresipuntvimeo_supports($feature) {
+function tresipuntvimeo_supports(string $feature) {
     switch ($feature) {
         case FEATURE_MOD_INTRO:
             return true;
@@ -49,10 +49,11 @@ function tresipuntvimeo_supports($feature) {
  * number of the instance.
  *
  * @param object $moduleinstance An object from the form.
- * @param mod_tresipuntvimeo_mod_form $mform The form.
+ * @param null $mform The form.
  * @return int The id of the newly inserted record.
+ * @throws dml_exception
  */
-function tresipuntvimeo_add_instance($moduleinstance, $mform = null) {
+function tresipuntvimeo_add_instance(object $moduleinstance, $mform = null): int {
     global $DB;
 
     $moduleinstance->timecreated = time();
@@ -69,14 +70,20 @@ function tresipuntvimeo_add_instance($moduleinstance, $mform = null) {
  * this function will update an existing instance with new data.
  *
  * @param object $moduleinstance An object from the form in mod_form.php.
- * @param mod_tresipuntvimeo_mod_form $mform The form.
+ * @param null $mform The form.
  * @return bool True if successful, false otherwise.
+ * @throws dml_exception
  */
-function tresipuntvimeo_update_instance($moduleinstance, $mform = null) {
+function tresipuntvimeo_update_instance(object $moduleinstance, $mform = null): bool {
     global $DB;
+
+    // TODO: Upload file to Vimeo.
+
+
 
     $moduleinstance->timemodified = time();
     $moduleinstance->id = $moduleinstance->instance;
+    $moduleinstance->src = 'https://player.vimeo.com/video/536287845?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479';
 
     return $DB->update_record('tresipuntvimeo', $moduleinstance);
 }
@@ -86,8 +93,9 @@ function tresipuntvimeo_update_instance($moduleinstance, $mform = null) {
  *
  * @param int $id Id of the module instance.
  * @return bool True if successful, false on failure.
+ * @throws dml_exception
  */
-function tresipuntvimeo_delete_instance($id) {
+function tresipuntvimeo_delete_instance(int $id): bool {
     global $DB;
 
     $exists = $DB->get_record('tresipuntvimeo', array('id' => $id));
