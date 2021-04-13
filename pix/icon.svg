@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   viewBox="0 0 59.85 59.85"
+   version="1.1"
+   id="svg863"
+   sodipodi:docname="icon.svg"
+   inkscape:version="1.0.2 (e86c870879, 2021-01-15, custom)">
+  <metadata
+     id="metadata867">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>Asset 24</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     id="namedview865"
+     showgrid="false"
+     inkscape:zoom="6.908939"
+     inkscape:cx="18.997227"
+     inkscape:cy="29.697665"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g883" />
+  <defs
+     id="defs853">
+    <style
+       id="style851">.cls-1{fill:#2c758a;}.cls-2{fill:#76c2d4;}</style>
+  </defs>
+  <title
+     id="title855">Asset 24</title>
+  <g
+     id="g883"
+     transform="matrix(0.11755331,0,0,0.11755331,-0.03752684,-1.6919529)">
+    <path
+       d="M 356.016,16 H 285.998 L 165.993,106 H 236.01 Z"
+       id="path869"
+       style="fill:#2c758a;fill-opacity:1" />
+    <path
+       d="M 477.012,16 H 405.998 L 285.993,106 H 356.01 Z"
+       id="path871"
+       style="fill:#2c758a;fill-opacity:1" />
+    <path
+       d="M 405.991,106 H 512 V 31 c 0,-1.157 -0.41,-2.179 -0.657,-3.261 z"
+       id="path873"
+       style="fill:#2c758a;fill-opacity:1" />
+    <path
+       d="M 44.993,106 H 116.01 L 236.016,16 h -70.018 z"
+       id="path875"
+       style="fill:#2c758a;fill-opacity:1" />
+    <path
+       d="m 0,508.46124 c 0,8.291 6.709,15 15,15 h 482 c 8.291,0 15,-6.709 15,-15 V 136 H 0 Z"
+       id="path877"
+       style="fill:#2c758a;fill-opacity:1"
+       sodipodi:nodetypes="ssssccs" />
+    <path
+       d="M 15,16 C 6.709,16 0,22.709 0,31 v 71.257 L 116.016,16 Z"
+       id="path879"
+       style="fill:#2c758a;fill-opacity:1" />
+    <g
+       id="g961"
+       transform="matrix(1.4230398,0,0,1.4230398,-339.04464,-358.00133)">
+      <g
+         id="g904">
+	<g
+   id="g902">
+		<path
+   d="m 430.45473,433.05664 c 27.56185,-16.54921 42.41681,6.77701 28.28796,33.14381 -14.15911,26.47269 -27.15342,43.73289 -33.88505,43.73289 -6.61061,0 -11.84464,-17.7594 -19.58979,-48.58874 -7.94181,-31.93363 -7.94181,-89.50795 -41.16125,-82.97298 -31.40418,6.20218 -72.53518,55.36575 -72.53518,55.36575 l 9.77221,12.87329 c 0,0 20.27052,-15.98951 27.01727,-8.03257 6.83752,8.03257 32.72025,104.48393 41.28227,122.31896 7.47287,15.62645 28.21233,36.2449 50.87295,21.54121 22.87241,-14.79446 98.37252,-79.26681 111.89629,-155.55354 13.49351,-76.15059 -91.00555,-60.20646 -101.95768,6.17192 z"
+   id="path900"
+   style="fill:#76c2d4;fill-opacity:1;stroke-width:0.472727" />
+
+	</g>
+
+</g>
+      <g
+         id="g906">
+</g>
+      <g
+         id="g908">
+</g>
+      <g
+         id="g910">
+</g>
+      <g
+         id="g912">
+</g>
+      <g
+         id="g914">
+</g>
+      <g
+         id="g916">
+</g>
+      <g
+         id="g918">
+</g>
+      <g
+         id="g920">
+</g>
+      <g
+         id="g922">
+</g>
+      <g
+         id="g924">
+</g>
+      <g
+         id="g926">
+</g>
+      <g
+         id="g928">
+</g>
+      <g
+         id="g930">
+</g>
+      <g
+         id="g932">
+</g>
+      <g
+         id="g934">
+</g>
+    </g>
+  </g>
+</svg>
