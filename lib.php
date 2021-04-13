@@ -22,6 +22,8 @@
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+use mod_tresipuntvimeo\output\view_page;
+
 defined('MOODLE_INTERNAL') || die();
 
 /**
@@ -61,6 +63,29 @@ function tresipuntvimeo_add_instance(object $moduleinstance, $mform = null): int
     $id = $DB->insert_record('tresipuntvimeo', $moduleinstance);
 
     return $id;
+}
+
+/**
+ * Given a course_module object, this function returns any
+ * "extra" information that may be needed when printing
+ * this activity in a course listing.
+ * See get_array_of_activities() in course/lib.php
+ *
+ * @param object $coursemodule
+ * @return cached_cm_info|null
+ * @throws coding_exception
+ * @throws moodle_exception
+ */
+function tresipuntvimeo_get_coursemodule_info(object $coursemodule): cached_cm_info {
+    global $PAGE;
+    $PAGE->set_context(context_course::instance($coursemodule->course));
+    // no filtering hre because this info is cached and filtered later
+    $output = $PAGE->get_renderer('mod_tresipuntvimeo');
+    $page = new view_page($coursemodule->id, false);
+    $content = $output->render($page);
+    $info = new cached_cm_info();
+    $info->content = $content;
+    return $info;
 }
 
 /**

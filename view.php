@@ -71,7 +71,6 @@ $PAGE->set_heading(format_string($course->fullname));
 $PAGE->set_context($modulecontext);
 
 echo $OUTPUT->header();
-
 $output = $PAGE->get_renderer('mod_tresipuntvimeo');
 $page = new view_page($cm->id);
 echo $output->render($page);

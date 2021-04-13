@@ -1,0 +1,15 @@
+{
+    "name": "tresipunt/tresipuntvimeo",
+    "description": "Moodle Module for Vimeo Videos",
+    "type": "moodle-pluging",
+    "require": {
+        "vimeo/vimeo-api": "^2.0"
+    },
+    "license": "GNU GPL v3",
+    "authors": [
+        {
+            "name": "amanzano3ip",
+            "email": "amanzano@tresipunt.com"
+        }
+    ]
+}

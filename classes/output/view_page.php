@@ -25,15 +25,12 @@
 namespace mod_tresipuntvimeo\output;
 defined('MOODLE_INTERNAL') || die();
 
-use cm_info;
 use dml_exception;
-use mod_tresipuntvimeo\forms\ticket_form;
-use moodle_exception;
-use moodle_url;
 use renderable;
 use renderer_base;
 use stdClass;
 use templatable;
+
 
 /**
  * Main_content renderable class.
@@ -44,20 +41,23 @@ use templatable;
  */
 class view_page implements renderable, templatable {
 
-    /** @var stdClass Course */
-    protected $course;
-
-    /** @var cm_info Course Module */
+    /** @var stdClass Course Module */
     protected $cm;
 
+    /** @var bool Has title? */
+    protected $has_title;
+
     /**
-     * ticket_response_page constructor.
+     * view_page constructor.
      *
      * @param int $cmid
-     * @throws moodle_exception
+     * @param bool $has_title
+     * @throws dml_exception
      */
-    public function __construct(int $cmid) {
-        list($this->course, $this->cm) = get_course_and_cm_from_cmid($cmid);
+    public function __construct(int $cmid, bool $has_title = true) {
+        global $DB;
+        $this->has_title = $has_title;
+        $this->cm = $DB->get_record('course_modules', array( 'id'=> $cmid ));
     }
 
 
@@ -72,11 +72,12 @@ class view_page implements renderable, templatable {
         global $DB;
         $vimeo_module = $DB->get_record('tresipuntvimeo', array('id'=>$this->cm->instance));
         $data = new stdClass();
-        $data->name = $this->cm->name;
+        $data->name = $vimeo_module->name;
         $data->src = $vimeo_module->src;
         $data->width = '640';
         $data->height = '360';
-        $data->title = $this->cm->name;
+        $data->has_title = $this->has_title;
+        $data->title = $vimeo_module->name;
         $data->intro = $vimeo_module->intro;
         return $data;
     }
