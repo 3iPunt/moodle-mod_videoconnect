@@ -23,6 +23,11 @@
  */
 
 namespace mod_tresipuntvimeo;
+use dml_exception;
+use moodle_exception;
+use Vimeo\Exceptions\VimeoRequestException;
+use Vimeo\Exceptions\VimeoUploadException;
+
 defined('MOODLE_INTERNAL') || die();
 
 global $CFG;
@@ -49,25 +54,57 @@ class vimeo {
     /** @var \Vimeo\Vimeo Vimeo */
     protected $vimeo;
 
+    /** @var string Access Token */
+    protected $access_token;
+
     /**
      * vimeo constructor.
      *
+     * @throws dml_exception
+     * @throws moodle_exception
      */
     public function __construct() {
-        $this->client_id = 'a2f14f01f0394e291636d372c167fce2b1c21433';
-        $this->client_secret = 'SswrYmHvoW66TMuL41xD/GvyrBdRNBd6+cSK1KAFBidTfnHh0eUofj2sTbEOGCZ9tUgHe2r8sFWS/S4XYk+rUZuOJv3Jyo/svx12JIy9yJoOvOtLDqDGbyUV8vbzAbwV';
-        $this->vimeo = new \Vimeo\Vimeo($this->client_id, $this->client_secret);
-        $token = $this->vimeo->clientCredentials($this->scope);
-        // usable access token
-        var_dump($token['body']['access_token']);
-        // accepted scopes
-        var_dump($token['body']['scope']);
-        // use the token
-        $this->vimeo->setToken($token['body']['access_token']);
+        $this->client_id = get_config('mod_tresipuntvimeo', 'client_id');
+        $this->client_secret = get_config('mod_tresipuntvimeo', 'client_secret');
+        $this->init_vimeo();
     }
 
-    public function upload() {
+    /**
+     * Init Vimeo
+     * @throws moodle_exception
+     */
+    protected function init_vimeo() {
+        $this->vimeo = new \Vimeo\Vimeo($this->client_id, $this->client_secret);
+        $token = $this->vimeo->clientCredentials($this->scope);
+        if (isset($token['body']['access_token'])) {
+            $this->access_token = $token['body']['access_token'];
+            $this->vimeo->setToken($this->access_token);
+        } else {
+            throw new moodle_exception($token["body"]["error_code"] . ': ' .$token["body"]["error"]);
+        }
+    }
 
+    /**
+     * Upload Video to Vimeo.
+     *
+     * @param string $filepath
+     * @param array $params
+     * @return response
+     */
+    public function upload(string $filepath, array $params): response {
+        try {
+            $response = $this->vimeo->upload($filepath, $params);
+            var_dump($response);
+            return new response(true, json_decode($response));
+        } catch (VimeoRequestException $e) {
+            var_dump($e);
+            return new response(false, null,
+                new error(3001, $e->getMessage()));
+        } catch (VimeoUploadException $e) {
+            var_dump($e->getMessage());
+            return new response(false, null,
+                new error(3000, $e->getMessage()));
+        }
     }
 
 }

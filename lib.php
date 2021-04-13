@@ -23,6 +23,7 @@
  */
 
 use mod_tresipuntvimeo\output\view_page;
+use mod_tresipuntvimeo\vimeo;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -94,17 +95,35 @@ function tresipuntvimeo_get_coursemodule_info(object $coursemodule): cached_cm_i
  * Given an object containing all the necessary data (defined in mod_form.php),
  * this function will update an existing instance with new data.
  *
- * @param object $moduleinstance An object from the form in mod_form.php.
- * @param null $mform The form.
- * @return bool True if successful, false otherwise.
+ * @param object $moduleinstance
+ * @param mod_tresipuntvimeo_mod_form|null $mform
+ * @return bool
  * @throws dml_exception
+ * @throws moodle_exception
  */
-function tresipuntvimeo_update_instance(object $moduleinstance, $mform = null): bool {
-    global $DB;
+function tresipuntvimeo_update_instance(object $moduleinstance, mod_tresipuntvimeo_mod_form $mform = null): bool {
+    global $DB, $USER;
 
-    // TODO: Upload file to Vimeo.
+    echo "<pre>";
 
+    if ($mform->get_data()) {
+        $filename = $mform->save_temp_file('filevimeo');
+        $vimeo = new vimeo();
+        $filepath = $filename;
+        $params = [
+            'name' => $moduleinstance->name,
+            'privacy' => [
+                'view' => 'anybody'
+            ]
+        ];
+        $response = $vimeo->upload($filepath, $params);
 
+        if ($response->success) {
+            // TODO.
+        } else {
+            throw new moodle_exception($response->error->message);
+        }
+    }
 
     $moduleinstance->timemodified = time();
     $moduleinstance->id = $moduleinstance->instance;

@@ -33,3 +33,7 @@ $string['tresipuntvimeoname'] = 'Name';
 $string['tresipuntvimeoname_help'] = 'Select a name for this resource';
 $string['selectvideo'] = 'Select a video';
 $string['pluginadministration'] = 'Tresipunt Vimeo Administration';
+$string['vimeoheading'] = 'Vimeo API configuration';
+$string['vimeoheadingdesc'] = 'Fill in the following fields with your Vimeo credentials';
+$string['client_id'] = 'Client ID';
+$string['client_secret'] = 'Client Secret';

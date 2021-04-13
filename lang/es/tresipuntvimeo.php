@@ -33,3 +33,7 @@ $string['tresipuntvimeoname'] = 'Nombre del módulo';
 $string['tresipuntvimeoname_help'] = 'Seleccione un nombre para este recurso';
 $string['selectvideo'] = 'Selecciona un video';
 $string['pluginadministration'] = 'Tresipunt Vimeo Administración';
+$string['vimeoheading'] = 'Vimeo API configuración';
+$string['vimeoheadingdesc'] = 'Rellene los siguientes campos con sus credenciales de Vimeo';
+$string['client_id'] = 'Client ID';
+$string['client_secret'] = 'Client Secret';

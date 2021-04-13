@@ -75,7 +75,7 @@ class mod_tresipuntvimeo_mod_form extends moodleform_mod {
         $filemanager_options['mainfile'] = true;
 
         $mform->addElement(
-            'filemanager', 'file',
+            'filepicker', 'filevimeo',
             get_string('selectvideo', 'mod_tresipuntvimeo'),
             null, $filemanager_options);
 
