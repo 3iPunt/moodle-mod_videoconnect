@@ -55,7 +55,7 @@ function tresipuntvimeo_supports(string $feature) {
  * @param object $moduleinstance An object from the form.
  * @param null $mform The form.
  * @return int The id of the newly inserted record.
- * @throws dml_exception
+ * @throws dml_exceptionm
  */
 function tresipuntvimeo_add_instance(object $moduleinstance, $mform = null): int {
     global $DB;
@@ -63,6 +63,10 @@ function tresipuntvimeo_add_instance(object $moduleinstance, $mform = null): int
     $moduleinstance->timecreated = time();
 
     $id = $DB->insert_record('tresipuntvimeo', $moduleinstance);
+
+    $moduleinstance->instance = $id;
+
+    uploads::update($moduleinstance, $mform);
 
     return $id;
 }
@@ -81,7 +85,6 @@ function tresipuntvimeo_add_instance(object $moduleinstance, $mform = null): int
 function tresipuntvimeo_get_coursemodule_info(object $coursemodule): cached_cm_info {
     global $PAGE;
     $PAGE->set_context(context_module::instance($coursemodule->id));
-    // no filtering hre because this info is cached and filtered later
     $output = $PAGE->get_renderer('mod_tresipuntvimeo');
     $page = new view_page($coursemodule->id, false);
     $content = $output->render($page);
@@ -105,41 +108,7 @@ function tresipuntvimeo_get_coursemodule_info(object $coursemodule): cached_cm_i
 function tresipuntvimeo_update_instance(object $moduleinstance, mod_tresipuntvimeo_mod_form $mform = null): bool {
     global $DB;
 
-    if ($mform->get_data()) {
-        $filepath = $mform->save_temp_file('filevimeo');
-
-        if (!empty($filepath)) {
-            $dataobject = new stdClass();
-            $dataobject->instance = $moduleinstance->instance;
-            $dataobject->filepath = $filepath;
-            $dataobject->status = uploads::STATUS_NOT_EXECUTED;
-            $dataobject->timecreated = time();
-            $DB->insert_record('tresipuntvimeo_uploads', $dataobject);
-        }  else {
-            $dataobject = new stdClass();
-            $dataobject->instance = $moduleinstance->instance;
-            $dataobject->status = uploads::STATUS_NOT_FILEPATH;
-            $dataobject->error_message = uploads::ERROR_MESSAGE_NOT_FILEPATH;
-            $dataobject->error_code = uploads::CODE_NOT_FILEPATH;
-            $dataobject->timecreated = time();
-            $DB->insert_record('tresipuntvimeo_uploads', $dataobject);
-        }
-        /*$vimeo = new vimeo();*/
-        /*$params = [
-            'name' => $moduleinstance->name,
-            'privacy' => [
-                'view' => 'nobody'
-            ]
-        ];
-        $response = $vimeo->upload($filepath, $params);
-
-        if ($response->success) {
-            // TODO.
-            var_dump($response);
-        } else {
-            throw new moodle_exception($response->error->message);
-        }*/
-    }
+    $moduleinstance = uploads::update($moduleinstance, $mform);
 
     $moduleinstance->timemodified = time();
     $moduleinstance->id = $moduleinstance->instance;
@@ -166,3 +135,5 @@ function tresipuntvimeo_delete_instance(int $id): bool {
 
     return true;
 }
+
+

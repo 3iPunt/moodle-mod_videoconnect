@@ -562,7 +562,7 @@ class Vimeo
                 'Expect: ',
                 'Content-Type: application/offset+octet-stream',
                 'Tus-Resumable: 1.0.0',
-                'Upload-Offset: {placeholder}',
+                'upload-offset: {placeholder}',
             )
         );
 
@@ -571,10 +571,10 @@ class Vimeo
         $failures = 0;
         $server_at = 0;
         do {
-            // The last HTTP header we set has to be `Upload-Offset`, since for resumable uploading to work properly,
+            // The last HTTP header we set has to be `upload-offset`, since for resumable uploading to work properly,
             // we'll need to alter the content of the header for each upload segment request.
             array_pop($curl_opts[CURLOPT_HTTPHEADER]);
-            $curl_opts[CURLOPT_HTTPHEADER][] = 'Upload-Offset: ' . $server_at;
+            $curl_opts[CURLOPT_HTTPHEADER][] = 'upload-offset: ' . $server_at;
 
             fseek($file, $server_at);
 
@@ -585,13 +585,13 @@ class Vimeo
                 $failures = 0;
 
                 if ($response['status'] === 204) {
-                    // If the `Upload-Offset` returned is equal to the size of the video we want to upload, then we've
+                    // If the `upload-offset` returned is equal to the size of the video we want to upload, then we've
                     // fully uploaded the video. If not, continue uploading.
-                    if ($response['headers']['Upload-Offset'] === $file_size) {
+                    if ($response['headers']['upload-offset'] === $file_size) {
                         break;
                     }
 
-                    $server_at = $response['headers']['Upload-Offset'];
+                    $server_at = $response['headers']['upload-offset'];
                     continue;
                 }
 
@@ -603,11 +603,11 @@ class Vimeo
                     throw new VimeoUploadException('Unable to verify upload' . $verify_error);
                 }
 
-                if ($verify_response['headers']['Upload-Offset'] === $file_size) {
+                if ($verify_response['headers']['upload-offset'] === $file_size) {
                     break;
                 }
 
-                $server_at = $verify_response['headers']['Upload-Offset'];
+                $server_at = $verify_response['headers']['upload-offset'];
             } catch (VimeoRequestException $exception) {
                 // We likely experienced a timeout, but if we experience three in a row, then we should back off and
                 // fail so as to not overwhelm servers that are, probably, down.

@@ -26,8 +26,12 @@ namespace mod_tresipuntvimeo\tasks;
 
 use coding_exception;
 use core\task\scheduled_task;
+use course_modinfo;
 use dml_exception;
 use mod_tresipuntvimeo\uploads;
+use mod_tresipuntvimeo\vimeo;
+use moodle_exception;
+use stdClass;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -54,18 +58,63 @@ class upload_videos_task extends scheduled_task {
      * Execute the task.
      *
      * @throws dml_exception
+     * @throws moodle_exception
      */
     public function execute(): void {
         global $DB;
-        mtrace("pasa por aki");
-        // TODO: recuperar todas los uploads en NOT_EXECUTED
+        mtrace("***** INICIO");
         $uploads = $DB->get_records(
             'tresipuntvimeo_uploads',
             [ 'status' => uploads::STATUS_NOT_EXECUTED ],
             'timecreated DESC', '*');
 
+        mtrace("Subir videos: " . count($uploads));
+        $vimeo = new vimeo();
+        foreach ($uploads as $upload) {
 
+            list($course, $cm) = get_course_and_cm_from_instance($upload->instance, 'tresipuntvimeo');
 
-        var_dump($uploads);
+            $filepath = $upload->filepath;
+
+            $params = [
+                'name' => $cm->name,
+                'privacy' => [
+                    'view' => 'nobody'
+                ]
+            ];
+
+            $dataobject = new stdClass();
+            $dataobject->id = $upload->id;
+            $dataobject->status = uploads::STATUS_UPLOADING;
+            $DB->update_record('tresipuntvimeo_uploads', $dataobject);
+            mtrace("Subiendo: " . $cm->name);
+
+            $response = $vimeo->upload($filepath, $params);
+
+            if ($response->success) {
+                $dataobject = new stdClass();
+                $dataobject->id = $upload->id;
+                $dataobject->http_response = $response->data;
+                $dataobject->status = uploads::STATUS_COMPLETED;
+                $dataobject->timeuploaded = time();
+                $DB->update_record('tresipuntvimeo_uploads', $dataobject);
+                $datamodule = new stdClass();
+                $datamodule->id = $upload->instance;
+                $datamodule->idvideo = str_replace('/videos/', '', $response->data);
+                $datamodule->timemodified = time();
+                $DB->update_record('tresipuntvimeo', $datamodule);
+                mtrace("Subida completada: " . $cm->name);
+            } else {
+                $dataobject = new stdClass();
+                $dataobject->id = $upload->id;
+                $dataobject->status = uploads::STATUS_ERROR_UPLOADING;
+                $dataobject->http_error_message = $response->error->message;
+                $dataobject->http_error_code = $response->error->code;
+                $DB->update_record('tresipuntvimeo_uploads', $dataobject);
+                mtrace("Error en la subida: " . $cm->name);
+            }
+            rebuild_course_cache($course->id);
+        }
+        mtrace("***** FINAL");
     }
 }

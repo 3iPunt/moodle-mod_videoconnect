@@ -24,6 +24,10 @@
 
 namespace mod_tresipuntvimeo;
 
+use dml_exception;
+use mod_tresipuntvimeo_mod_form;
+use stdClass;
+
 defined('MOODLE_INTERNAL') || die();
 
 
@@ -38,13 +42,69 @@ class uploads {
 
     const STATUS_NOT_FILEPATH = 0;
     const STATUS_NOT_EXECUTED = 1;
-    const STATUS_UPLOADING = 2;
-    const STATUS_ERROR_UPLOADING =3;
-    const STATUS_COMPLETED = 4;
+    const STATUS_DISCARDED = 2;
+    const STATUS_UPLOADING = 3;
+    const STATUS_ERROR_UPLOADING = 4;
+    const STATUS_COMPLETED = 5;
 
-    const ERROR_MESSAGE_NOT_FILEPATH = 'Filepath not found';
+    const ERROR_MESSAGE = [
+        'filepath_not_found',
+        'not_executed',
+        'discarded',
+        'uploading',
+        'error_uploading',
+        'completed',
+    ];
 
     const CODE_NOT_FILEPATH = 10001;
 
+    /**
+     * Update.
+     *
+     * @param object $moduleinstance
+     * @param mod_tresipuntvimeo_mod_form $mform
+     * @return object
+     * @throws dml_exception
+     */
+    static public function update(object $moduleinstance, mod_tresipuntvimeo_mod_form $mform): object {
+        global $DB;
+
+        if ($mform->get_data()) {
+            $filepath = $mform->save_temp_file('filevimeo');
+
+            if (!empty($filepath)) {
+
+                $olds = $DB->get_records(
+                    'tresipuntvimeo_uploads',
+                    [ 'instance' => $moduleinstance->instance, 'status' => uploads::STATUS_NOT_EXECUTED ]);
+
+                foreach ($olds as $old) {
+                    $oldobject = new stdClass();
+                    $oldobject->id = $old->id;
+                    $oldobject->status = uploads::STATUS_DISCARDED;
+                    $DB->update_record('tresipuntvimeo_uploads', $oldobject);
+                }
+
+                $moduleinstance->idvideo = '';
+
+                $dataobject = new stdClass();
+                $dataobject->instance = $moduleinstance->instance;
+                $dataobject->filepath = $filepath;
+                $dataobject->status = uploads::STATUS_NOT_EXECUTED;
+                $dataobject->timecreated = time();
+                $DB->insert_record('tresipuntvimeo_uploads', $dataobject);
+            }  else {
+                $dataobject = new stdClass();
+                $dataobject->instance = $moduleinstance->instance;
+                $dataobject->status = uploads::STATUS_NOT_FILEPATH;
+                $dataobject->error_message = uploads::ERROR_MESSAGE[0];
+                $dataobject->error_code = uploads::CODE_NOT_FILEPATH;
+                $dataobject->timecreated = time();
+                $DB->insert_record('tresipuntvimeo_uploads', $dataobject);
+            }
+        }
+
+        return $moduleinstance;
+    }
 
 }

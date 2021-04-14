@@ -25,7 +25,9 @@
 namespace mod_tresipuntvimeo\output;
 defined('MOODLE_INTERNAL') || die();
 
+use coding_exception;
 use dml_exception;
+use mod_tresipuntvimeo\uploads;
 use renderable;
 use renderer_base;
 use stdClass;
@@ -67,23 +69,35 @@ class view_page implements renderable, templatable {
      * @param renderer_base $output
      * @return stdClass
      * @throws dml_exception
+     * @throws coding_exception
      */
     public function export_for_template(renderer_base $output): stdClass {
         global $DB;
         $vimeo_module = $DB->get_record('tresipuntvimeo', array('id'=>$this->cm->instance));
+        $vimeo_upload = $DB->get_records(
+            'tresipuntvimeo_uploads',
+            array( 'instance' => $this->cm->instance ),
+            'timecreated DESC','*',0,1
+        );
         $data = new stdClass();
         $data->name = $vimeo_module->name;
         $data->has_name = $this->has_name;
         $data->intro = $vimeo_module->intro;
-        if (!empty($vimeo_module->src)) {
-            $data->src = $vimeo_module->src;
+        $data->is_completed = false;
+        if (!empty($vimeo_module->idvideo)) {
+            $data->idvideo = $vimeo_module->idvideo;
             $data->width = '640';
             $data->height = '360';
             $data->has_vimeo = true;
         } else {
             $data->has_vimeo = false;
             $data->title = $vimeo_module->name;
+            if (!empty($vimeo_upload)) {
+                $vimeo_upload = current($vimeo_upload);
+                $data->status = get_string(uploads::ERROR_MESSAGE[$vimeo_upload->status], 'mod_tresipuntvimeo');
+            }
         }
+
         return $data;
     }
 }

@@ -69,12 +69,14 @@ class mod_tresipuntvimeo_mod_form extends moodleform_mod {
             $this->add_intro_editor();
         }
 
-        // Adding the standard "name" field.
-        $mform->addElement('textarea', 'src',
-            get_string('src', 'mod_tresipuntvimeo'), array('rows' => 4, 'cols' => 60));
+        $mform->addElement('text', 'idvideo',
+            get_string('idvideo', 'mod_tresipuntvimeo'));
 
-        $mform->setType('iframe', PARAM_TEXT);
-        $mform->addHelpButton('name', 'iframe', 'mod_tresipuntvimeo');
+        $mform->addRule('idvideo',
+            get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
+
+        $mform->setType('idvideo', PARAM_INT);
+        $mform->addHelpButton('idvideo', 'idvideo', 'mod_tresipuntvimeo');
 
         $filemanager_options['accepted_types'] = ['.mp4', '.mov', '.wmv', '.avi', '.flv'];
         $filemanager_options['maxbytes'] = 0;

@@ -122,9 +122,7 @@ class vimeo {
     public function upload(string $filepath, array $params): response {
         try {
             $response = $this->vimeo->upload($filepath, $params);
-            var_dump($response);
-            die();
-            return new response(true, json_decode($response));
+            return new response(true, $response);
         } catch (VimeoRequestException $e) {
             return new response(false, null,
                 new error(3001, $e->getMessage()));

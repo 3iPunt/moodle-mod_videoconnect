@@ -11,3 +11,32 @@ div[data-region="mod_tresipuntvimeo"] .intro {
 div[data-region="mod_tresipuntvimeo"] .alert {
     margin: 60px;
 }
+
+div[data-region="mod_tresipuntvimeo"] .response {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+div[data-region="mod_tresipuntvimeo"] .response .card-content {
+    background-color: black;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 640px;
+    height: 360px;
+    padding: 50px;
+    text-align: center;
+}
+
+div[data-region="mod_tresipuntvimeo"] .response .card-content .title {
+    font-size: 55px;
+    font-weight: 600;
+}
+
+div[data-region="mod_tresipuntvimeo"] .response .card-content .description {
+    font-size: 24px;
+}
