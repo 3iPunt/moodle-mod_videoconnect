@@ -36,13 +36,49 @@ if ($ADMIN->fulltree) {
     $settings->add(new admin_setting_configtext(
         'mod_tresipuntvimeo/client_id',
         get_string('client_id', 'mod_tresipuntvimeo'),
-        '', ''
+        '', '', PARAM_RAW, 70
     ));
 
     $settings->add(new admin_setting_configtext(
         'mod_tresipuntvimeo/client_secret',
         get_string('client_secret', 'mod_tresipuntvimeo'),
-        '', ''
+        '', '', PARAM_RAW, 70
+    ));
+
+    $settings->add(new admin_setting_configcheckbox(
+        'mod_tresipuntvimeo/is_authenticated',
+        get_string('is_authenticated', 'mod_tresipuntvimeo'),
+        get_string('is_authenticated_desc', 'mod_tresipuntvimeo'),
+         false
+    ));
+
+    $settings->add(new admin_setting_configtext(
+        'mod_tresipuntvimeo/access_token',
+        get_string('access_token', 'mod_tresipuntvimeo'),
+        '',
+        '', PARAM_RAW, 70
+    ));
+
+    $settings->add(new admin_setting_configmulticheckbox(
+        'mod_tresipuntvimeo/scopes',
+        get_string('scopes', 'mod_tresipuntvimeo'),
+        get_string('scopes_desc', 'mod_tresipuntvimeo'),
+        [
+            'public' => 'public',
+            'private' => 'private',
+        ],
+        [
+            'public' => 'public',
+            'private' => 'private',
+            'purchased' => 'purchased',
+            'create' => 'create',
+            'edit' => 'edit',
+            'delete' => 'delete',
+            'interact' => 'interact',
+            'upload' => 'upload',
+            'promo_codes' => 'promo_codes',
+            'video_files' => 'video_files',
+        ]
     ));
 
 }

@@ -69,7 +69,7 @@ class mod_tresipuntvimeo_mod_form extends moodleform_mod {
             $this->add_intro_editor();
         }
 
-        $filemanager_options['accepted_types'] = 'video';
+        $filemanager_options['accepted_types'] = ['.mp4', '.mov', '.wmv', '.avi', '.flv'];
         $filemanager_options['maxbytes'] = 0;
         $filemanager_options['maxfiles'] = -1;
         $filemanager_options['mainfile'] = true;

@@ -79,7 +79,7 @@ function tresipuntvimeo_add_instance(object $moduleinstance, $mform = null): int
  */
 function tresipuntvimeo_get_coursemodule_info(object $coursemodule): cached_cm_info {
     global $PAGE;
-    $PAGE->set_context(context_course::instance($coursemodule->course));
+    $PAGE->set_context(context_module::instance($coursemodule->id));
     // no filtering hre because this info is cached and filtered later
     $output = $PAGE->get_renderer('mod_tresipuntvimeo');
     $page = new view_page($coursemodule->id, false);
@@ -102,32 +102,30 @@ function tresipuntvimeo_get_coursemodule_info(object $coursemodule): cached_cm_i
  * @throws moodle_exception
  */
 function tresipuntvimeo_update_instance(object $moduleinstance, mod_tresipuntvimeo_mod_form $mform = null): bool {
-    global $DB, $USER;
-
-    echo "<pre>";
+    global $DB;
 
     if ($mform->get_data()) {
         $filename = $mform->save_temp_file('filevimeo');
-        $vimeo = new vimeo();
+        /*$vimeo = new vimeo();*/
         $filepath = $filename;
-        $params = [
+        /*$params = [
             'name' => $moduleinstance->name,
             'privacy' => [
-                'view' => 'anybody'
+                'view' => 'nobody'
             ]
         ];
         $response = $vimeo->upload($filepath, $params);
 
         if ($response->success) {
             // TODO.
+            var_dump($response);
         } else {
             throw new moodle_exception($response->error->message);
-        }
+        }*/
     }
 
     $moduleinstance->timemodified = time();
     $moduleinstance->id = $moduleinstance->instance;
-    $moduleinstance->src = 'https://player.vimeo.com/video/536287845?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479';
 
     return $DB->update_record('tresipuntvimeo', $moduleinstance);
 }

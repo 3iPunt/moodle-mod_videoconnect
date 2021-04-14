@@ -25,6 +25,7 @@
 namespace mod_tresipuntvimeo;
 use dml_exception;
 use moodle_exception;
+use moodle_url;
 use Vimeo\Exceptions\VimeoRequestException;
 use Vimeo\Exceptions\VimeoUploadException;
 
@@ -48,14 +49,14 @@ class vimeo {
     /** @var string Client Secret */
     protected $client_secret;
 
-    /** @var string[] Scope */
-    protected $scope = array('public', 'private');
+    /** @var string Is authenticated? */
+    protected $is_authenticated;
+
+    /** @var string[] Scopes */
+    protected $scopes = array('public', 'private', 'upload');
 
     /** @var \Vimeo\Vimeo Vimeo */
     protected $vimeo;
-
-    /** @var string Access Token */
-    protected $access_token;
 
     /**
      * vimeo constructor.
@@ -66,21 +67,48 @@ class vimeo {
     public function __construct() {
         $this->client_id = get_config('mod_tresipuntvimeo', 'client_id');
         $this->client_secret = get_config('mod_tresipuntvimeo', 'client_secret');
+        $this->is_authenticated = get_config('mod_tresipuntvimeo', 'is_authenticated');
+        $this->set_scopes();
         $this->init_vimeo();
     }
 
     /**
+     * Set scopes.
+     *
+     * @throws dml_exception
+     * @throws moodle_exception
+     */
+    protected function set_scopes() {
+        $scopes = get_config('mod_tresipuntvimeo', 'scopes');
+        if (!empty($scopes)) {
+            $this->scopes = explode(',', $scopes);
+        } else {
+            $moodle_url = new moodle_url('/admin/settings.php?section=modsettingtresipuntvimeo');
+            throw new moodle_exception(
+                get_string('scopes_not_exist', 'mod_tresipuntvimeo') .
+                '. ' . $moodle_url->out(false));
+        }
+    }
+
+    /**
      * Init Vimeo
+     *
+     * @throws dml_exception
      * @throws moodle_exception
      */
     protected function init_vimeo() {
-        $this->vimeo = new \Vimeo\Vimeo($this->client_id, $this->client_secret);
-        $token = $this->vimeo->clientCredentials($this->scope);
-        if (isset($token['body']['access_token'])) {
-            $this->access_token = $token['body']['access_token'];
-            $this->vimeo->setToken($this->access_token);
+        if ($this->is_authenticated) {
+            $access_token = get_config('mod_tresipuntvimeo', 'access_token');
+            $this->vimeo = new \Vimeo\Vimeo($this->client_id, $this->client_secret, $access_token);
         } else {
-            throw new moodle_exception($token["body"]["error_code"] . ': ' .$token["body"]["error"]);
+            $this->vimeo = new \Vimeo\Vimeo($this->client_id, $this->client_secret);
+            $token = $this->vimeo->clientCredentials($this->scopes);
+            if (isset($token['body']['access_token'])) {
+                $access_token = $token['body']['access_token'];
+                $this->vimeo->setToken($access_token);
+            } else {
+                throw new moodle_exception($token["body"]["error_code"] . ': ' .$token["body"]["error"]);
+            }
         }
     }
 
@@ -88,20 +116,19 @@ class vimeo {
      * Upload Video to Vimeo.
      *
      * @param string $filepath
-     * @param array $params
+     * @param array $params https://developer.vimeo.com/api/reference/videos#upload_video
      * @return response
      */
     public function upload(string $filepath, array $params): response {
         try {
             $response = $this->vimeo->upload($filepath, $params);
             var_dump($response);
+            die();
             return new response(true, json_decode($response));
         } catch (VimeoRequestException $e) {
-            var_dump($e);
             return new response(false, null,
                 new error(3001, $e->getMessage()));
         } catch (VimeoUploadException $e) {
-            var_dump($e->getMessage());
             return new response(false, null,
                 new error(3000, $e->getMessage()));
         }
