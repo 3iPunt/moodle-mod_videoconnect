@@ -44,3 +44,6 @@ $string['scopes'] = 'Scopes';
 $string['scopes_desc'] = 'Alcances aceptados';
 $string['scopes_not_exist'] = 'No existen scopes configurados en el plugin';
 $string['missingidandcmid'] = 'No se encuentra el ID o el CMID en la URL';
+$string['task_upload_videos'] = 'Tarea para subir videos a Vimeo';
+$string['src'] = 'URL del video en Vimeo';
+$string['src_help'] = 'Ej. https://vimeo.com/536287845';

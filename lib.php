@@ -114,7 +114,7 @@ function tresipuntvimeo_update_instance(object $moduleinstance, mod_tresipuntvim
             $dataobject->filepath = $filepath;
             $dataobject->status = uploads::STATUS_NOT_EXECUTED;
             $dataobject->timecreated = time();
-            $DB->update_record('tresipuntvimeo_uploads', $dataobject);
+            $DB->insert_record('tresipuntvimeo_uploads', $dataobject);
         }  else {
             $dataobject = new stdClass();
             $dataobject->instance = $moduleinstance->instance;
@@ -122,7 +122,7 @@ function tresipuntvimeo_update_instance(object $moduleinstance, mod_tresipuntvim
             $dataobject->error_message = uploads::ERROR_MESSAGE_NOT_FILEPATH;
             $dataobject->error_code = uploads::CODE_NOT_FILEPATH;
             $dataobject->timecreated = time();
-            $DB->update_record('tresipuntvimeo_uploads', $dataobject);
+            $DB->insert_record('tresipuntvimeo_uploads', $dataobject);
         }
         /*$vimeo = new vimeo();*/
         /*$params = [

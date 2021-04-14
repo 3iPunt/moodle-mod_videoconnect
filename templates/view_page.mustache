@@ -4,7 +4,7 @@
     {{/has_name}}
     {{# has_vimeo }}
     <div class="iframe_container">
-        <iframe src="{{ src }}"
+        <iframe src="{{ src }}?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
                 width="{{ width }}"
                 height="{{ height }}"
                 frameborder="{{ frameborder }}"
@@ -12,6 +12,8 @@
                 allowfullscreen
                 title="{{ title }}">
         </iframe>
+
+        <iframe src="https://player.vimeo.com/video/536287845?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="girona_corto.mp4"></iframe>
     </div>
     {{/ has_vimeo }}
     {{^ has_vimeo }}
