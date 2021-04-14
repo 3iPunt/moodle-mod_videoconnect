@@ -94,7 +94,9 @@ class view_page implements renderable, templatable {
             $data->title = $vimeo_module->name;
             if (!empty($vimeo_upload)) {
                 $vimeo_upload = current($vimeo_upload);
-                $data->status = get_string(uploads::ERROR_MESSAGE[$vimeo_upload->status], 'mod_tresipuntvimeo');
+                $data->status = get_string(
+                    uploads::ERROR_MESSAGE[$vimeo_upload->status], 'mod_tresipuntvimeo');
+                $data->http_error_message = $vimeo_upload->http_error_message;
             }
         }
 

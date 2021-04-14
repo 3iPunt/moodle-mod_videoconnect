@@ -19,6 +19,9 @@
             <div class="card-content">
                 <p class="title">{{# str }} we_are_sorry, mod_tresipuntvimeo {{/ str }}</p>
                 <p class="description">{{ status }}</p>
+                {{# has_name }}
+                    <p>{{ http_error_message }}</p>
+                {{/has_name}}
             </div>
         </div>
     {{/ has_vimeo }}

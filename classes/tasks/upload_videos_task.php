@@ -90,6 +90,7 @@ class upload_videos_task extends scheduled_task {
             mtrace("Subiendo: " . $cm->name);
 
             $response = $vimeo->upload($filepath, $params);
+            mtrace("Subiendo: " . json_encode($response));
 
             if ($response->success) {
                 $dataobject = new stdClass();
