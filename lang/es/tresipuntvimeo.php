@@ -43,3 +43,4 @@ $string['is_authenticated_desc'] = 'Seleccione esta opción si dispone de un per
 $string['scopes'] = 'Scopes';
 $string['scopes_desc'] = 'Alcances aceptados';
 $string['scopes_not_exist'] = 'No existen scopes configurados en el plugin';
+$string['missingidandcmid'] = 'No se encuentra el ID o el CMID en la URL';

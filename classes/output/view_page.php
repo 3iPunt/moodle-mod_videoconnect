@@ -44,19 +44,19 @@ class view_page implements renderable, templatable {
     /** @var stdClass Course Module */
     protected $cm;
 
-    /** @var bool Has title? */
-    protected $has_title;
+    /** @var bool Has name? */
+    protected $has_name;
 
     /**
      * view_page constructor.
      *
      * @param int $cmid
-     * @param bool $has_title
+     * @param bool $has_name
      * @throws dml_exception
      */
-    public function __construct(int $cmid, bool $has_title = true) {
+    public function __construct(int $cmid, bool $has_name = true) {
         global $DB;
-        $this->has_title = $has_title;
+        $this->has_name = $has_name;
         $this->cm = $DB->get_record('course_modules', array( 'id'=> $cmid ));
     }
 
@@ -73,12 +73,17 @@ class view_page implements renderable, templatable {
         $vimeo_module = $DB->get_record('tresipuntvimeo', array('id'=>$this->cm->instance));
         $data = new stdClass();
         $data->name = $vimeo_module->name;
-        $data->src = $vimeo_module->src;
-        $data->width = '640';
-        $data->height = '360';
-        $data->has_title = $this->has_title;
-        $data->title = $vimeo_module->name;
+        $data->has_name = $this->has_name;
         $data->intro = $vimeo_module->intro;
+        if (!empty($vimeo_module->src)) {
+            $data->src = $vimeo_module->src;
+            $data->width = '640';
+            $data->height = '360';
+            $data->has_vimeo = true;
+        } else {
+            $data->has_vimeo = false;
+            $data->title = $vimeo_module->name;
+        }
         return $data;
     }
 }

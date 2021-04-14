@@ -23,6 +23,7 @@
  */
 
 use mod_tresipuntvimeo\output\view_page;
+use mod_tresipuntvimeo\uploads;
 use mod_tresipuntvimeo\vimeo;
 
 defined('MOODLE_INTERNAL') || die();
@@ -105,9 +106,25 @@ function tresipuntvimeo_update_instance(object $moduleinstance, mod_tresipuntvim
     global $DB;
 
     if ($mform->get_data()) {
-        $filename = $mform->save_temp_file('filevimeo');
+        $filepath = $mform->save_temp_file('filevimeo');
+
+        if (!empty($filepath)) {
+            $dataobject = new stdClass();
+            $dataobject->instance = $moduleinstance->instance;
+            $dataobject->filepath = $filepath;
+            $dataobject->status = uploads::STATUS_NOT_EXECUTED;
+            $dataobject->timecreated = time();
+            $DB->update_record('tresipuntvimeo_uploads', $dataobject);
+        }  else {
+            $dataobject = new stdClass();
+            $dataobject->instance = $moduleinstance->instance;
+            $dataobject->status = uploads::STATUS_NOT_FILEPATH;
+            $dataobject->error_message = uploads::ERROR_MESSAGE_NOT_FILEPATH;
+            $dataobject->error_code = uploads::CODE_NOT_FILEPATH;
+            $dataobject->timecreated = time();
+            $DB->update_record('tresipuntvimeo_uploads', $dataobject);
+        }
         /*$vimeo = new vimeo();*/
-        $filepath = $filename;
         /*$params = [
             'name' => $moduleinstance->name,
             'privacy' => [

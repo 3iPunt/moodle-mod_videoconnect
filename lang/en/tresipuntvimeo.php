@@ -43,3 +43,4 @@ $string['is_authenticated_desc'] = 'Select this option if you have a personal ac
 $string['scopes'] = 'Scopes';
 $string['scopes_desc'] = 'Scopes accepted';
 $string['scopes_not_exist'] = 'There are no scopes configured in the plugin';
+$string['missingidandcmid'] = 'Missing ID and CMID in URL';

@@ -7,3 +7,7 @@ div[data-region="mod_tresipuntvimeo"] .iframe_container {
 div[data-region="mod_tresipuntvimeo"] .intro {
     padding: 60px;
 }
+
+div[data-region="mod_tresipuntvimeo"] .alert {
+    margin: 60px;
+}
