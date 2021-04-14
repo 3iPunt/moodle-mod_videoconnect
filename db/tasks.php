@@ -8,7 +8,7 @@ $tasks = [
     [
         'classname' => upload_videos_task::class,
         'blocking' => 0,
-        'minute' => '/2',
+        'minute' => '*/2',
         'hour' => '*',
         'day' => '*',
         'month' => '*',
