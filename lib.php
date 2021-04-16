@@ -24,7 +24,6 @@
 
 use mod_tresipuntvimeo\output\view_page;
 use mod_tresipuntvimeo\uploads;
-use mod_tresipuntvimeo\vimeo;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -55,19 +54,14 @@ function tresipuntvimeo_supports(string $feature) {
  * @param object $moduleinstance An object from the form.
  * @param null $mform The form.
  * @return int The id of the newly inserted record.
- * @throws dml_exceptionm
+ * @throws dml_exception
  */
 function tresipuntvimeo_add_instance(object $moduleinstance, $mform = null): int {
     global $DB;
-
     $moduleinstance->timecreated = time();
-
     $id = $DB->insert_record('tresipuntvimeo', $moduleinstance);
-
     $moduleinstance->instance = $id;
-
     uploads::update($moduleinstance, $mform);
-
     return $id;
 }
 
@@ -107,12 +101,9 @@ function tresipuntvimeo_get_coursemodule_info(object $coursemodule): cached_cm_i
  */
 function tresipuntvimeo_update_instance(object $moduleinstance, mod_tresipuntvimeo_mod_form $mform = null): bool {
     global $DB;
-
     $moduleinstance = uploads::update($moduleinstance, $mform);
-
     $moduleinstance->timemodified = time();
     $moduleinstance->id = $moduleinstance->instance;
-
     return $DB->update_record('tresipuntvimeo', $moduleinstance);
 }
 
@@ -126,13 +117,21 @@ function tresipuntvimeo_update_instance(object $moduleinstance, mod_tresipuntvim
 function tresipuntvimeo_delete_instance(int $id): bool {
     global $DB;
 
+    $sql = "UPDATE {tresipuntvimeo_uploads}
+            SET status = :newstatus  
+            WHERE instance = :instance AND status = :statuscurrent";
+
+    $params = array(
+        'newstatus' => uploads::STATUS_DELETED,
+        'instance' => $id,
+        'statuscurrent' => uploads::STATUS_NOT_EXECUTED);
+    $DB->execute($sql, $params);
+
     $exists = $DB->get_record('tresipuntvimeo', array('id' => $id));
     if (!$exists) {
         return false;
     }
-
     $DB->delete_records('tresipuntvimeo', array('id' => $id));
-
     return true;
 }
 

@@ -81,4 +81,11 @@ if ($ADMIN->fulltree) {
         ]
     ));
 
+    $settings->add(new admin_setting_configtext(
+        'mod_tresipuntvimeo/whitelist',
+        get_string('whitelist', 'mod_tresipuntvimeo'),
+        get_string('whitelist_desc', 'mod_tresipuntvimeo'),
+        false
+    ));
+
 }

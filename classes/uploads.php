@@ -46,6 +46,9 @@ class uploads {
     const STATUS_UPLOADING = 3;
     const STATUS_ERROR_UPLOADING = 4;
     const STATUS_COMPLETED = 5;
+    const STATUS_DELETED = 6;
+    const STATUS_UPLOADING_VIDEOID_MISSING = 7;
+    const STATUS_UPLOADING_ERROR_WHITELIST = 8;
 
     const ERROR_MESSAGE = [
         'filepath_not_found',
@@ -54,6 +57,9 @@ class uploads {
         'uploading',
         'error_uploading',
         'completed',
+        'deleted',
+        'id_video_missing',
+        'error_whitelist',
     ];
 
     const CODE_NOT_FILEPATH = 10001;
