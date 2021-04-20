@@ -88,4 +88,11 @@ if ($ADMIN->fulltree) {
         false
     ));
 
+    $settings->add(new admin_setting_configtext(
+        'mod_tresipuntvimeo/folderid',
+        get_string('folderid', 'mod_tresipuntvimeo'),
+        get_string('folderid_desc', 'mod_tresipuntvimeo'),
+        false
+    ));
+
 }

@@ -101,21 +101,38 @@ class upload_videos_task extends scheduled_task {
                         $datamodule->idvideo = $idvideo;
                         $datamodule->timemodified = time();
                         $DB->update_record('tresipuntvimeo', $datamodule);
+                        // Add Whitelist.
                         $domain = get_config('mod_tresipuntvimeo', 'whitelist');
                         $responsewl = $vimeo->add_domain_whitelist($idvideo, $domain);
                         mtrace("* Respuesta Whitelist: " . json_encode($responsewl));
                         if ($responsewl->success) {
+                            mtrace("* Actualizada whitelist: " . $domain . " | Id video: " . $idvideo);
                             $dataobject = new stdClass();
                             $dataobject->id = $upload->id;
                             $dataobject->http_response = $response->data;
                             $dataobject->status = uploads::STATUS_COMPLETED;
                             $dataobject->timeuploaded = time();
+                            // Move to folder.
+                            $folderid = get_config('mod_tresipuntvimeo', 'folderid');
+                            if (!empty($folderid)) {
+                                $responsefol = $vimeo->add_video_to_folder($idvideo, $folderid);
+                                mtrace("* Respuesta Folder: " . json_encode($responsefol));
+                                if ($responsefol->success) {
+                                    mtrace("* Movido a carpeta: " . $folderid . " | Id video: " . $idvideo);
+                                } else {
+                                    mtrace("* Error al mover a carpeta: " . $folderid . " | Id video: " . $idvideo);
+                                    $dataobject->http_error_message = $responsefol->error->message;
+                                    $dataobject->http_error_code = $responsefol->error->code;
+                                    $dataobject->error_message = uploads::ERROR_MESSAGE[uploads::STATUS_UPLOADING_ERROR_FOLDER];
+                                }
+                            }
                             $DB->update_record('tresipuntvimeo_uploads', $dataobject);
-                            mtrace("* Actualizada whitelist: " . $domain . " | Id video: " . $idvideo);
                         } else {
                             $dataobject = new stdClass();
                             $dataobject->id = $upload->id;
                             $dataobject->http_response = $response->data;
+                            $dataobject->http_error_message = $responsewl->error->message;
+                            $dataobject->http_error_code = $responsewl->error->code;
                             $dataobject->status = uploads::STATUS_UPLOADING_ERROR_WHITELIST;
                             $dataobject->error_message = uploads::ERROR_MESSAGE[uploads::STATUS_UPLOADING_ERROR_WHITELIST];
                             $dataobject->timeuploaded = time();

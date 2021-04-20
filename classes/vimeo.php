@@ -149,9 +149,33 @@ class vimeo {
      * @return response
      */
     public function add_domain_whitelist(int $video_id, string $domain): response {
+        $url = 'https://api.vimeo.com/videos/' . $video_id . '/privacy/domains/' . $domain;
+        $params = [];
+        return $this->curl_request($url, $params);
+    }
+
+    /**
+     * Add Video to Folder
+     *
+     * @param int $video_id
+     * @param int $folder_id
+     * @return response
+     */
+    public function add_video_to_folder(int $video_id, int $folder_id): response {
+        $url = 'https://api.vimeo.com/me/projects/' . $folder_id . '/videos/' . $video_id;
+        $params = [];
+        return $this->curl_request($url, $params);
+    }
+
+    /**
+     * CURL Request.
+     *
+     * @param string $url
+     * @param array $params
+     * @return response
+     */
+    private function curl_request(string $url, $params = array()) {
         try {
-            $url = 'https://api.vimeo.com/videos/' . $video_id . '/privacy/domains/' . $domain;
-            $params = [];
             $curl = new curl();
             $headers = array();
             $headers[] = 'Content-type: application/json';
@@ -169,7 +193,6 @@ class vimeo {
             return new response(false, null,
                 new error(4001, $e->getMessage()));
         }
-
     }
 
     /**
