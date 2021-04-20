@@ -1,0 +1,31 @@
+<div data-region="mod_tresipuntvimeo">
+    {{# has_name }}
+    <h2>{{ name }}</h2>
+    {{/has_name}}
+    {{# has_vimeo }}
+    <div class="iframe_container">
+        <iframe src="https://player.vimeo.com/video/{{ idvideo }}?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+                width="{{ width }}"
+                height="{{ height }}"
+                frameborder="{{ frameborder }}"
+                allow="autoplay; fullscreen; picture-in-picture"
+                allowfullscreen
+                title="{{ title }}">
+        </iframe>
+    </div>
+    {{/ has_vimeo }}
+    {{^ has_vimeo }}
+        <div class="response">
+            <div class="card-content">
+                <p class="title">{{# str }} we_are_sorry, mod_tresipuntvimeo {{/ str }}</p>
+                <p class="description">{{ status }}</p>
+                {{# has_name }}
+                    <p>{{ http_error_message }}</p>
+                {{/has_name}}
+            </div>
+        </div>
+    {{/ has_vimeo }}
+    <div class="intro">{{{ intro }}}</div>
+</div>
+
+
