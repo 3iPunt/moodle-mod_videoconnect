@@ -35,6 +35,7 @@ defined('MOODLE_INTERNAL') || die();
  */
 function tresipuntvimeo_supports(string $feature) {
     switch ($feature) {
+        case FEATURE_BACKUP_MOODLE2:
         case FEATURE_MOD_INTRO:
             return true;
         case FEATURE_MOD_ARCHETYPE:
