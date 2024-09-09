@@ -1,10 +1,12 @@
 # Tresipunt Vimeo #
 
-Module for Vimeo resources.
+This module allows users to upload a video as a resource, which is then automatically uploaded to their Vimeo account through a scheduled task. 
+
+If you already know the video ID, you can enter it directly. When rendering the video, if the upload process is still ongoing, Vimeo displays a message indicating that the video is being uploaded.
 
 ## License ##
 
-2021 Tresipunt
+2024 Tresipunt
 
 This program is free software: you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software
