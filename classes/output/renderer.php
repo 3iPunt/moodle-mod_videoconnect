@@ -23,7 +23,6 @@
  */
 
 namespace mod_tresipuntvimeo\output;
-defined('MOODLE_INTERNAL') || die();
 
 use moodle_exception;
 use plugin_renderer_base;
@@ -36,7 +35,6 @@ use plugin_renderer_base;
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class renderer extends plugin_renderer_base {
-
     /**
      * Defer to template.
      *
@@ -48,5 +46,4 @@ class renderer extends plugin_renderer_base {
         $data = $viewpage->export_for_template($this);
         return parent::render_from_template('mod_tresipuntvimeo/view_page', $data);
     }
-
 }

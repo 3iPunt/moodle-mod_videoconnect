@@ -24,8 +24,6 @@
 
 namespace mod_tresipuntvimeo\event;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * The mod_tresipuntaudio course module viewed event class.
  *
@@ -34,7 +32,6 @@ defined('MOODLE_INTERNAL') || die();
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class course_module_viewed extends \core\event\course_module_viewed {
-
     /**
      * Init method.
      *
@@ -52,6 +49,6 @@ class course_module_viewed extends \core\event\course_module_viewed {
      * @return string[]
      */
     public static function get_objectid_mapping(): array {
-        return array('db' => 'tresipuntvimeo', 'restore' => 'tresipuntvimeo');
+        return ['db' => 'tresipuntvimeo', 'restore' => 'tresipuntvimeo'];
     }
 }

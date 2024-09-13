@@ -32,7 +32,6 @@ require_once($CFG->dirroot . '/mod/tresipuntvimeo/backup/moodle2/backup_tresipun
  * Provides the steps to perform one complete backup of the TresipuntVimeo instance
  */
 class backup_tresipuntvimeo_activity_task extends backup_activity_task {
-
     /**
      * No specific settings for this activity
      */
@@ -44,7 +43,9 @@ class backup_tresipuntvimeo_activity_task extends backup_activity_task {
      */
     protected function define_my_steps() {
         $this->add_step(new backup_tresipuntvimeo_activity_structure_step(
-            'tresipuntvimeo_structure', 'tresipuntvimeo.xml'));
+            'tresipuntvimeo_structure',
+            'tresipuntvimeo.xml'
+        ));
     }
 
     /**

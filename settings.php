@@ -27,36 +27,44 @@ defined('MOODLE_INTERNAL') || die();
 global $ADMIN;
 
 if ($ADMIN->fulltree) {
-
     $settings->add(new admin_setting_heading(
         'tresipuntcsvexport/csvsettings',
         get_string('vimeoheading', 'mod_tresipuntvimeo'),
-        get_string('vimeoheadingdesc', 'mod_tresipuntvimeo')));
+        get_string('vimeoheadingdesc', 'mod_tresipuntvimeo')
+    ));
 
     $settings->add(new admin_setting_configtext(
         'mod_tresipuntvimeo/client_id',
         get_string('client_id', 'mod_tresipuntvimeo'),
-        '', '', PARAM_RAW, 70
+        '',
+        '',
+        PARAM_RAW,
+        70
     ));
 
     $settings->add(new admin_setting_configtext(
         'mod_tresipuntvimeo/client_secret',
         get_string('client_secret', 'mod_tresipuntvimeo'),
-        '', '', PARAM_RAW, 70
+        '',
+        '',
+        PARAM_RAW,
+        70
     ));
 
     $settings->add(new admin_setting_configcheckbox(
         'mod_tresipuntvimeo/is_authenticated',
         get_string('is_authenticated', 'mod_tresipuntvimeo'),
         get_string('is_authenticated_desc', 'mod_tresipuntvimeo'),
-         false
+        false
     ));
 
     $settings->add(new admin_setting_configtext(
         'mod_tresipuntvimeo/access_token',
         get_string('access_token', 'mod_tresipuntvimeo'),
         '',
-        '', PARAM_RAW, 70
+        '',
+        PARAM_RAW,
+        70
     ));
 
     $settings->add(new admin_setting_configmulticheckbox(
@@ -94,5 +102,4 @@ if ($ADMIN->fulltree) {
         get_string('folderid_desc', 'mod_tresipuntvimeo'),
         false
     ));
-
 }

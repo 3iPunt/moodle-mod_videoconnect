@@ -27,8 +27,11 @@ require_once("lib.php");
 
 global $PAGE, $CFG;
 
-$id = required_param('id',PARAM_INT);   // course
+// Course.
+$id = required_param('id', PARAM_INT);
 
-$PAGE->set_url('/mod/tresipuntvimeo/index.php', array('id'=>$id));
+require_login($id);
+
+$PAGE->set_url('/mod/tresipuntvimeo/index.php', ['id' => $id]);
 
 redirect("$CFG->wwwroot/course/view.php?id=$id");
