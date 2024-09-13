@@ -35,7 +35,7 @@ defined('MOODLE_INTERNAL') || die();
 
 global $CFG;
 require_once($CFG->dirroot . '/lib/filelib.php');
-require_once($CFG->dirroot . '/mod/tresipuntvimeo/vendor/autoload.php');
+require_once($CFG->dirroot . '/mod/tresipuntvimeo/.extlib/vendor/autoload.php');
 
 /**
  * Class Vimeo
@@ -45,26 +45,26 @@ require_once($CFG->dirroot . '/mod/tresipuntvimeo/vendor/autoload.php');
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class vimeo {
-
+    /** @var int Timeout */
     const TIMEOUT = 30;
 
     /** @var string Client ID */
-    protected $client_id;
+    protected $clientid;
 
     /** @var string Client Secret */
-    protected $client_secret;
+    protected $clientsecret;
 
     /** @var string Is authenticated? */
-    protected $is_authenticated;
+    protected $isauthenticated;
 
     /** @var string[] Scopes */
-    protected $scopes = array('public', 'private', 'upload');
+    protected $scopes = ['public', 'private', 'upload'];
 
     /** @var \Vimeo\Vimeo Vimeo */
     protected $vimeo;
 
     /** @var string Access Token */
-    protected $access_token;
+    protected $accesstoken;
 
     /**
      * vimeo constructor.
@@ -92,10 +92,11 @@ class vimeo {
         if (!empty($scopes)) {
             $this->scopes = explode(',', $scopes);
         } else {
-            $moodle_url = new moodle_url('/admin/settings.php?section=modsettingtresipuntvimeo');
+            $moodleurl = new moodle_url('/admin/settings.php?section=modsettingtresipuntvimeo');
             throw new moodle_exception(
                 get_string('scopes_not_exist', 'mod_tresipuntvimeo') .
-                '. ' . $moodle_url->out(false));
+                '. ' . $moodleurl->out(false)
+            );
         }
     }
 
@@ -116,7 +117,7 @@ class vimeo {
                 $this->access_token = $token['body']['access_token'];
                 $this->vimeo->setToken($this->access_token);
             } else {
-                throw new moodle_exception($token["body"]["error_code"] . ': ' .$token["body"]["error"]);
+                throw new moodle_exception($token["body"]["error_code"] . ': ' . $token["body"]["error"]);
             }
         }
     }
@@ -131,13 +132,19 @@ class vimeo {
     public function upload(string $filepath, array $params): response {
         try {
             $response = $this->vimeo->upload($filepath, $params);
-            return new response(true, $response);
+            return new response(true, $response, new error(0, ''));
         } catch (VimeoRequestException $e) {
-            return new response(false, null,
-                new error(3001, $e->getMessage()));
+            return new response(
+                false,
+                null,
+                new error(3001, $e->getMessage())
+            );
         } catch (VimeoUploadException $e) {
-            return new response(false, null,
-                new error(3000, $e->getMessage()));
+            return new response(
+                false,
+                null,
+                new error(3000, $e->getMessage())
+            );
         }
     }
 
@@ -148,8 +155,8 @@ class vimeo {
      * @param string $domain
      * @return response
      */
-    public function add_domain_whitelist(int $video_id, string $domain): response {
-        $url = 'https://api.vimeo.com/videos/' . $video_id . '/privacy/domains/' . $domain;
+    public function add_domain_whitelist(int $videoid, string $domain): response {
+        $url = 'https://api.vimeo.com/videos/' . $videoid . '/privacy/domains/' . $domain;
         $params = [];
         return $this->curl_request($url, $params);
     }
@@ -161,8 +168,8 @@ class vimeo {
      * @param int $folder_id
      * @return response
      */
-    public function add_video_to_folder(int $video_id, int $folder_id): response {
-        $url = 'https://api.vimeo.com/me/projects/' . $folder_id . '/videos/' . $video_id;
+    public function add_video_to_folder(int $videoid, int $folderid): response {
+        $url = 'https://api.vimeo.com/me/projects/' . $folderid . '/videos/' . $videoid;
         $params = [];
         return $this->curl_request($url, $params);
     }
@@ -174,24 +181,30 @@ class vimeo {
      * @param array $params
      * @return response
      */
-    private function curl_request(string $url, $params = array()) {
+    private function curl_request(string $url, $params = []) {
         try {
             $curl = new curl();
-            $headers = array();
+            $headers = [];
             $headers[] = 'Content-type: application/json';
             $headers[] = 'Authorization: Bearer ' . $this->access_token;
             $curl->setHeader($headers);
             $result = $curl->put($url, json_encode($params), $this->get_options_curl());
             $result = json_decode($result, true);
             if ($result['error']) {
-                return new response(false, null,
-                    new error(4002,$result['error']));
+                return new response(
+                    false,
+                    null,
+                    new error(4002, $result['error'])
+                );
             } else {
-                return new response(true, '');
+                return new response(true, '', new error(0, ''));
             }
         } catch (\Exception $e) {
-            return new response(false, null,
-                new error(4001, $e->getMessage()));
+            return new response(
+                false,
+                null,
+                new error(4001, $e->getMessage())
+            );
         }
     }
 
@@ -209,5 +222,4 @@ class vimeo {
             'CURLOPT_USERPWD' => "{$this->user}:{$this->token}",
         ];
     }
-
 }

@@ -14,7 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-
 /**
  * Restore Activity Structure Step.
  *
@@ -31,14 +30,13 @@
  * Structure step to restore one tresipuntvimeo activity
  */
 class restore_tresipuntvimeo_activity_structure_step extends restore_activity_structure_step {
-
     /**
      * Define Structure.
      *
      * @return mixed
      */
     protected function define_structure() {
-        $paths = array();
+        $paths = [];
         $paths[] = new restore_path_element('tresipuntvimeo', '/activity/tresipuntvimeo');
         return $this->prepare_activity_structure($paths);
     }
@@ -65,5 +63,4 @@ class restore_tresipuntvimeo_activity_structure_step extends restore_activity_st
     protected function after_execute() {
         $this->add_related_files('mod_tresipuntvimeo', 'intro', null);
     }
-
 }

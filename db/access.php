@@ -24,30 +24,30 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$capabilities = array(
+$capabilities = [
 
     // Whether or not the user can add the module.
-    'mod/tresipuntvimeo:addinstance' => array(
+    'mod/tresipuntvimeo:addinstance' => [
         'captype' => 'write',
         'contextlevel' => CONTEXT_MODULE,
-        'archetypes' => array(
+        'archetypes' => [
             'student' => CAP_PROHIBIT,
             'teacher' => CAP_ALLOW,
             'editingteacher' => CAP_ALLOW,
             'manager' => CAP_ALLOW,
-        ),
-        'clonepermissionsfrom' => 'moodle/site:manageblocks'
-    ),
+        ],
+        'clonepermissionsfrom' => 'moodle/site:manageblocks',
+    ],
 
     // Whether or not a user can see the module.
-    'mod/tresipuntvimeo:view' => array(
+    'mod/tresipuntvimeo:view' => [
         'captype' => 'read',
         'contextlevel' => CONTEXT_MODULE,
-        'archetypes' => array(
+        'archetypes' => [
             'student' => CAP_ALLOW,
             'teacher' => CAP_ALLOW,
             'editingteacher' => CAP_ALLOW,
             'manager' => CAP_ALLOW,
-        ),
-    ),
-);
+        ],
+    ],
+];

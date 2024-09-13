@@ -32,8 +32,6 @@ use mod_tresipuntvimeo\vimeo;
 use moodle_exception;
 use stdClass;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Class upload_videos_task
  *
@@ -42,7 +40,6 @@ defined('MOODLE_INTERNAL') || die();
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class upload_videos_task extends scheduled_task {
-
     /**
      * Return the task's name as shown in admin screens.
      *
@@ -65,23 +62,24 @@ class upload_videos_task extends scheduled_task {
         $uploads = $DB->get_records(
             'tresipuntvimeo_uploads',
             [ 'status' => uploads::STATUS_NOT_EXECUTED ],
-            'timecreated DESC', '*');
+            'timecreated DESC',
+            '*'
+        );
 
         mtrace("Subir videos: " . count($uploads));
         $vimeo = new vimeo();
         foreach ($uploads as $upload) {
-
             mtrace("- Instance: " . $upload->instance);
             try {
-                list($course, $cm) = get_course_and_cm_from_instance($upload->instance, 'tresipuntvimeo');
+                [$course, $cm] = get_course_and_cm_from_instance($upload->instance, 'tresipuntvimeo');
 
                 $filepath = $upload->filepath;
 
                 $params = [
                     'name' => $cm->name,
                     'privacy' => [
-                        'embed' => 'whitelist'
-                    ]
+                            'embed' => 'whitelist',
+                    ],
                 ];
 
                 $dataobject = new stdClass();
@@ -149,7 +147,6 @@ class upload_videos_task extends scheduled_task {
                         $DB->update_record('tresipuntvimeo_uploads', $dataobject);
                         mtrace("* Subida ERROR - No se ha encontrado el ID Video: " . $response->data);
                     }
-
                 } else {
                     $dataobject = new stdClass();
                     $dataobject->id = $upload->id;
@@ -170,7 +167,6 @@ class upload_videos_task extends scheduled_task {
             }
 
             mtrace("-");
-
         }
         mtrace("***** FINAL");
     }
@@ -182,9 +178,9 @@ class upload_videos_task extends scheduled_task {
      * @return int
      */
     protected function get_idvideo_from_url(string $url): int {
-        $last = strrpos($url,"/");
+        $last = strrpos($url, "/");
         if ($last) {
-            $idvideo = intval(substr($url, $last + 1 ));
+            $idvideo = intval(substr($url, $last + 1));
         } else {
             $idvideo = intval($url);
         }

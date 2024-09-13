@@ -24,7 +24,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once($CFG->dirroot.'/course/moodleform_mod.php');
+require_once($CFG->dirroot . '/course/moodleform_mod.php');
 
 /**
  * Module instance settings form.
@@ -34,7 +34,6 @@ require_once($CFG->dirroot.'/course/moodleform_mod.php');
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class mod_tresipuntvimeo_mod_form extends moodleform_mod {
-
     /**
      * Defines forms elements
      * @throws coding_exception
@@ -48,8 +47,12 @@ class mod_tresipuntvimeo_mod_form extends moodleform_mod {
         $mform->addElement('header', 'general', get_string('general', 'form'));
 
         // Adding the standard "name" field.
-        $mform->addElement('text', 'name',
-            get_string('tresipuntvimeoname', 'mod_tresipuntvimeo'), array('size' => '64'));
+        $mform->addElement(
+            'text',
+            'name',
+            get_string('tresipuntvimeoname', 'mod_tresipuntvimeo'),
+            ['size' => '64']
+        );
 
         if (!empty($CFG->formatstringstriptags)) {
             $mform->setType('name', PARAM_TEXT);
@@ -58,8 +61,13 @@ class mod_tresipuntvimeo_mod_form extends moodleform_mod {
         }
 
         $mform->addRule('name', null, 'required', null, 'client');
-        $mform->addRule('name',
-            get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
+        $mform->addRule(
+            'name',
+            get_string('maximumchars', '', 255),
+            'maxlength',
+            255,
+            'client'
+        );
         $mform->addHelpButton('name', 'tresipuntvimeoname', 'mod_tresipuntvimeo');
 
         // Adding the standard "intro" and "introformat" fields.
@@ -69,24 +77,35 @@ class mod_tresipuntvimeo_mod_form extends moodleform_mod {
             $this->add_intro_editor();
         }
 
-        $mform->addElement('text', 'idvideo',
-            get_string('idvideo', 'mod_tresipuntvimeo'));
+        $mform->addElement(
+            'text',
+            'idvideo',
+            get_string('idvideo', 'mod_tresipuntvimeo')
+        );
 
-        $mform->addRule('idvideo',
-            get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
+        $mform->addRule(
+            'idvideo',
+            get_string('maximumchars', '', 255),
+            'maxlength',
+            255,
+            'client'
+        );
 
         $mform->setType('idvideo', PARAM_INT);
         $mform->addHelpButton('idvideo', 'idvideo', 'mod_tresipuntvimeo');
 
-        $filemanager_options['accepted_types'] = ['.mp4', '.mov', '.wmv', '.avi', '.flv'];
-        $filemanager_options['maxbytes'] = 0;
-        $filemanager_options['maxfiles'] = -1;
-        $filemanager_options['mainfile'] = true;
+        $filemanageroptions['accepted_types'] = ['.mp4', '.mov', '.wmv', '.avi', '.flv'];
+        $filemanageroptions['maxbytes'] = 0;
+        $filemanageroptions['maxfiles'] = -1;
+        $filemanageroptions['mainfile'] = true;
 
         $mform->addElement(
-            'filepicker', 'filevimeo',
+            'filepicker',
+            'filevimeo',
             get_string('selectvideo', 'mod_tresipuntvimeo'),
-            null, $filemanager_options);
+            null,
+            $filemanageroptions
+        );
 
         // Add standard elements.
         $this->standard_coursemodule_elements();
