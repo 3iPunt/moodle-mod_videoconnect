@@ -28,9 +28,6 @@ use dml_exception;
 use mod_tresipuntvimeo_mod_form;
 use stdClass;
 
-defined('MOODLE_INTERNAL') || die();
-
-
 /**
  * Uploads
  *
@@ -39,18 +36,37 @@ defined('MOODLE_INTERNAL') || die();
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class uploads {
-
+    /** @var int Status indicating no file path */
     const STATUS_NOT_FILEPATH = 0;
+
+    /** @var int Status indicating not executed */
     const STATUS_NOT_EXECUTED = 1;
+
+    /** @var int Status indicating discarded */
     const STATUS_DISCARDED = 2;
+
+    /** @var int Status indicating uploading */
     const STATUS_UPLOADING = 3;
+
+    /** @var int Status indicating error uploading */
     const STATUS_ERROR_UPLOADING = 4;
+
+    /** @var int Status indicating completed */
     const STATUS_COMPLETED = 5;
+
+    /** @var int Status indicating deleted */
     const STATUS_DELETED = 6;
+
+    /** @var int Status indicating video ID missing */
     const STATUS_UPLOADING_VIDEOID_MISSING = 7;
+
+    /** @var int Status indicating error with whitelist */
     const STATUS_UPLOADING_ERROR_WHITELIST = 8;
+
+    /** @var int Status indicating error with folder */
     const STATUS_UPLOADING_ERROR_FOLDER = 9;
 
+    /** @var array Error messages */
     const ERROR_MESSAGE = [
         'filepath_not_found',
         'not_executed',
@@ -64,6 +80,7 @@ class uploads {
         'error_folder',
     ];
 
+    /** @var int Error code for no file path */
     const CODE_NOT_FILEPATH = 10001;
 
     /**
@@ -74,22 +91,22 @@ class uploads {
      * @return object
      * @throws dml_exception
      */
-    static public function update(object $moduleinstance, mod_tresipuntvimeo_mod_form $mform): object {
+    public static function update(object $moduleinstance, mod_tresipuntvimeo_mod_form $mform): object {
         global $DB;
 
         if ($mform->get_data()) {
             $filepath = $mform->save_temp_file('filevimeo');
 
             if (!empty($filepath)) {
-
                 $olds = $DB->get_records(
                     'tresipuntvimeo_uploads',
-                    [ 'instance' => $moduleinstance->instance, 'status' => uploads::STATUS_NOT_EXECUTED ]);
+                    ['instance' => $moduleinstance->instance, 'status' => self::STATUS_NOT_EXECUTED]
+                );
 
                 foreach ($olds as $old) {
                     $oldobject = new stdClass();
                     $oldobject->id = $old->id;
-                    $oldobject->status = uploads::STATUS_DISCARDED;
+                    $oldobject->status = self::STATUS_DISCARDED;
                     $DB->update_record('tresipuntvimeo_uploads', $oldobject);
                 }
 
@@ -98,15 +115,15 @@ class uploads {
                 $dataobject = new stdClass();
                 $dataobject->instance = $moduleinstance->instance;
                 $dataobject->filepath = $filepath;
-                $dataobject->status = uploads::STATUS_NOT_EXECUTED;
+                $dataobject->status = self::STATUS_NOT_EXECUTED;
                 $dataobject->timecreated = time();
                 $DB->insert_record('tresipuntvimeo_uploads', $dataobject);
-            }  else {
+            } else {
                 $dataobject = new stdClass();
                 $dataobject->instance = $moduleinstance->instance;
-                $dataobject->status = uploads::STATUS_NOT_FILEPATH;
-                $dataobject->error_message = uploads::ERROR_MESSAGE[0];
-                $dataobject->error_code = uploads::CODE_NOT_FILEPATH;
+                $dataobject->status = self::STATUS_NOT_FILEPATH;
+                $dataobject->error_message = self::ERROR_MESSAGE[0];
+                $dataobject->error_code = self::CODE_NOT_FILEPATH;
                 $dataobject->timecreated = time();
                 $DB->insert_record('tresipuntvimeo_uploads', $dataobject);
             }
@@ -114,5 +131,4 @@ class uploads {
 
         return $moduleinstance;
     }
-
 }

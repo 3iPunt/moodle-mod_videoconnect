@@ -23,7 +23,6 @@
  */
 
 namespace mod_tresipuntvimeo\output;
-defined('MOODLE_INTERNAL') || die();
 
 use coding_exception;
 use dml_exception;
@@ -42,12 +41,11 @@ use templatable;
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class view_page implements renderable, templatable {
-
     /** @var stdClass Course Module */
     protected $cm;
 
     /** @var bool Has name? */
-    protected $has_name;
+    protected $hasname;
 
     /**
      * view_page constructor.
@@ -56,10 +54,10 @@ class view_page implements renderable, templatable {
      * @param bool $has_name
      * @throws dml_exception
      */
-    public function __construct(int $cmid, bool $has_name = true) {
+    public function __construct(int $cmid, bool $hasname = true) {
         global $DB;
-        $this->has_name = $has_name;
-        $this->cm = $DB->get_record('course_modules', array( 'id'=> $cmid ));
+        $this->has_name = $hasname;
+        $this->cm = $DB->get_record('course_modules', ['id' => $cmid]);
     }
 
 
@@ -73,30 +71,35 @@ class view_page implements renderable, templatable {
      */
     public function export_for_template(renderer_base $output): stdClass {
         global $DB;
-        $vimeo_module = $DB->get_record('tresipuntvimeo', array('id'=>$this->cm->instance));
-        $vimeo_upload = $DB->get_records(
+        $vimeomodule = $DB->get_record('tresipuntvimeo', ['id' => $this->cm->instance]);
+        $vimeoupload = $DB->get_records(
             'tresipuntvimeo_uploads',
-            array( 'instance' => $this->cm->instance ),
-            'timecreated DESC','*',0,1
+            ['instance' => $this->cm->instance],
+            'timecreated DESC',
+            '*',
+            0,
+            1
         );
         $data = new stdClass();
-        $data->name = $vimeo_module->name;
+        $data->name = $vimeomodule->name;
         $data->has_name = $this->has_name;
-        $data->intro = $vimeo_module->intro;
+        $data->intro = $vimeomodule->intro;
         $data->is_completed = false;
-        if (!empty($vimeo_module->idvideo)) {
-            $data->idvideo = $vimeo_module->idvideo;
+        if (!empty($vimeomodule->idvideo)) {
+            $data->idvideo = $vimeomodule->idvideo;
             $data->width = '640';
             $data->height = '360';
             $data->has_vimeo = true;
         } else {
             $data->has_vimeo = false;
-            $data->title = $vimeo_module->name;
-            if (!empty($vimeo_upload)) {
-                $vimeo_upload = current($vimeo_upload);
+            $data->title = $vimeomodule->name;
+            if (!empty($vimeoupload)) {
+                $vimeoupload = current($vimeoupload);
                 $data->status = get_string(
-                    uploads::ERROR_MESSAGE[$vimeo_upload->status], 'mod_tresipuntvimeo');
-                $data->http_error_message = $vimeo_upload->http_error_message;
+                    uploads::ERROR_MESSAGE[$vimeoupload->status],
+                    'mod_tresipuntvimeo'
+                );
+                $data->http_error_message = $vimeoupload->http_error_message;
             }
         }
 

@@ -18,7 +18,8 @@
  * Display information about all the mod_tresipuntvimeo modules in the requested course.
  *
  * @package     mod_tresipuntvimeo
- * @copyright   2021 Tresipunt
+ * @copyright   2021-2024 3ipunt {@link https://www.tresipunt.com}
+ * @author     3IPUNT <contacte@tresipunt.com>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -27,8 +28,11 @@ require_once("lib.php");
 
 global $PAGE, $CFG;
 
-$id = required_param('id',PARAM_INT);   // course
+// Course.
+$id = required_param('id', PARAM_INT);
 
-$PAGE->set_url('/mod/tresipuntvimeo/index.php', array('id'=>$id));
+require_login($id);
+
+$PAGE->set_url('/mod/tresipuntvimeo/index.php', ['id' => $id]);
 
 redirect("$CFG->wwwroot/course/view.php?id=$id");

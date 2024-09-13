@@ -18,19 +18,19 @@
  * The mod_tresipuntvimeo instance list viewed event.
  *
  * @package     mod_tresipuntvimeo
- * @copyright   2021 Tresipunt
+ * @copyright   2021-2024 3ipunt {@link https://www.tresipunt.com}
+ * @author     3IPUNT <contacte@tresipunt.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 namespace mod_tresipuntvimeo\event;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * The mod_tresipuntaudio instance list viewed event class.
  *
  * @package     mod_tresipuntvimeo
- * @copyright   2021 Tresipunt
+ * @copyright   2021-2024 3ipunt {@link https://www.tresipunt.com}
+ * @author     3IPUNT <contacte@tresipunt.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class course_module_instance_list_viewed extends \core\event\course_module_instance_list_viewed {

@@ -18,18 +18,19 @@
  * Prints an instance of mod_tresipuntvimeo.
  *
  * @package     mod_tresipuntvimeo
- * @copyright   2021 Tresipunt
+ * @copyright   2021-2024 3ipunt {@link https://www.tresipunt.com}
+ * @author     3IPUNT <contacte@tresipunt.com>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 use mod_tresipuntvimeo\output\view_page;
 
-require(__DIR__.'/../../config.php');
-require_once(__DIR__.'/lib.php');
+require(__DIR__ . '/../../config.php');
+require_once(__DIR__ . '/lib.php');
 
 global $DB, $PAGE, $OUTPUT;
 
-// Course_module ID, or
+// Course_module ID, or ...
 $id = optional_param('id', 0, PARAM_INT);
 
 // ... module instance id.
@@ -39,35 +40,43 @@ $cmfound = false;
 
 if ($id) {
     $cm = get_coursemodule_from_id('tresipuntvimeo', $id, 0, false, MUST_EXIST);
-    $course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
+    $course = $DB->get_record('course', ['id' => $cm->course], '*', MUST_EXIST);
     $moduleinstance = $DB->get_record(
-        'tresipuntvimeo', array('id' => $cm->instance), '*', MUST_EXIST);
+        'tresipuntvimeo',
+        ['id' => $cm->instance],
+        '*',
+        MUST_EXIST
+    );
     $cmfound = true;
 } else if ($a) {
-    $moduleinstance = $DB->get_record('tresipuntvimeo', array('id' => $a), '*', MUST_EXIST);
-    $course = $DB->get_record('course', array('id' => $moduleinstance->course), '*', MUST_EXIST);
+    $moduleinstance = $DB->get_record('tresipuntvimeo', ['id' => $a], '*', MUST_EXIST);
+    $course = $DB->get_record('course', ['id' => $moduleinstance->course], '*', MUST_EXIST);
     $cm = get_coursemodule_from_instance(
-        'tresipuntvimeo', $moduleinstance->id, $course->id, false, MUST_EXIST);
+        'tresipuntvimeo',
+        $moduleinstance->id,
+        $course->id,
+        false,
+        MUST_EXIST
+    );
     $cmfound = true;
 }
 
 
 
 if ($cmfound) {
-
     require_login($course, true);
 
     $modulecontext = context_module::instance($cm->id);
 
-    $event = \mod_tresipuntvimeo\event\course_module_viewed::create(array(
+    $event = \mod_tresipuntvimeo\event\course_module_viewed::create([
         'objectid' => $moduleinstance->id,
-        'context' => $modulecontext
-    ));
+            'context' => $modulecontext,
+    ]);
     $event->add_record_snapshot('course', $course);
     $event->add_record_snapshot('tresipuntvimeo', $moduleinstance);
     $event->trigger();
 
-    $PAGE->set_url('/mod/tresipuntvimeo/view.php', array('id' => $cm->id));
+    $PAGE->set_url('/mod/tresipuntvimeo/view.php', ['id' => $cm->id]);
     $PAGE->set_title(format_string($moduleinstance->name));
     $PAGE->set_heading(format_string($course->fullname));
     $PAGE->set_cm($cm);
@@ -76,14 +85,13 @@ if ($cmfound) {
     $output = $PAGE->get_renderer('mod_tresipuntvimeo');
     $page = new view_page($cm->id);
     echo $output->render($page);
-
 } else {
     require_login();
     $context = context_system::instance();
     $PAGE->set_context($context);
-    $PAGE->set_url('/mod/tresipuntvimeo/view.php', array('id' => $id ));
+    $PAGE->set_url('/mod/tresipuntvimeo/view.php', ['id' => $id]);
     echo $OUTPUT->header();
-    print_error(get_string('missingidandcmid', 'mod_tresipuntvimeo'));
+    throw new moodle_exception('missingidandcmid', 'mod_tresipuntvimeo');
 }
 
 echo $OUTPUT->footer();

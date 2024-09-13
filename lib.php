@@ -18,14 +18,13 @@
  * Library of interface functions and constants.
  *
  * @package     mod_tresipuntvimeo
- * @copyright   2021 Tresipunt
+ * @copyright   2021-2024 3ipunt {@link https://www.tresipunt.com}
+ * @author     3IPUNT <contacte@tresipunt.com>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 use mod_tresipuntvimeo\output\view_page;
 use mod_tresipuntvimeo\uploads;
-
-defined('MOODLE_INTERNAL') || die();
 
 /**
  * Return if the plugin supports $feature.
@@ -100,7 +99,7 @@ function tresipuntvimeo_get_coursemodule_info(object $coursemodule): cached_cm_i
  * @throws dml_exception
  * @throws moodle_exception
  */
-function tresipuntvimeo_update_instance(object $moduleinstance, mod_tresipuntvimeo_mod_form $mform = null): bool {
+function tresipuntvimeo_update_instance(object $moduleinstance, mod_tresipuntvimeo_mod_form $mform): bool {
     global $DB;
     $moduleinstance = uploads::update($moduleinstance, $mform);
     $moduleinstance->timemodified = time();
@@ -119,21 +118,19 @@ function tresipuntvimeo_delete_instance(int $id): bool {
     global $DB;
 
     $sql = "UPDATE {tresipuntvimeo_uploads}
-            SET status = :newstatus  
+            SET status = :newstatus
             WHERE instance = :instance AND status = :statuscurrent";
 
-    $params = array(
+    $params = [
         'newstatus' => uploads::STATUS_DELETED,
         'instance' => $id,
-        'statuscurrent' => uploads::STATUS_NOT_EXECUTED);
+            'statuscurrent' => uploads::STATUS_NOT_EXECUTED];
     $DB->execute($sql, $params);
 
-    $exists = $DB->get_record('tresipuntvimeo', array('id' => $id));
+    $exists = $DB->get_record('tresipuntvimeo', ['id' => $id]);
     if (!$exists) {
         return false;
     }
-    $DB->delete_records('tresipuntvimeo', array('id' => $id));
+    $DB->delete_records('tresipuntvimeo', ['id' => $id]);
     return true;
 }
-
-

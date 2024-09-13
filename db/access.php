@@ -18,36 +18,37 @@
  * Module Tresipunt CSV Export Class.
  *
  * @package     mod_tresipuntvimeo
- * @copyright   2021 Tresipunt
+ * @copyright   2021-2024 3ipunt {@link https://www.tresipunt.com}
+ * @author     3IPUNT <contacte@tresipunt.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$capabilities = array(
+$capabilities = [
 
     // Whether or not the user can add the module.
-    'mod/tresipuntvimeo:addinstance' => array(
+    'mod/tresipuntvimeo:addinstance' => [
         'captype' => 'write',
         'contextlevel' => CONTEXT_MODULE,
-        'archetypes' => array(
+        'archetypes' => [
             'student' => CAP_PROHIBIT,
             'teacher' => CAP_ALLOW,
             'editingteacher' => CAP_ALLOW,
             'manager' => CAP_ALLOW,
-        ),
-        'clonepermissionsfrom' => 'moodle/site:manageblocks'
-    ),
+        ],
+        'clonepermissionsfrom' => 'moodle/site:manageblocks',
+    ],
 
     // Whether or not a user can see the module.
-    'mod/tresipuntvimeo:view' => array(
+    'mod/tresipuntvimeo:view' => [
         'captype' => 'read',
         'contextlevel' => CONTEXT_MODULE,
-        'archetypes' => array(
+        'archetypes' => [
             'student' => CAP_ALLOW,
             'teacher' => CAP_ALLOW,
             'editingteacher' => CAP_ALLOW,
             'manager' => CAP_ALLOW,
-        ),
-    ),
-);
+        ],
+    ],
+];

@@ -29,9 +29,6 @@ use lang_string;
 use moodle_exception;
 use stdClass;
 
-defined('MOODLE_INTERNAL') || die();
-
-
 /**
  * Error Response
  *
@@ -40,7 +37,6 @@ defined('MOODLE_INTERNAL') || die();
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class error {
-
     /** @var int Error Code */
     public $code;
 
@@ -56,6 +52,4 @@ class error {
         $this->code = $code;
         $this->message = $message;
     }
-
-
 }

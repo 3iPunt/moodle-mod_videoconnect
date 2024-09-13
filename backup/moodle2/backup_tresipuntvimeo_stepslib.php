@@ -30,7 +30,6 @@
  * Define the complete tresipuntvimeo structure for backup, with file and id annotations
  */
 class backup_tresipuntvimeo_activity_structure_step extends backup_activity_structure_step {
-
     /**
      * Define Structure.
      *
@@ -44,14 +43,14 @@ class backup_tresipuntvimeo_activity_structure_step extends backup_activity_stru
         $userinfo = $this->get_setting_value('userinfo');
 
         // Define each element separated.
-        $tresipuntvimeo = new backup_nested_element('tresipuntvimeo', array('id'), array(
-            'course', 'name', 'idvideo', 'intro', 'introformat', 'timecreated', 'timemodified'));
+        $tresipuntvimeo = new backup_nested_element('tresipuntvimeo', ['id'], [
+            'course', 'name', 'idvideo', 'intro', 'introformat', 'timecreated', 'timemodified']);
 
         // Build the tree.
         // (love this).
 
         // Define sources.
-        $tresipuntvimeo->set_source_table('tresipuntvimeo', array('id' => backup::VAR_ACTIVITYID));
+        $tresipuntvimeo->set_source_table('tresipuntvimeo', ['id' => backup::VAR_ACTIVITYID]);
 
         // Define id annotations.
         // (none).

@@ -19,16 +19,14 @@
  *
  * @package     mod_tresipuntvimeo
  * @category    upgrade
- * @copyright   2021 Tresipunt
+ * @copyright   2021-2024 3ipunt {@link https://www.tresipunt.com}
+ * @author     3IPUNT <contacte@tresipunt.com>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-defined('MOODLE_INTERNAL') || die();
 
 /**
  * Custom uninstallation procedure.
  */
 function xmldb_tresipuntvimeo_uninstall() {
-
     return true;
 }

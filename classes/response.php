@@ -28,9 +28,6 @@ use dml_exception;
 use moodle_exception;
 use stdClass;
 
-defined('MOODLE_INTERNAL') || die();
-
-
 /**
  * Response
  *
@@ -39,7 +36,6 @@ defined('MOODLE_INTERNAL') || die();
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class response {
-
     /** @var bool Success */
     public $success;
 
@@ -55,7 +51,7 @@ class response {
      * @param string|null $data
      * @param error|null $error $error
      */
-    public function __construct(bool $success, string $data = null, error $error = null) {
+    public function __construct(bool $success, string $data, error $error) {
         $this->success = $success;
         $this->data = $data;
         if (isset($error)) {
@@ -63,7 +59,5 @@ class response {
         } else {
             $this->error = new error(0, '');
         }
-
     }
-
 }

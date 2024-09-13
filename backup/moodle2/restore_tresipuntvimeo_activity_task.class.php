@@ -32,7 +32,6 @@ require_once($CFG->dirroot . '/mod/tresipuntvimeo/backup/moodle2/restore_tresipu
  * TresipuntVimeo restore task that provides all the settings and steps to perform one complete restore of the activity
  */
 class restore_tresipuntvimeo_activity_task extends restore_activity_task {
-
     /**
      * Define (add) particular settings this activity can have
      */
@@ -45,7 +44,9 @@ class restore_tresipuntvimeo_activity_task extends restore_activity_task {
      */
     protected function define_my_steps() {
         $this->add_step(new restore_tresipuntvimeo_activity_structure_step(
-            'tresipuntvimeo_structure', 'tresipuntvimeo.xml'));
+            'tresipuntvimeo_structure',
+            'tresipuntvimeo.xml'
+        ));
     }
 
     /**
@@ -53,7 +54,7 @@ class restore_tresipuntvimeo_activity_task extends restore_activity_task {
      * processed by the link decoder
      */
     public static function define_decode_contents() {
-        return array();
+        return [];
     }
 
     /**
@@ -61,7 +62,7 @@ class restore_tresipuntvimeo_activity_task extends restore_activity_task {
      * to the activity to be executed by the link decoder
      */
     public static function define_decode_rules() {
-        return array();
+        return [];
     }
 
     /**
@@ -71,13 +72,25 @@ class restore_tresipuntvimeo_activity_task extends restore_activity_task {
      * of {@see restore_log_rule} objects
      */
     public static function define_restore_log_rules() {
-        $rules = array();
+        $rules = [];
         $rules[] = new restore_log_rule(
-            'tresipuntvimeo', 'add', 'view.php?id={course_module}', '{tresipuntvimeo}');
+            'tresipuntvimeo',
+            'add',
+            'view.php?id={course_module}',
+            '{tresipuntvimeo}'
+        );
         $rules[] = new restore_log_rule(
-            'tresipuntvimeo', 'update', 'view.php?id={course_module}', '{tresipuntvimeo}');
+            'tresipuntvimeo',
+            'update',
+            'view.php?id={course_module}',
+            '{tresipuntvimeo}'
+        );
         $rules[] = new restore_log_rule(
-            'tresipuntvimeo', 'view', 'view.php?id={course_module}', '{tresipuntvimeo}');
+            'tresipuntvimeo',
+            'view',
+            'view.php?id={course_module}',
+            '{tresipuntvimeo}'
+        );
         return $rules;
     }
 
@@ -92,9 +105,13 @@ class restore_tresipuntvimeo_activity_task extends restore_activity_task {
      * activity level. All them are rules not linked to any module instance (cmid = 0)
      */
     public static function define_restore_log_rules_for_course() {
-        $rules = array();
+        $rules = [];
         $rules[] = new restore_log_rule(
-            'tresipuntvimeo', 'view all', 'index.php?id={course}', null);
+            'tresipuntvimeo',
+            'view all',
+            'index.php?id={course}',
+            null
+        );
         return $rules;
     }
 }
