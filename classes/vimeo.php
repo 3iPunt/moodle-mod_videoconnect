@@ -35,7 +35,7 @@ defined('MOODLE_INTERNAL') || die();
 
 global $CFG;
 require_once($CFG->dirroot . '/lib/filelib.php');
-require_once($CFG->dirroot . '/mod/tresipuntvimeo/vendor/autoload.php');
+require_once($CFG->dirroot . '/mod/tresipuntvimeo/.extlib/vendor/autoload.php');
 
 /**
  * Class Vimeo
@@ -132,7 +132,7 @@ class vimeo {
     public function upload(string $filepath, array $params): response {
         try {
             $response = $this->vimeo->upload($filepath, $params);
-            return new response(true, $response);
+            return new response(true, $response, new error(0, ''));
         } catch (VimeoRequestException $e) {
             return new response(
                 false,
@@ -197,7 +197,7 @@ class vimeo {
                     new error(4002, $result['error'])
                 );
             } else {
-                return new response(true, '');
+                return new response(true, '', new error(0, ''));
             }
         } catch (\Exception $e) {
             return new response(
