@@ -41,8 +41,8 @@ class provider implements
     /**
      * Returns the metadata for the plugin.
      *
-     * @param collection $collection
-     * @return collection
+     * @param int $userid
+     * @return contextlist
      */
     public static function get_contexts_for_userid(int $userid): contextlist {
         return new contextlist();
@@ -78,8 +78,7 @@ class provider implements
     /**
      * Get the list of contexts that contain user information for the specified user.
      *
-     * @param int $userid
-     * @return contextlist
+     * @param userlist $userlist
      */
     public static function get_users_in_context(userlist $userlist) {
     }
@@ -96,8 +95,8 @@ class provider implements
     /**
      * Get the list of contexts that contain user information for the specified user.
      *
-     * @param int $userid
-     * @return contextlist
+     * @param collection $collection
+     * @return collection
      */
     public static function get_metadata(collection $collection): collection {
         $collection->add_external_location_link(

@@ -151,7 +151,7 @@ class vimeo {
     /**
      * Add Domain whitelist
      *
-     * @param int $video_id
+     * @param int $videoid
      * @param string $domain
      * @return response
      */
@@ -164,8 +164,8 @@ class vimeo {
     /**
      * Add Video to Folder
      *
-     * @param int $video_id
-     * @param int $folder_id
+     * @param int $videoid
+     * @param int $folderid
      * @return response
      */
     public function add_video_to_folder(int $videoid, int $folderid): response {
