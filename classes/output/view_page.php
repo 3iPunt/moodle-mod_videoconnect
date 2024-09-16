@@ -51,12 +51,12 @@ class view_page implements renderable, templatable {
      * view_page constructor.
      *
      * @param int $cmid
-     * @param bool $has_name
+     * @param bool $ithasname
      * @throws dml_exception
      */
-    public function __construct(int $cmid, bool $hasname = true) {
+    public function __construct(int $cmid, bool $ithasname = true) {
         global $DB;
-        $this->has_name = $hasname;
+        $this->hasname = $ithasname;
         $this->cm = $DB->get_record('course_modules', ['id' => $cmid]);
     }
 
@@ -82,7 +82,7 @@ class view_page implements renderable, templatable {
         );
         $data = new stdClass();
         $data->name = $vimeomodule->name;
-        $data->has_name = $this->has_name;
+        $data->has_name = $this->hasname;
         $data->intro = $vimeomodule->intro;
         $data->is_completed = false;
         if (!empty($vimeomodule->idvideo)) {
