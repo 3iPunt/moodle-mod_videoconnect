@@ -17,12 +17,12 @@
 /**
  * Privacy Subsystem implementation for mod_tesipuntvimeo.
  *
- * @package     mod_tresipuntvimeo
+ * @package     mod_videoconnect
  * @copyright   2022 Tresipunt - Antonio Manzano <contacte@tresipunt.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace mod_tresipuntvimeo\privacy;
+namespace mod_videoconnect\privacy;
 
 use context;
 use core_privacy\local\metadata\collection;
@@ -32,7 +32,7 @@ use core_privacy\local\request\contextlist;
 use core_privacy\local\request\userlist;
 
 /**
- * Privacy Subsystem for mod_tresipuntvimeo implementing null_provider.
+ * Privacy Subsystem for mod_videoconnect implementing null_provider.
  */
 class provider implements
     \core_privacy\local\request\core_userlist_provider,
@@ -100,7 +100,7 @@ class provider implements
      */
     public static function get_metadata(collection $collection): collection {
         $collection->add_external_location_link(
-            'tresipuntvimeo',
+            'videoconnect',
             [
                     'course' => 'privacy:metadata:courseid',
                 ],

@@ -12,12 +12,12 @@
     along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 }}
 {{!
-    @template mod_tresipuntvimeo/view_page
+    @template mod_videoconnect/view_page
     Main content for the Tresipunt Vimeo module view page.
     Classes required for JS:
     * none
     Data attributes required for JS:
-    * data-region="mod_tresipuntvimeo"
+    * data-region="mod_videoconnect"
     Context variables required for this template:
     * has_name: boolean - Whether the module has a name.
     * name: string - The name of the module.
@@ -45,7 +45,7 @@
         "intro": "<p>This is an introduction to the Vimeo module.</p>"
     }
 }}
-<div data-region="mod_tresipuntvimeo">
+<div data-region="mod_videoconnect">
     {{# has_name }}
     <h2>{{ name }}</h2>
     {{/has_name}}
@@ -63,7 +63,7 @@
     {{^ has_vimeo }}
         <div class="response">
             <div class="card-content">
-                <p class="title">{{# str }} we_are_sorry, mod_tresipuntvimeo {{/ str }}</p>
+                <p class="title">{{# str }} we_are_sorry, mod_videoconnect {{/ str }}</p>
                 <p class="description">{{ status }}</p>
                 {{# has_name }}
                     <p>{{ http_error_message }}</p>

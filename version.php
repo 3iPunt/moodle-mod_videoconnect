@@ -17,7 +17,7 @@
 /**
  * Vimeo video manager settings
  *
- * @package     mod_tresipuntvimeo
+ * @package     mod_videoconnect
  * @copyright   2021-2024 3ipunt {@link https://www.tresipunt.com}
  * @author     3IPUNT <contacte@tresipunt.com>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -25,7 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->component = 'mod_tresipuntvimeo';
+$plugin->component = 'mod_videoconnect';
 $plugin->release = '1.0.2';
 $plugin->version = 2024090202;
 $plugin->requires = 2022112802; // Moodle 4.1.2+.

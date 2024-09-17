@@ -18,14 +18,14 @@
 /**
  * Code that is executed before the tables and data are dropped during the plugin uninstallation.
  *
- * @package     mod_tresipuntvimeo
+ * @package     mod_videoconnect
  * @category    upgrade
  * @copyright   2021-2024 3ipunt {@link https://www.tresipunt.com}
  * @author     3IPUNT <contacte@tresipunt.com>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-function xmldb_tresipuntvimeo_upgrade($oldversion): bool {
+function xmldb_videoconnect_upgrade($oldversion): bool {
     // Automatically generated Moodle v4.1.0 release upgrade line.
     // Put any upgrade step following this.
 

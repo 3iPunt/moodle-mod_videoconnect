@@ -17,14 +17,14 @@
 /**
  * Library of interface functions and constants.
  *
- * @package     mod_tresipuntvimeo
+ * @package     mod_videoconnect
  * @copyright   2021-2024 3ipunt {@link https://www.tresipunt.com}
  * @author     3IPUNT <contacte@tresipunt.com>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-use mod_tresipuntvimeo\output\view_page;
-use mod_tresipuntvimeo\uploads;
+use mod_videoconnect\output\view_page;
+use mod_videoconnect\uploads;
 
 /**
  * Return if the plugin supports $feature.
@@ -32,7 +32,7 @@ use mod_tresipuntvimeo\uploads;
  * @param string $feature Constant representing the feature.
  * @return int True if the feature is supported, null otherwise.
  */
-function tresipuntvimeo_supports(string $feature) {
+function videoconnect_supports(string $feature) {
     switch ($feature) {
         case FEATURE_BACKUP_MOODLE2:
         case FEATURE_MOD_INTRO:
@@ -45,7 +45,7 @@ function tresipuntvimeo_supports(string $feature) {
 }
 
 /**
- * Saves a new instance of the mod_tresipuntvimeo into the database.
+ * Saves a new instance of the mod_videoconnect into the database.
  *
  * Given an object containing all the necessary data, (defined by the form
  * in mod_form.php) this function will create a new instance and return the id
@@ -56,10 +56,10 @@ function tresipuntvimeo_supports(string $feature) {
  * @return int The id of the newly inserted record.
  * @throws dml_exception
  */
-function tresipuntvimeo_add_instance(object $moduleinstance, $mform = null): int {
+function videoconnect_add_instance(object $moduleinstance, $mform = null): int {
     global $DB;
     $moduleinstance->timecreated = time();
-    $id = $DB->insert_record('tresipuntvimeo', $moduleinstance);
+    $id = $DB->insert_record('videoconnect', $moduleinstance);
     $moduleinstance->instance = $id;
     uploads::update($moduleinstance, $mform);
     return $id;
@@ -76,10 +76,10 @@ function tresipuntvimeo_add_instance(object $moduleinstance, $mform = null): int
  * @throws coding_exception
  * @throws moodle_exception
  */
-function tresipuntvimeo_get_coursemodule_info(object $coursemodule): cached_cm_info {
+function videoconnect_get_coursemodule_info(object $coursemodule): cached_cm_info {
     global $PAGE;
     $PAGE->set_context(context_module::instance($coursemodule->id));
-    $output = $PAGE->get_renderer('mod_tresipuntvimeo');
+    $output = $PAGE->get_renderer('mod_videoconnect');
     $page = new view_page($coursemodule->id, false);
     $content = $output->render($page);
     $info = new cached_cm_info();
@@ -88,36 +88,36 @@ function tresipuntvimeo_get_coursemodule_info(object $coursemodule): cached_cm_i
 }
 
 /**
- * Updates an instance of the mod_tresipuntvimeo in the database.
+ * Updates an instance of the mod_videoconnect in the database.
  *
  * Given an object containing all the necessary data (defined in mod_form.php),
  * this function will update an existing instance with new data.
  *
  * @param object $moduleinstance
- * @param mod_tresipuntvimeo_mod_form|null $mform
+ * @param mod_videoconnect_mod_form|null $mform
  * @return bool
  * @throws dml_exception
  * @throws moodle_exception
  */
-function tresipuntvimeo_update_instance(object $moduleinstance, mod_tresipuntvimeo_mod_form $mform): bool {
+function videoconnect_update_instance(object $moduleinstance, mod_videoconnect_mod_form $mform): bool {
     global $DB;
     $moduleinstance = uploads::update($moduleinstance, $mform);
     $moduleinstance->timemodified = time();
     $moduleinstance->id = $moduleinstance->instance;
-    return $DB->update_record('tresipuntvimeo', $moduleinstance);
+    return $DB->update_record('videoconnect', $moduleinstance);
 }
 
 /**
- * Removes an instance of the mod_tresipuntvimeo from the database.
+ * Removes an instance of the mod_videoconnect from the database.
  *
  * @param int $id Id of the module instance.
  * @return bool True if successful, false on failure.
  * @throws dml_exception
  */
-function tresipuntvimeo_delete_instance(int $id): bool {
+function videoconnect_delete_instance(int $id): bool {
     global $DB;
 
-    $sql = "UPDATE {tresipuntvimeo_uploads}
+    $sql = "UPDATE {videoconnect_uploads}
             SET status = :newstatus
             WHERE instance = :instance AND status = :statuscurrent";
 
@@ -127,10 +127,10 @@ function tresipuntvimeo_delete_instance(int $id): bool {
             'statuscurrent' => uploads::STATUS_NOT_EXECUTED];
     $DB->execute($sql, $params);
 
-    $exists = $DB->get_record('tresipuntvimeo', ['id' => $id]);
+    $exists = $DB->get_record('videoconnect', ['id' => $id]);
     if (!$exists) {
         return false;
     }
-    $DB->delete_records('tresipuntvimeo', ['id' => $id]);
+    $DB->delete_records('videoconnect', ['id' => $id]);
     return true;
 }

@@ -17,7 +17,7 @@
 /**
  * Module Tresipunt CSV Export Class.
  *
- * @package     mod_tresipuntvimeo
+ * @package     mod_videoconnect
  * @copyright   2021-2024 3ipunt {@link https://www.tresipunt.com}
  * @author     3IPUNT <contacte@tresipunt.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -28,7 +28,7 @@ defined('MOODLE_INTERNAL') || die();
 $capabilities = [
 
     // Whether or not the user can add the module.
-    'mod/tresipuntvimeo:addinstance' => [
+    'mod/videoconnect:addinstance' => [
         'captype' => 'write',
         'contextlevel' => CONTEXT_MODULE,
         'archetypes' => [
@@ -41,7 +41,7 @@ $capabilities = [
     ],
 
     // Whether or not a user can see the module.
-    'mod/tresipuntvimeo:view' => [
+    'mod/videoconnect:view' => [
         'captype' => 'read',
         'contextlevel' => CONTEXT_MODULE,
         'archetypes' => [

@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Display information about all the mod_tresipuntvimeo modules in the requested course.
+ * Display information about all the mod_videoconnect modules in the requested course.
  *
- * @package     mod_tresipuntvimeo
+ * @package     mod_videoconnect
  * @copyright   2021-2024 3ipunt {@link https://www.tresipunt.com}
  * @author     3IPUNT <contacte@tresipunt.com>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -33,6 +33,6 @@ $id = required_param('id', PARAM_INT);
 
 require_login($id);
 
-$PAGE->set_url('/mod/tresipuntvimeo/index.php', ['id' => $id]);
+$PAGE->set_url('/mod/videoconnect/index.php', ['id' => $id]);
 
 redirect("$CFG->wwwroot/course/view.php?id=$id");

@@ -17,26 +17,26 @@
 /**
  * Class upload_videos_task.
  *
- * @package     mod_tresipuntvimeo
+ * @package     mod_videoconnect
  * @copyright   2021-2024 3ipunt {@link https://www.tresipunt.com}
  * @author     3IPUNT <contacte@tresipunt.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace mod_tresipuntvimeo\tasks;
+namespace mod_videoconnect\tasks;
 
 use coding_exception;
 use core\task\scheduled_task;
 use dml_exception;
-use mod_tresipuntvimeo\uploads;
-use mod_tresipuntvimeo\vimeo;
+use mod_videoconnect\uploads;
+use mod_videoconnect\vimeo;
 use moodle_exception;
 use stdClass;
 
 /**
  * Class upload_videos_task
  *
- * @package     mod_tresipuntvimeo
+ * @package     mod_videoconnect
  * @copyright   2021-2024 3ipunt {@link https://www.tresipunt.com}
  * @author     3IPUNT <contacte@tresipunt.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -49,7 +49,7 @@ class upload_videos_task extends scheduled_task {
      * @throws coding_exception
      */
     public function get_name(): string {
-        return get_string('task_upload_videos', 'mod_tresipuntvimeo');
+        return get_string('task_upload_videos', 'mod_videoconnect');
     }
 
     /**
@@ -62,7 +62,7 @@ class upload_videos_task extends scheduled_task {
         mtrace("***** INICIO");
 
         $uploads = $DB->get_records(
-            'tresipuntvimeo_uploads',
+            'videoconnect_uploads',
             [ 'status' => uploads::STATUS_NOT_EXECUTED ],
             'timecreated DESC',
             '*'
@@ -73,7 +73,7 @@ class upload_videos_task extends scheduled_task {
         foreach ($uploads as $upload) {
             mtrace("- Instance: " . $upload->instance);
             try {
-                [$course, $cm] = get_course_and_cm_from_instance($upload->instance, 'tresipuntvimeo');
+                [$course, $cm] = get_course_and_cm_from_instance($upload->instance, 'videoconnect');
 
                 $filepath = $upload->filepath;
 
@@ -87,7 +87,7 @@ class upload_videos_task extends scheduled_task {
                 $dataobject = new stdClass();
                 $dataobject->id = $upload->id;
                 $dataobject->status = uploads::STATUS_UPLOADING;
-                $DB->update_record('tresipuntvimeo_uploads', $dataobject);
+                $DB->update_record('videoconnect_uploads', $dataobject);
                 mtrace("* Subiendo: " . $cm->name . " - Instance: " . $upload->instance);
 
                 $response = $vimeo->upload($filepath, $params);
@@ -100,9 +100,9 @@ class upload_videos_task extends scheduled_task {
                         $datamodule->id = $upload->instance;
                         $datamodule->idvideo = $idvideo;
                         $datamodule->timemodified = time();
-                        $DB->update_record('tresipuntvimeo', $datamodule);
+                        $DB->update_record('videoconnect', $datamodule);
                         // Add Whitelist.
-                        $domain = get_config('mod_tresipuntvimeo', 'whitelist');
+                        $domain = get_config('mod_videoconnect', 'whitelist');
                         $responsewl = $vimeo->add_domain_whitelist($idvideo, $domain);
                         mtrace("* Respuesta Whitelist: " . json_encode($responsewl));
                         if ($responsewl->success) {
@@ -113,7 +113,7 @@ class upload_videos_task extends scheduled_task {
                             $dataobject->status = uploads::STATUS_COMPLETED;
                             $dataobject->timeuploaded = time();
                             // Move to folder.
-                            $folderid = get_config('mod_tresipuntvimeo', 'folderid');
+                            $folderid = get_config('mod_videoconnect', 'folderid');
                             if (!empty($folderid)) {
                                 $responsefol = $vimeo->add_video_to_folder($idvideo, $folderid);
                                 mtrace("* Respuesta Folder: " . json_encode($responsefol));
@@ -126,7 +126,7 @@ class upload_videos_task extends scheduled_task {
                                     $dataobject->error_message = uploads::ERROR_MESSAGE[uploads::STATUS_UPLOADING_ERROR_FOLDER];
                                 }
                             }
-                            $DB->update_record('tresipuntvimeo_uploads', $dataobject);
+                            $DB->update_record('videoconnect_uploads', $dataobject);
                         } else {
                             $dataobject = new stdClass();
                             $dataobject->id = $upload->id;
@@ -136,7 +136,7 @@ class upload_videos_task extends scheduled_task {
                             $dataobject->status = uploads::STATUS_UPLOADING_ERROR_WHITELIST;
                             $dataobject->error_message = uploads::ERROR_MESSAGE[uploads::STATUS_UPLOADING_ERROR_WHITELIST];
                             $dataobject->timeuploaded = time();
-                            $DB->update_record('tresipuntvimeo_uploads', $dataobject);
+                            $DB->update_record('videoconnect_uploads', $dataobject);
                             mtrace("* Error al actualizar whitelist: " . $domain . " | Id video: " . $idvideo);
                         }
                         mtrace("* Subida OK: " . $cm->name);
@@ -146,7 +146,7 @@ class upload_videos_task extends scheduled_task {
                         $dataobject->status = uploads::STATUS_ERROR_UPLOADING;
                         $dataobject->error_message = uploads::ERROR_MESSAGE[uploads::STATUS_UPLOADING_VIDEOID_MISSING];
                         $dataobject->timeuploaded = time();
-                        $DB->update_record('tresipuntvimeo_uploads', $dataobject);
+                        $DB->update_record('videoconnect_uploads', $dataobject);
                         mtrace("* Subida ERROR - No se ha encontrado el ID Video: " . $response->data);
                     }
                 } else {
@@ -155,7 +155,7 @@ class upload_videos_task extends scheduled_task {
                     $dataobject->status = uploads::STATUS_ERROR_UPLOADING;
                     $dataobject->http_error_message = $response->error->message;
                     $dataobject->http_error_code = $response->error->code;
-                    $DB->update_record('tresipuntvimeo_uploads', $dataobject);
+                    $DB->update_record('videoconnect_uploads', $dataobject);
                     mtrace("* Subida ERROR: " . $cm->name);
                 }
                 rebuild_course_cache($course->id);
@@ -164,7 +164,7 @@ class upload_videos_task extends scheduled_task {
                 $dataobject->id = $upload->id;
                 $dataobject->status = uploads::STATUS_DELETED;
                 $dataobject->error_message = uploads::ERROR_MESSAGE[uploads::STATUS_DELETED];
-                $DB->update_record('tresipuntvimeo_uploads', $dataobject);
+                $DB->update_record('videoconnect_uploads', $dataobject);
                 mtrace("* Subida SIN EJECUTAR: El module ya no existe (" . $upload->instance . ")");
             }
 

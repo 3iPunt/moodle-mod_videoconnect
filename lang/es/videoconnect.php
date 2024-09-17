@@ -17,7 +17,7 @@
 /**
  * Plugin strings are defined here.
  *
- * @package     mod_tresipuntvimeo
+ * @package     mod_videoconnect
  * @category    string
  * @copyright   2021-2024 3ipunt {@link https://www.tresipunt.com}
  * @author     3IPUNT <contacte@tresipunt.com>
@@ -44,18 +44,18 @@ $string['idvideo_help'] = 'Ej: https://vimeo.com/<strong>536287845</strong>';
 $string['is_authenticated'] = 'Utiliza autenticación';
 $string['is_authenticated_desc'] = 'Seleccione esta opción si dispone de un personal access token';
 $string['missingidandcmid'] = 'No se encuentra el ID o el CMID en la URL';
-$string['modulename'] = 'Tresipunt Vimeo';
-$string['modulenameplural'] = 'Tresipunt Vimeos';
+$string['modulename'] = 'Video Connect';
+$string['modulenameplural'] = 'Video Connects';
 $string['not_executed'] = 'Este vídeo estará disponible para verlo dentro de poco';
-$string['pluginadministration'] = 'Tresipunt Vimeo Administración';
-$string['pluginname'] = 'Tresipunt Vimeo';
+$string['pluginadministration'] = 'Administración Video Connect';
+$string['pluginname'] = 'Video Connect';
 $string['scopes'] = 'Scopes';
 $string['scopes_desc'] = 'Alcances aceptados';
 $string['scopes_not_exist'] = 'No existen scopes configurados en el plugin';
 $string['selectvideo'] = 'Selecciona un vídeo';
 $string['task_upload_videos'] = 'Tarea para subir vídeos a Vimeo';
-$string['tresipuntvimeoname'] = 'Nombre del módulo';
-$string['tresipuntvimeoname_help'] = 'Seleccione un nombre para este recurso';
+$string['videoconnectname'] = 'Nombre del módulo';
+$string['videoconnectname_help'] = 'Seleccione un nombre para este recurso';
 $string['uploading'] = 'Este vídeo estará disponible para verlo dentro de poco';
 $string['vimeoheading'] = 'Vimeo API configuración';
 $string['vimeoheadingdesc'] = 'Rellene los siguientes campos con sus credenciales de Vimeo';

@@ -15,21 +15,22 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * The mod_tresipuntvimeo course module viewed event.
+ * The mod_videoconnect course module viewed event.
  *
- * @package     mod_tresipuntvimeo
+ * @package     mod_videoconnect
  * @copyright   2021-2024 3ipunt {@link https://www.tresipunt.com}
  * @author     3IPUNT <contacte@tresipunt.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace mod_tresipuntvimeo\event;
+namespace mod_videoconnect\event;
 
 /**
  * The mod_tresipuntaudio course module viewed event class.
  *
- * @package    mod_tresipuntvimeo
- * @copyright  2021 Tresipunt
+ * @package    mod_videoconnect
+ * @copyright   2021-2024 3ipunt {@link https://www.tresipunt.com}
+ * @author     3IPUNT <contacte@tresipunt.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class course_module_viewed extends \core\event\course_module_viewed {
@@ -39,7 +40,7 @@ class course_module_viewed extends \core\event\course_module_viewed {
      * @return void
      */
     protected function init() {
-        $this->data['objecttable'] = 'tresipuntvimeo';
+        $this->data['objecttable'] = 'videoconnect';
         $this->data['crud'] = 'r';
         $this->data['edulevel'] = self::LEVEL_PARTICIPATING;
     }
@@ -50,6 +51,6 @@ class course_module_viewed extends \core\event\course_module_viewed {
      * @return string[]
      */
     public static function get_objectid_mapping(): array {
-        return ['db' => 'tresipuntvimeo', 'restore' => 'tresipuntvimeo'];
+        return ['db' => 'videoconnect', 'restore' => 'videoconnect'];
     }
 }

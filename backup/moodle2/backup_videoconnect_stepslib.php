@@ -17,19 +17,19 @@
 /**
  * Backup Activity Structure Step.
  *
- * @package    mod_tresipuntvimeo
+ * @package    mod_videoconnect
  * @copyright  2024 Tresipunt
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 /**
- * Define all the backup steps that will be used by the backup_tresipuntvimeo_activity_task
+ * Define all the backup steps that will be used by the backup_videoconnect_activity_task
  */
 
 /**
- * Define the complete tresipuntvimeo structure for backup, with file and id annotations
+ * Define the complete videoconnect structure for backup, with file and id annotations
  */
-class backup_tresipuntvimeo_activity_structure_step extends backup_activity_structure_step {
+class backup_videoconnect_activity_structure_step extends backup_activity_structure_step {
     /**
      * Define Structure.
      *
@@ -43,23 +43,23 @@ class backup_tresipuntvimeo_activity_structure_step extends backup_activity_stru
         $userinfo = $this->get_setting_value('userinfo');
 
         // Define each element separated.
-        $tresipuntvimeo = new backup_nested_element('tresipuntvimeo', ['id'], [
+        $videoconnect = new backup_nested_element('videoconnect', ['id'], [
             'course', 'name', 'idvideo', 'intro', 'introformat', 'timecreated', 'timemodified']);
 
         // Build the tree.
         // (love this).
 
         // Define sources.
-        $tresipuntvimeo->set_source_table('tresipuntvimeo', ['id' => backup::VAR_ACTIVITYID]);
+        $videoconnect->set_source_table('videoconnect', ['id' => backup::VAR_ACTIVITYID]);
 
         // Define id annotations.
         // (none).
 
         // Define file annotations.
-        $tresipuntvimeo->annotate_files('mod_tresipuntvimeo', 'intro', null);
+        $videoconnect->annotate_files('mod_videoconnect', 'intro', null);
         // This file area hasn't itemid.
 
-        // Return the root element (tresipuntvimeo), wrapped into standard activity structure.
-        return $this->prepare_activity_structure($tresipuntvimeo);
+        // Return the root element (videoconnect), wrapped into standard activity structure.
+        return $this->prepare_activity_structure($videoconnect);
     }
 }

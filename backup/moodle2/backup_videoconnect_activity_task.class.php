@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Defines backup_tresipuntvimeo_activity_task class
+ * Defines backup_videoconnect_activity_task class
  *
- * @package    mod_tresipuntvimeo
+ * @package    mod_videoconnect
  * @copyright  2024 Tresipunt
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -26,12 +26,12 @@ defined('MOODLE_INTERNAL') || die;
 
 global $CFG;
 
-require_once($CFG->dirroot . '/mod/tresipuntvimeo/backup/moodle2/backup_tresipuntvimeo_stepslib.php');
+require_once($CFG->dirroot . '/mod/videoconnect/backup/moodle2/backup_videoconnect_stepslib.php');
 
 /**
- * Provides the steps to perform one complete backup of the TresipuntVimeo instance
+ * Provides the steps to perform one complete backup of the videoconnect instance
  */
-class backup_tresipuntvimeo_activity_task extends backup_activity_task {
+class backup_videoconnect_activity_task extends backup_activity_task {
     /**
      * No specific settings for this activity
      */
@@ -39,12 +39,12 @@ class backup_tresipuntvimeo_activity_task extends backup_activity_task {
     }
 
     /**
-     * Defines a backup step to store the instance data in the tresipuntvimeo.xml file
+     * Defines a backup step to store the instance data in the videoconnect.xml file
      */
     protected function define_my_steps() {
-        $this->add_step(new backup_tresipuntvimeo_activity_structure_step(
-            'tresipuntvimeo_structure',
-            'tresipuntvimeo.xml'
+        $this->add_step(new backup_videoconnect_activity_structure_step(
+            'videoconnect_structure',
+            'videoconnect.xml'
         ));
     }
 
