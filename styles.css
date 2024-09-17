@@ -2,6 +2,7 @@ div[data-region="mod_tresipuntvimeo"] .iframe_container {
     display: flex;
     align-content: center;
     justify-content: center;
+    border: none;
 }
 
 div[data-region="mod_tresipuntvimeo"] .intro {
@@ -40,3 +41,4 @@ div[data-region="mod_tresipuntvimeo"] .response .card-content .title {
 div[data-region="mod_tresipuntvimeo"] .response .card-content .description {
     font-size: 24px;
 }
+
