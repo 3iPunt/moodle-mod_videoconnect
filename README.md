@@ -1,6 +1,6 @@
 # Tresipunt Vimeo
 
-This module allows users to upload a video as a resource, which is then automatically uploaded to their Vimeo account through a scheduled task. 
+This module allows users to upload a video as a resource, which is then automatically uploaded to their Vimeo account through a scheduled task.
 
 If you already know the video ID, you can enter it directly. When rendering the video, if the upload process is still ongoing, Vimeo displays a message indicating that the video is being uploaded.
 
@@ -18,7 +18,7 @@ To use the plugin, you need a [Pro](https://vimeo.com/professionals), [Business]
 
 On Vimeo: [https://developer.vimeo.com/api/guides/start](https://developer.vimeo.com/api/guides/start)
 
-- App created: 
+- App created:
     - Client ID: YOUR\_VIMEO\_CLIENT
     - Client Secret: YOUR\_VIMEO\_SECRET
     - Personal Access Token: YOUR\_VIMEO\_ACCESS\_TOKEN
@@ -31,7 +31,7 @@ These credentials will be used to configure the Moodle plugin:
 [https://YOUR_MOODLE_SITE/admin/settings.php?section=modsettingtresipuntvimeo](https://YOUR_MOODLE_SITE/admin/settings.php?section=modsettingtresipuntvimeo)
 
 
-![Vimeo Settings](img/vimeo_admin_config.png)
+![Vimeo Settings](https://raw.githubusercontent.com/3iPunt/moodle-mod_tresipuntvimeo/master/img/vimeo_admin_config.png)
 
 ⚠️ *If not configured, or if the folder is incorrect, the video will always be uploaded to the root of Vimeo. The user will still be able to view the video without issues, and the Vimeo admin can fix the error without affecting Moodle visibility.*
 
@@ -41,38 +41,36 @@ These credentials will be used to configure the Moodle plugin:
 Upload the video. The admin should configure the folder id, if not all videos will be on root folder.
 
 1. **Add Video to Vimeo from the plugin:**
-   ![Upload video to vimeo](img/vimeo_add_resource.png)
+   ![Upload video to vimeo](https://raw.githubusercontent.com/3iPunt/moodle-mod_tresipuntvimeo/master/img/vimeo_add_resource.png)
 
 2. **A screen will show that the video is unavailable.**  
    Wait for the scheduled task to make it visible, or grant permission on Vimeo if the automation fails.
 
 3. **Access Vimeo and grant the corresponding permissions:**
-    - Click on Share ![Click on Share](img/share_vimeo.png) 
-    - Hide from Vimeo ![Hide from Vimeo](img/hide_vimeo.png)
-    - Add domain ![Check domain](img/specific_domain.png)
+    - Click on Share ![Click on Share](https://raw.githubusercontent.com/3iPunt/moodle-mod_tresipuntvimeo/master/img/share_vimeo.png)
+    - Hide from Vimeo ![Hide from Vimeo](https://raw.githubusercontent.com/3iPunt/moodle-mod_tresipuntvimeo/master/img/hide_vimeo.png)
+    - Add domain ![Check domain](https://raw.githubusercontent.com/3iPunt/moodle-mod_tresipuntvimeo/master/img/specific_domain.png)
 
-
-
-5. **The video will now be visible in your course.**  
+4. **The video will now be visible in your course.**
 
 ### Adding Video Activity to a Course – Embed Video
 
 With the same activity module, it is possible to embed a video using the video ID, which is more secure than using an iframe.
 
 1. **Add a resource in a topic:**  
-   ![Upload video to vimeo](img/vimeo_add_resource.png)
+   ![Upload video to vimeo](https://raw.githubusercontent.com/3iPunt/moodle-mod_tresipuntvimeo/master/img/vimeo_add_resource.png)
 
 2. **Configure:**  
    Enter the video ID, which can be found on Vimeo:  
-   ![Enter Video Id](img/add_existing_vimeo_video.png)
+   ![Enter Video Id](https://raw.githubusercontent.com/3iPunt/moodle-mod_tresipuntvimeo/master/img/add_existing_vimeo_video.png)
 
-   ![Paste it](img/setting_add_vimeo_video.png)
+   ![Paste it](https://raw.githubusercontent.com/3iPunt/moodle-mod_tresipuntvimeo/master/img/setting_add_vimeo_video.png)
 
-   
-3. **Ensure the video has the correct permissions on Vimeo:**  
-    - Click on Share ![Click on Share](img/share_vimeo.png)
-    - Hide from Vimeo ![Hide from Vimeo](img/hide_vimeo.png)
-    - Add domain ![Check domain](img/specific_domain.png)
+
+3. **Ensure the video has the correct permissions on Vimeo:**
+    - Click on Share ![Click on Share](https://raw.githubusercontent.com/3iPunt/moodle-mod_tresipuntvimeo/master/img/share_vimeo.png)
+    - Hide from Vimeo ![Hide from Vimeo](https://raw.githubusercontent.com/3iPunt/moodle-mod_tresipuntvimeo/master/img/hide_vimeo.png)
+    - Add domain ![Check domain](https://raw.githubusercontent.com/3iPunt/moodle-mod_tresipuntvimeo/master/img/specific_domain.png)
 
 ## Credits
 <img src="https://tresipunt.com/wp-content/uploads/2022/08/logo3ip.svg" height="120px" />
