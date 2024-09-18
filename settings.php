@@ -25,7 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-global $ADMIN;
+global $ADMIN, $CFG;
 
 if ($ADMIN->fulltree) {
     $settings->add(new admin_setting_heading(
@@ -94,7 +94,7 @@ if ($ADMIN->fulltree) {
         'mod_videoconnect/whitelist',
         get_string('whitelist', 'mod_videoconnect'),
         get_string('whitelist_desc', 'mod_videoconnect'),
-        ''
+        parse_url($CFG->wwwroot, PHP_URL_HOST)
     ));
 
     $settings->add(new admin_setting_configtext(
