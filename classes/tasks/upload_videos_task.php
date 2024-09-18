@@ -59,7 +59,7 @@ class upload_videos_task extends scheduled_task {
      */
     public function execute(): void {
         global $DB, $CFG;
-        mtrace("***** INICIO");
+        mtrace("***** STARTING PROCESS");
 
         $uploads = $DB->get_records(
             'videoconnect_uploads',
@@ -68,7 +68,7 @@ class upload_videos_task extends scheduled_task {
             '*'
         );
 
-        mtrace("Subir videos: " . count($uploads));
+        mtrace("Uploading videos: " . count($uploads));
         $vimeo = new vimeo();
         foreach ($uploads as $upload) {
             mtrace("- Instance: " . $upload->instance);
@@ -88,10 +88,10 @@ class upload_videos_task extends scheduled_task {
                 $dataobject->id = $upload->id;
                 $dataobject->status = uploads::STATUS_UPLOADING;
                 $DB->update_record('videoconnect_uploads', $dataobject);
-                mtrace("* Subiendo: " . $cm->name . " - Instance: " . $upload->instance);
+                mtrace("* Uploading: " . $cm->name . " - Instance: " . $upload->instance);
 
                 $response = $vimeo->upload($filepath, $params);
-                mtrace("* Respuesta: " . json_encode($response));
+                mtrace("* Response: " . json_encode($response));
 
                 if ($response->success) {
                     $idvideo = $this->get_idvideo_from_url($response->data);
@@ -104,9 +104,9 @@ class upload_videos_task extends scheduled_task {
                         // Add Whitelist.
                         $domain = get_config('mod_videoconnect', 'whitelist');
                         $responsewl = $vimeo->add_domain_whitelist($idvideo, $domain);
-                        mtrace("* Respuesta Whitelist: " . json_encode($responsewl));
+                        mtrace("* Response Whitelist: " . json_encode($responsewl));
                         if ($responsewl->success) {
-                            mtrace("* Actualizada whitelist: " . $domain . " | Id video: " . $idvideo);
+                            mtrace("* Updated whitelist: " . $domain . " | Id video: " . $idvideo);
                             $dataobject = new stdClass();
                             $dataobject->id = $upload->id;
                             $dataobject->http_response = $response->data;
@@ -116,11 +116,11 @@ class upload_videos_task extends scheduled_task {
                             $folderid = get_config('mod_videoconnect', 'folderid');
                             if (!empty($folderid)) {
                                 $responsefol = $vimeo->add_video_to_folder($idvideo, $folderid);
-                                mtrace("* Respuesta Folder: " . json_encode($responsefol));
+                                mtrace("* Response Folder: " . json_encode($responsefol));
                                 if ($responsefol->success) {
-                                    mtrace("* Movido a carpeta: " . $folderid . " | Id video: " . $idvideo);
+                                    mtrace("* Moved to folder: " . $folderid . " | Id video: " . $idvideo);
                                 } else {
-                                    mtrace("* Error al mover a carpeta: " . $folderid . " | Id video: " . $idvideo);
+                                    mtrace("* Error moving to folder: " . $folderid . " | Id video: " . $idvideo);
                                     $dataobject->http_error_message = $responsefol->error->message;
                                     $dataobject->http_error_code = $responsefol->error->code;
                                     $dataobject->error_message = uploads::ERROR_MESSAGE[uploads::STATUS_UPLOADING_ERROR_FOLDER];
@@ -137,9 +137,9 @@ class upload_videos_task extends scheduled_task {
                             $dataobject->error_message = uploads::ERROR_MESSAGE[uploads::STATUS_UPLOADING_ERROR_WHITELIST];
                             $dataobject->timeuploaded = time();
                             $DB->update_record('videoconnect_uploads', $dataobject);
-                            mtrace("* Error al actualizar whitelist: " . $domain . " | Id video: " . $idvideo);
+                            mtrace("* Error updating whitelist: " . $domain . " | Id video: " . $idvideo);
                         }
-                        mtrace("* Subida OK: " . $cm->name);
+                        mtrace("* Upload OK: " . $cm->name);
                     } else {
                         $dataobject = new stdClass();
                         $dataobject->id = $upload->id;
@@ -147,7 +147,7 @@ class upload_videos_task extends scheduled_task {
                         $dataobject->error_message = uploads::ERROR_MESSAGE[uploads::STATUS_UPLOADING_VIDEOID_MISSING];
                         $dataobject->timeuploaded = time();
                         $DB->update_record('videoconnect_uploads', $dataobject);
-                        mtrace("* Subida ERROR - No se ha encontrado el ID Video: " . $response->data);
+                        mtrace("* Upload ERROR - Can't find the Video Id: " . $response->data);
                     }
                 } else {
                     $dataobject = new stdClass();
@@ -156,7 +156,7 @@ class upload_videos_task extends scheduled_task {
                     $dataobject->http_error_message = $response->error->message;
                     $dataobject->http_error_code = $response->error->code;
                     $DB->update_record('videoconnect_uploads', $dataobject);
-                    mtrace("* Subida ERROR: " . $cm->name);
+                    mtrace("* Upload ERROR: " . $cm->name);
                 }
                 rebuild_course_cache($course->id);
             } catch (moodle_exception $e) {
@@ -165,7 +165,7 @@ class upload_videos_task extends scheduled_task {
                 $dataobject->status = uploads::STATUS_DELETED;
                 $dataobject->error_message = uploads::ERROR_MESSAGE[uploads::STATUS_DELETED];
                 $DB->update_record('videoconnect_uploads', $dataobject);
-                mtrace("* Subida SIN EJECUTAR: El module ya no existe (" . $upload->instance . ")");
+                mtrace("* UPLOAD NOT EXECUTE: El module not exists anymore (" . $upload->instance . ")");
             }
 
             mtrace("-");
