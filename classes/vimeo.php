@@ -196,7 +196,7 @@ class vimeo {
                 return new response(
                     false,
                     '',
-                    new erroerrorr(4002, $result['error'])
+                    new error(4002, $result['error'])
                 );
             } else {
                 return new response(true, '', new error(0, ''));
