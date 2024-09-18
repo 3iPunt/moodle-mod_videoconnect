@@ -138,13 +138,13 @@ class vimeo {
         } catch (VimeoRequestException $e) {
             return new response(
                 false,
-                null,
+                '',
                 new error(3001, $e->getMessage())
             );
         } catch (VimeoUploadException $e) {
             return new response(
                 false,
-                null,
+                '',
                 new error(3000, $e->getMessage())
             );
         }
@@ -195,8 +195,8 @@ class vimeo {
             if ($result['error']) {
                 return new response(
                     false,
-                    null,
-                    new error(4002, $result['error'])
+                    '',
+                    new erroerrorr(4002, $result['error'])
                 );
             } else {
                 return new response(true, '', new error(0, ''));
@@ -204,7 +204,7 @@ class vimeo {
         } catch (\Exception $e) {
             return new response(
                 false,
-                null,
+                '',
                 new error(4001, $e->getMessage())
             );
         }
