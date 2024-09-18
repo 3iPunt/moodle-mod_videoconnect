@@ -61,4 +61,4 @@ $string['vimeoheading'] = 'Vimeo API configuración';
 $string['vimeoheadingdesc'] = 'Rellene los siguientes campos con sus credenciales de Vimeo';
 $string['we_are_sorry'] = 'Lo sentimos';
 $string['whitelist'] = 'Dominio Whitelist';
-$string['whitelist_desc'] = "Dominio que queremos incluir a la lista blanca de privacidad. No incluir protocolo 'http://' or 'https://'. Ej: implika.test";
+$string['whitelist_desc'] = "Dominio que queremos incluir a la lista blanca de privacidad. No incluir protocolo 'http://' or 'https://'. Ej: yoursite.test";
