@@ -17,7 +17,7 @@
 /**
  * Restore Activity Task.
  *
- * @package    mod_tresipuntvimeo
+ * @package    mod_videoconnect
  * @copyright  2024 Tresipunt
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -26,12 +26,12 @@ defined('MOODLE_INTERNAL') || die();
 
 global $CFG;
 
-require_once($CFG->dirroot . '/mod/tresipuntvimeo/backup/moodle2/restore_tresipuntvimeo_stepslib.php');
+require_once($CFG->dirroot . '/mod/videoconnect/backup/moodle2/restore_videoconnect_stepslib.php');
 
 /**
- * TresipuntVimeo restore task that provides all the settings and steps to perform one complete restore of the activity
+ * videoconnect restore task that provides all the settings and steps to perform one complete restore of the activity
  */
-class restore_tresipuntvimeo_activity_task extends restore_activity_task {
+class restore_videoconnect_activity_task extends restore_activity_task {
     /**
      * Define (add) particular settings this activity can have
      */
@@ -43,9 +43,9 @@ class restore_tresipuntvimeo_activity_task extends restore_activity_task {
      * Define (add) particular steps this activity can have
      */
     protected function define_my_steps() {
-        $this->add_step(new restore_tresipuntvimeo_activity_structure_step(
-            'tresipuntvimeo_structure',
-            'tresipuntvimeo.xml'
+        $this->add_step(new restore_videoconnect_activity_structure_step(
+            'videoconnect_structure',
+            'videoconnect.xml'
         ));
     }
 
@@ -68,28 +68,28 @@ class restore_tresipuntvimeo_activity_task extends restore_activity_task {
     /**
      * Define the restore log rules that will be applied
      * by the {@see restore_logs_processor} when restoring
-     * tresipuntvimeo logs. It must return one array
+     * videoconnect logs. It must return one array
      * of {@see restore_log_rule} objects
      */
     public static function define_restore_log_rules() {
         $rules = [];
         $rules[] = new restore_log_rule(
-            'tresipuntvimeo',
+            'videoconnect',
             'add',
             'view.php?id={course_module}',
-            '{tresipuntvimeo}'
+            '{videoconnect}'
         );
         $rules[] = new restore_log_rule(
-            'tresipuntvimeo',
+            'videoconnect',
             'update',
             'view.php?id={course_module}',
-            '{tresipuntvimeo}'
+            '{videoconnect}'
         );
         $rules[] = new restore_log_rule(
-            'tresipuntvimeo',
+            'videoconnect',
             'view',
             'view.php?id={course_module}',
-            '{tresipuntvimeo}'
+            '{videoconnect}'
         );
         return $rules;
     }
@@ -107,7 +107,7 @@ class restore_tresipuntvimeo_activity_task extends restore_activity_task {
     public static function define_restore_log_rules_for_course() {
         $rules = [];
         $rules[] = new restore_log_rule(
-            'tresipuntvimeo',
+            'videoconnect',
             'view all',
             'index.php?id={course}',
             null

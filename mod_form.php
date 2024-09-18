@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * The main mod_tresipuntvimeo configuration form.
+ * The main mod_videoconnect configuration form.
  *
- * @package     mod_tresipuntvimeo
+ * @package     mod_videoconnect
  * @copyright   2021-2024 3ipunt {@link https://www.tresipunt.com}
  * @author     3IPUNT <contacte@tresipunt.com>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -30,11 +30,12 @@ require_once($CFG->dirroot . '/course/moodleform_mod.php');
 /**
  * Module instance settings form.
  *
- * @package    mod_tresipuntvimeo
- * @copyright  2021 Tresipunt
+ * @package    mod_videoconnect
+ * @copyright   2021-2024 3ipunt {@link https://www.tresipunt.com}
+ * @author     3IPUNT <contacte@tresipunt.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class mod_tresipuntvimeo_mod_form extends moodleform_mod {
+class mod_videoconnect_mod_form extends moodleform_mod {
     /**
      * Defines forms elements
      * @throws coding_exception
@@ -51,7 +52,7 @@ class mod_tresipuntvimeo_mod_form extends moodleform_mod {
         $mform->addElement(
             'text',
             'name',
-            get_string('tresipuntvimeoname', 'mod_tresipuntvimeo'),
+            get_string('videoconnectname', 'mod_videoconnect'),
             ['size' => '64']
         );
 
@@ -69,7 +70,7 @@ class mod_tresipuntvimeo_mod_form extends moodleform_mod {
             255,
             'client'
         );
-        $mform->addHelpButton('name', 'tresipuntvimeoname', 'mod_tresipuntvimeo');
+        $mform->addHelpButton('name', 'videoconnectname', 'mod_videoconnect');
 
         // Adding the standard "intro" and "introformat" fields.
         if ($CFG->branch >= 29) {
@@ -81,7 +82,7 @@ class mod_tresipuntvimeo_mod_form extends moodleform_mod {
         $mform->addElement(
             'text',
             'idvideo',
-            get_string('idvideo', 'mod_tresipuntvimeo')
+            get_string('idvideo', 'mod_videoconnect')
         );
 
         $mform->addRule(
@@ -93,7 +94,7 @@ class mod_tresipuntvimeo_mod_form extends moodleform_mod {
         );
 
         $mform->setType('idvideo', PARAM_INT);
-        $mform->addHelpButton('idvideo', 'idvideo', 'mod_tresipuntvimeo');
+        $mform->addHelpButton('idvideo', 'idvideo', 'mod_videoconnect');
 
         $filemanageroptions['accepted_types'] = ['.mp4', '.mov', '.wmv', '.avi', '.flv'];
         $filemanageroptions['maxbytes'] = 0;
@@ -103,7 +104,7 @@ class mod_tresipuntvimeo_mod_form extends moodleform_mod {
         $mform->addElement(
             'filepicker',
             'filevimeo',
-            get_string('selectvideo', 'mod_tresipuntvimeo'),
+            get_string('selectvideo', 'mod_videoconnect'),
             null,
             $filemanageroptions
         );

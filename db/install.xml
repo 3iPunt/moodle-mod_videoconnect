@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="mod/tresipuntvimeo/db" VERSION="20210413" COMMENT="XMLDB file for Moodle mod_tresipuntvimeo"
+<XMLDB PATH="mod/videoconnect/db" VERSION="20210413" COMMENT="XMLDB file for Moodle mod_videoconnect"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
 >
   <TABLES>
-    <TABLE NAME="tresipuntvimeo" COMMENT="Stores the tresipuntvimeo activity module instances.">
+    <TABLE NAME="videoconnect" COMMENT="Stores the videoconnect activity module instances.">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="ID of the course this activity is part of."/>
@@ -20,7 +20,7 @@
         <KEY NAME="fk_course" TYPE="foreign" FIELDS="course" REFTABLE="course" REFFIELDS="id"/>
       </KEYS>
     </TABLE>
-    <TABLE NAME="tresipuntvimeo_uploads" COMMENT="Uploads executed from cron schedule.">
+    <TABLE NAME="videoconnect_uploads" COMMENT="Uploads executed from cron schedule.">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="instance" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Course Module Instance"/>
@@ -37,7 +37,7 @@
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
-        <KEY NAME="fk_instance" TYPE="foreign" FIELDS="instance" REFTABLE="tresipuntvimeo" REFFIELDS="id"/>
+        <KEY NAME="fk_instance" TYPE="foreign" FIELDS="instance" REFTABLE="videoconnect" REFFIELDS="id"/>
       </KEYS>
     </TABLE>
   </TABLES>

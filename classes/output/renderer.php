@@ -15,23 +15,25 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Mod Tresipunt Vimeo Renderer.
+ * Mod Video Connect Renderer.
  *
- * @package    mod_tresipuntvimeo
- * @copyright  2021 Tresipunt
+ * @package    mod_videoconnect
+ * @copyright   2021-2024 3ipunt {@link https://www.tresipunt.com}
+ * @author     3IPUNT <contacte@tresipunt.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace mod_tresipuntvimeo\output;
+namespace mod_videoconnect\output;
 
 use moodle_exception;
 use plugin_renderer_base;
 
 /**
- * Module Tresipunt Vimeo Renderer.
+ * Module Video Connect Renderer.
  *
- * @package    mod_tresipuntvimeo
- * @copyright  2021 Tresipunt
+ * @package    mod_videoconnect
+ * @copyright   2021-2024 3ipunt {@link https://www.tresipunt.com}
+ * @author     3IPUNT <contacte@tresipunt.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class renderer extends plugin_renderer_base {
@@ -44,6 +46,6 @@ class renderer extends plugin_renderer_base {
      */
     public function render_maincontent_form(view_page $viewpage) {
         $data = $viewpage->export_for_template($this);
-        return parent::render_from_template('mod_tresipuntvimeo/view_page', $data);
+        return parent::render_from_template('mod_videoconnect/view_page', $data);
     }
 }

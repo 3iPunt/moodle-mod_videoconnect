@@ -17,7 +17,7 @@
 /**
  * Code that is executed before the tables and data are dropped during the plugin uninstallation.
  *
- * @package     mod_tresipuntvimeo
+ * @package     mod_videoconnect
  * @category    upgrade
  * @copyright   2021-2024 3ipunt {@link https://www.tresipunt.com}
  * @author     3IPUNT <contacte@tresipunt.com>
@@ -27,6 +27,6 @@
 /**
  * Custom uninstallation procedure.
  */
-function xmldb_tresipuntvimeo_uninstall() {
+function xmldb_videoconnect_uninstall() {
     return true;
 }

@@ -15,18 +15,19 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Block Tresipunt Support renderable
+ * Block Video Connect Support renderable
  *
- * @package    mod_tresipuntvimeo
- * @copyright  2021 Tresipunt
+ * @package    mod_videoconnect
+ * @copyright   2021-2024 3ipunt {@link https://www.tresipunt.com}
+ * @author     3IPUNT <contacte@tresipunt.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace mod_tresipuntvimeo\output;
+namespace mod_videoconnect\output;
 
 use coding_exception;
 use dml_exception;
-use mod_tresipuntvimeo\uploads;
+use mod_videoconnect\uploads;
 use renderable;
 use renderer_base;
 use stdClass;
@@ -36,8 +37,9 @@ use templatable;
 /**
  * Main_content renderable class.
  *
- * @package    mod_tresipuntvimeo
- * @copyright  2021 Tresipunt
+ * @package    mod_videoconnect
+ * @copyright   2021-2024 3ipunt {@link https://www.tresipunt.com}
+ * @author     3IPUNT <contacte@tresipunt.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class view_page implements renderable, templatable {
@@ -71,9 +73,9 @@ class view_page implements renderable, templatable {
      */
     public function export_for_template(renderer_base $output): stdClass {
         global $DB;
-        $vimeomodule = $DB->get_record('tresipuntvimeo', ['id' => $this->cm->instance]);
+        $vimeomodule = $DB->get_record('videoconnect', ['id' => $this->cm->instance]);
         $vimeoupload = $DB->get_records(
-            'tresipuntvimeo_uploads',
+            'videoconnect_uploads',
             ['instance' => $this->cm->instance],
             'timecreated DESC',
             '*',
@@ -97,7 +99,7 @@ class view_page implements renderable, templatable {
                 $vimeoupload = current($vimeoupload);
                 $data->status = get_string(
                     uploads::ERROR_MESSAGE[$vimeoupload->status],
-                    'mod_tresipuntvimeo'
+                    'mod_videoconnect'
                 );
                 $data->http_error_message = $vimeoupload->http_error_message;
             }

@@ -17,7 +17,7 @@
 /**
  * Restore Activity Structure Step.
  *
- * @package    mod_tresipuntvimeo
+ * @package    mod_videoconnect
  * @copyright  2024 Tresipunt
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -27,9 +27,9 @@
  */
 
 /**
- * Structure step to restore one tresipuntvimeo activity
+ * Structure step to restore one videoconnect activity
  */
-class restore_tresipuntvimeo_activity_structure_step extends restore_activity_structure_step {
+class restore_videoconnect_activity_structure_step extends restore_activity_structure_step {
     /**
      * Define Structure.
      *
@@ -37,23 +37,23 @@ class restore_tresipuntvimeo_activity_structure_step extends restore_activity_st
      */
     protected function define_structure() {
         $paths = [];
-        $paths[] = new restore_path_element('tresipuntvimeo', '/activity/tresipuntvimeo');
+        $paths[] = new restore_path_element('videoconnect', '/activity/videoconnect');
         return $this->prepare_activity_structure($paths);
     }
 
     /**
-     * Process TresipuntVimeo.
+     * Process videoconnect.
      *
      * @param array $data
      * @throws base_step_exception
      * @throws dml_exception
      */
-    protected function process_tresipuntvimeo($data) {
+    protected function process_videoconnect($data) {
         global $DB;
         $data = (object)$data;
         $oldid = $data->id;
         $data->course = $this->get_courseid();
-        $newitemid = $DB->insert_record('tresipuntvimeo', $data);
+        $newitemid = $DB->insert_record('videoconnect', $data);
         $this->apply_activity_instance($newitemid);
     }
 
@@ -61,6 +61,6 @@ class restore_tresipuntvimeo_activity_structure_step extends restore_activity_st
      * After Execute.
      */
     protected function after_execute() {
-        $this->add_related_files('mod_tresipuntvimeo', 'intro', null);
+        $this->add_related_files('mod_videoconnect', 'intro', null);
     }
 }

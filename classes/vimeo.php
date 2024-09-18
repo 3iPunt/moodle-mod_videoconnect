@@ -17,12 +17,13 @@
 /**
  * Class Vimeo
  *
- * @package    mod_tresipuntvimeo
- * @copyright  2021 Tresipunt
+ * @package    mod_videoconnect
+ * @copyright   2021-2024 3ipunt {@link https://www.tresipunt.com}
+ * @author     3IPUNT <contacte@tresipunt.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace mod_tresipuntvimeo;
+namespace mod_videoconnect;
 
 use curl;
 use dml_exception;
@@ -35,13 +36,14 @@ defined('MOODLE_INTERNAL') || die();
 
 global $CFG;
 require_once($CFG->dirroot . '/lib/filelib.php');
-require_once($CFG->dirroot . '/mod/tresipuntvimeo/.extlib/vendor/autoload.php');
+require_once($CFG->dirroot . '/mod/videoconnect/.extlib/vendor/autoload.php');
 
 /**
  * Class Vimeo
  *
- * @package    mod_tresipuntvimeo
- * @copyright  2021 Tresipunt
+ * @package    mod_videoconnect
+ * @copyright   2021-2024 3ipunt {@link https://www.tresipunt.com}
+ * @author     3IPUNT <contacte@tresipunt.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class vimeo {
@@ -73,10 +75,10 @@ class vimeo {
      * @throws moodle_exception
      */
     public function __construct() {
-        $this->client_id = get_config('mod_tresipuntvimeo', 'client_id');
-        $this->client_secret = get_config('mod_tresipuntvimeo', 'client_secret');
-        $this->is_authenticated = get_config('mod_tresipuntvimeo', 'is_authenticated');
-        $this->is_authenticated = get_config('mod_tresipuntvimeo', 'is_authenticated');
+        $this->client_id = get_config('mod_videoconnect', 'client_id');
+        $this->client_secret = get_config('mod_videoconnect', 'client_secret');
+        $this->is_authenticated = get_config('mod_videoconnect', 'is_authenticated');
+        $this->is_authenticated = get_config('mod_videoconnect', 'is_authenticated');
         $this->set_scopes();
         $this->init_vimeo();
     }
@@ -88,13 +90,13 @@ class vimeo {
      * @throws moodle_exception
      */
     protected function set_scopes() {
-        $scopes = get_config('mod_tresipuntvimeo', 'scopes');
+        $scopes = get_config('mod_videoconnect', 'scopes');
         if (!empty($scopes)) {
             $this->scopes = explode(',', $scopes);
         } else {
-            $moodleurl = new moodle_url('/admin/settings.php?section=modsettingtresipuntvimeo');
+            $moodleurl = new moodle_url('/admin/settings.php?section=modsettingvideoconnect');
             throw new moodle_exception(
-                get_string('scopes_not_exist', 'mod_tresipuntvimeo') .
+                get_string('scopes_not_exist', 'mod_videoconnect') .
                 '. ' . $moodleurl->out(false)
             );
         }
@@ -108,7 +110,7 @@ class vimeo {
      */
     protected function init_vimeo() {
         if ($this->is_authenticated) {
-            $this->access_token = get_config('mod_tresipuntvimeo', 'access_token');
+            $this->access_token = get_config('mod_videoconnect', 'access_token');
             $this->vimeo = new \Vimeo\Vimeo($this->client_id, $this->client_secret, $this->access_token);
         } else {
             $this->vimeo = new \Vimeo\Vimeo($this->client_id, $this->client_secret);
@@ -136,13 +138,13 @@ class vimeo {
         } catch (VimeoRequestException $e) {
             return new response(
                 false,
-                null,
+                '',
                 new error(3001, $e->getMessage())
             );
         } catch (VimeoUploadException $e) {
             return new response(
                 false,
-                null,
+                '',
                 new error(3000, $e->getMessage())
             );
         }
@@ -193,7 +195,7 @@ class vimeo {
             if ($result['error']) {
                 return new response(
                     false,
-                    null,
+                    '',
                     new error(4002, $result['error'])
                 );
             } else {
@@ -202,7 +204,7 @@ class vimeo {
         } catch (\Exception $e) {
             return new response(
                 false,
-                null,
+                '',
                 new error(4001, $e->getMessage())
             );
         }

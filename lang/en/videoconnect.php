@@ -17,7 +17,7 @@
 /**
  * Plugin strings are defined here.
  *
- * @package     mod_tresipuntvimeo
+ * @package     mod_videoconnect
  * @category    string
  * @copyright   2021-2024 3ipunt {@link https://www.tresipunt.com}
  * @author     3IPUNT <contacte@tresipunt.com>
@@ -44,21 +44,21 @@ $string['idvideo_help'] = 'Ex: https://vimeo.com/<strong>536287845</strong>';
 $string['is_authenticated'] = 'Is authenticated?';
 $string['is_authenticated_desc'] = 'Select this option if you have a personal access token';
 $string['missingidandcmid'] = 'Missing ID and CMID in URL';
-$string['modulename'] = 'Tresipunt Vimeo';
-$string['modulenameplural'] = 'Tresipunt Vimeos';
+$string['modulename'] = 'Video Connect';
+$string['modulenameplural'] = 'Video Connects';
 $string['not_executed'] = 'This video will be available for viewing shortly';
-$string['pluginadministration'] = 'Tresipunt Vimeo Administration';
-$string['pluginname'] = 'Tresipunt Vimeo';
+$string['pluginadministration'] = 'Video Connect Administration';
+$string['pluginname'] = 'Video Connect';
 $string['scopes'] = 'Scopes';
 $string['scopes_desc'] = 'Scopes accepted';
 $string['scopes_not_exist'] = 'There are no scopes configured in the plugin';
 $string['selectvideo'] = 'Select a video';
 $string['task_upload_videos'] = 'Task to upload videos to Vimeo';
-$string['tresipuntvimeoname'] = 'Name';
-$string['tresipuntvimeoname_help'] = 'Select a name for this resource';
 $string['uploading'] = 'This video will be available for viewing shortly';
+$string['videoconnectname'] = 'Name';
+$string['videoconnectname_help'] = 'Select a name for this resource';
 $string['vimeoheading'] = 'Vimeo API configuration';
 $string['vimeoheadingdesc'] = 'Fill in the following fields with your Vimeo credentials';
 $string['we_are_sorry'] = 'We are sorry';
 $string['whitelist'] = 'Whitelist domain';
-$string['whitelist_desc'] = "Domain to include in the privacy whitelist. Don't include protocol 'http://' or 'https://'. Ex: implika.test";
+$string['whitelist_desc'] = "Domain to include in the privacy whitelist. Don't include protocol 'http://' or 'https://'. Ex: yoursite.test";

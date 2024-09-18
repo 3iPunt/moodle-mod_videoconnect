@@ -17,22 +17,24 @@
 /**
  * Uploads
  *
- * @package    mod_tresipuntvimeo
- * @copyright  2021 Tresipunt
+ * @package    mod_videoconnect
+ * @copyright   2021-2024 3ipunt {@link https://www.tresipunt.com}
+ * @author     3IPUNT <contacte@tresipunt.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace mod_tresipuntvimeo;
+namespace mod_videoconnect;
 
 use dml_exception;
-use mod_tresipuntvimeo_mod_form;
+use mod_videoconnect_mod_form;
 use stdClass;
 
 /**
  * Uploads
  *
- * @package    mod_tresipuntvimeo
- * @copyright  2021 Tresipunt
+ * @package    mod_videoconnect
+ * @copyright   2021-2024 3ipunt {@link https://www.tresipunt.com}
+ * @author     3IPUNT <contacte@tresipunt.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class uploads {
@@ -87,11 +89,11 @@ class uploads {
      * Update.
      *
      * @param object $moduleinstance
-     * @param mod_tresipuntvimeo_mod_form $mform
+     * @param mod_videoconnect_mod_form $mform
      * @return object
      * @throws dml_exception
      */
-    public static function update(object $moduleinstance, mod_tresipuntvimeo_mod_form $mform): object {
+    public static function update(object $moduleinstance, mod_videoconnect_mod_form $mform): object {
         global $DB;
 
         if ($mform->get_data()) {
@@ -99,7 +101,7 @@ class uploads {
 
             if (!empty($filepath)) {
                 $olds = $DB->get_records(
-                    'tresipuntvimeo_uploads',
+                    'videoconnect_uploads',
                     ['instance' => $moduleinstance->instance, 'status' => self::STATUS_NOT_EXECUTED]
                 );
 
@@ -107,7 +109,7 @@ class uploads {
                     $oldobject = new stdClass();
                     $oldobject->id = $old->id;
                     $oldobject->status = self::STATUS_DISCARDED;
-                    $DB->update_record('tresipuntvimeo_uploads', $oldobject);
+                    $DB->update_record('videoconnect_uploads', $oldobject);
                 }
 
                 $moduleinstance->idvideo = '';
@@ -117,7 +119,7 @@ class uploads {
                 $dataobject->filepath = $filepath;
                 $dataobject->status = self::STATUS_NOT_EXECUTED;
                 $dataobject->timecreated = time();
-                $DB->insert_record('tresipuntvimeo_uploads', $dataobject);
+                $DB->insert_record('videoconnect_uploads', $dataobject);
             } else {
                 $dataobject = new stdClass();
                 $dataobject->instance = $moduleinstance->instance;
@@ -125,7 +127,7 @@ class uploads {
                 $dataobject->error_message = self::ERROR_MESSAGE[0];
                 $dataobject->error_code = self::CODE_NOT_FILEPATH;
                 $dataobject->timecreated = time();
-                $DB->insert_record('tresipuntvimeo_uploads', $dataobject);
+                $DB->insert_record('videoconnect_uploads', $dataobject);
             }
         }
 

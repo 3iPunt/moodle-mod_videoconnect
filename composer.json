@@ -1,5 +1,5 @@
 {
-    "name": "tresipunt/tresipuntvimeo",
+    "name": "tresipunt/videoconnect",
     "description": "Moodle Module for Vimeo Videos",
     "type": "moodle-pluging",
     "require": {

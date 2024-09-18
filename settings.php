@@ -17,7 +17,7 @@
 /**
  * Plugin administration pages are defined here.
  *
- * @package     mod_tresipuntvimeo
+ * @package     mod_videoconnect
  * @copyright   2021-2024 3ipunt {@link https://www.tresipunt.com}
  * @author     3IPUNT <contacte@tresipunt.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -25,18 +25,18 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-global $ADMIN;
+global $ADMIN, $CFG;
 
 if ($ADMIN->fulltree) {
     $settings->add(new admin_setting_heading(
         'tresipuntcsvexport/csvsettings',
-        get_string('vimeoheading', 'mod_tresipuntvimeo'),
-        get_string('vimeoheadingdesc', 'mod_tresipuntvimeo')
+        get_string('vimeoheading', 'mod_videoconnect'),
+        get_string('vimeoheadingdesc', 'mod_videoconnect')
     ));
 
     $settings->add(new admin_setting_configtext(
-        'mod_tresipuntvimeo/client_id',
-        get_string('client_id', 'mod_tresipuntvimeo'),
+        'mod_videoconnect/client_id',
+        get_string('client_id', 'mod_videoconnect'),
         '',
         '',
         PARAM_RAW,
@@ -44,8 +44,8 @@ if ($ADMIN->fulltree) {
     ));
 
     $settings->add(new admin_setting_configtext(
-        'mod_tresipuntvimeo/client_secret',
-        get_string('client_secret', 'mod_tresipuntvimeo'),
+        'mod_videoconnect/client_secret',
+        get_string('client_secret', 'mod_videoconnect'),
         '',
         '',
         PARAM_RAW,
@@ -53,15 +53,15 @@ if ($ADMIN->fulltree) {
     ));
 
     $settings->add(new admin_setting_configcheckbox(
-        'mod_tresipuntvimeo/is_authenticated',
-        get_string('is_authenticated', 'mod_tresipuntvimeo'),
-        get_string('is_authenticated_desc', 'mod_tresipuntvimeo'),
+        'mod_videoconnect/is_authenticated',
+        get_string('is_authenticated', 'mod_videoconnect'),
+        get_string('is_authenticated_desc', 'mod_videoconnect'),
         false
     ));
 
     $settings->add(new admin_setting_configtext(
-        'mod_tresipuntvimeo/access_token',
-        get_string('access_token', 'mod_tresipuntvimeo'),
+        'mod_videoconnect/access_token',
+        get_string('access_token', 'mod_videoconnect'),
         '',
         '',
         PARAM_RAW,
@@ -69,9 +69,9 @@ if ($ADMIN->fulltree) {
     ));
 
     $settings->add(new admin_setting_configmulticheckbox(
-        'mod_tresipuntvimeo/scopes',
-        get_string('scopes', 'mod_tresipuntvimeo'),
-        get_string('scopes_desc', 'mod_tresipuntvimeo'),
+        'mod_videoconnect/scopes',
+        get_string('scopes', 'mod_videoconnect'),
+        get_string('scopes_desc', 'mod_videoconnect'),
         [
             'public' => 'public',
             'private' => 'private',
@@ -91,16 +91,16 @@ if ($ADMIN->fulltree) {
     ));
 
     $settings->add(new admin_setting_configtext(
-        'mod_tresipuntvimeo/whitelist',
-        get_string('whitelist', 'mod_tresipuntvimeo'),
-        get_string('whitelist_desc', 'mod_tresipuntvimeo'),
-        false
+        'mod_videoconnect/whitelist',
+        get_string('whitelist', 'mod_videoconnect'),
+        get_string('whitelist_desc', 'mod_videoconnect'),
+        parse_url($CFG->wwwroot, PHP_URL_HOST)
     ));
 
     $settings->add(new admin_setting_configtext(
-        'mod_tresipuntvimeo/folderid',
-        get_string('folderid', 'mod_tresipuntvimeo'),
-        get_string('folderid_desc', 'mod_tresipuntvimeo'),
-        false
+        'mod_videoconnect/folderid',
+        get_string('folderid', 'mod_videoconnect'),
+        get_string('folderid_desc', 'mod_videoconnect'),
+        0
     ));
 }

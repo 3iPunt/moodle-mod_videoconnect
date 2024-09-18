@@ -15,15 +15,15 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Prints an instance of mod_tresipuntvimeo.
+ * Prints an instance of mod_videoconnect.
  *
- * @package     mod_tresipuntvimeo
+ * @package     mod_videoconnect
  * @copyright   2021-2024 3ipunt {@link https://www.tresipunt.com}
  * @author     3IPUNT <contacte@tresipunt.com>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-use mod_tresipuntvimeo\tasks\upload_videos_task;
+use mod_videoconnect\tasks\upload_videos_task;
 
 defined('MOODLE_INTERNAL') || die();
 
