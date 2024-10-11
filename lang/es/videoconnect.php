@@ -55,6 +55,7 @@ $string['scopes_not_exist'] = 'No existen scopes configurados en el plugin';
 $string['selectvideo'] = 'Selecciona un vídeo';
 $string['task_upload_videos'] = 'Tarea para subir vídeos a Vimeo';
 $string['uploading'] = 'Este vídeo estará disponible para verlo dentro de poco';
+$string['videoconnect:addinstance'] = 'Añadir nuevo vídeo';
 $string['videoconnectname'] = 'Nombre del módulo';
 $string['videoconnectname_help'] = 'Seleccione un nombre para este recurso';
 $string['vimeoheading'] = 'Vimeo API configuración';
