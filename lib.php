@@ -78,9 +78,6 @@ function videoconnect_add_instance(object $moduleinstance, $mform = null): int {
  */
 function videoconnect_get_coursemodule_info(object $coursemodule): cached_cm_info {
     global $PAGE;
-    if ($PAGE->context->id != context_module::instance($coursemodule->id)) {
-        $PAGE->set_context(context_module::instance($coursemodule->id));
-    }
     $output = $PAGE->get_renderer('mod_videoconnect');
     $page = new view_page($coursemodule->id, false);
     $content = $output->render($page);
