@@ -63,3 +63,5 @@ $string['vimeoheadingdesc'] = 'Rellene los siguientes campos con sus credenciale
 $string['we_are_sorry'] = 'Lo sentimos';
 $string['whitelist'] = 'Dominio Whitelist';
 $string['whitelist_desc'] = "Dominio que queremos incluir a la lista blanca de privacidad. No incluir protocolo 'http://' or 'https://'. Ej: yoursite.test";
+$string['privacy:metadata'] = 'El plugin Videoconnect no almacena ningún dato personal.';
+$string['videoconnect:view'] = 'Visualizar un contenido de Videoconnect.';

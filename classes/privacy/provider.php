@@ -34,78 +34,14 @@ use core_privacy\local\request\userlist;
 /**
  * Privacy Subsystem for mod_videoconnect implementing null_provider.
  */
-class provider implements
-    \core_privacy\local\request\core_userlist_provider,
-    \core_privacy\local\metadata\provider,
-    \core_privacy\local\request\plugin\provider {
+class provider implements \core_privacy\local\metadata\null_provider {
     /**
-     * Returns the metadata for the plugin.
+     * Get the language string identifier with the component's language
+     * file to explain why this plugin stores no data.
      *
-     * @param int $userid
-     * @return contextlist
+     * @return  string
      */
-    public static function get_contexts_for_userid(int $userid): contextlist {
-        return new contextlist();
-    }
-
-    /**
-     * Export all user data for the specified user, in the specified contexts.
-     *
-     * @param approved_contextlist $contextlist
-     * @return void
-     */
-    public static function export_user_data(approved_contextlist $contextlist) {
-    }
-
-    /**
-     * Export all user data for the specified user, in the specified contexts.
-     *
-     * @param \context $context
-     * @return void
-     */
-    public static function delete_data_for_all_users_in_context(\context $context) {
-    }
-
-    /**
-     * Delete all user data for the specified user, in the specified contexts.
-     *
-     * @param approved_contextlist $contextlist
-     * @return void
-     */
-    public static function delete_data_for_user(approved_contextlist $contextlist) {
-    }
-
-    /**
-     * Get the list of contexts that contain user information for the specified user.
-     *
-     * @param userlist $userlist
-     */
-    public static function get_users_in_context(userlist $userlist) {
-    }
-
-    /**
-     * Delete all user data for the specified user, in the specified contexts.
-     *
-     * @param approved_userlist $userlist
-     * @return void
-     */
-    public static function delete_data_for_users(approved_userlist $userlist) {
-    }
-
-    /**
-     * Get the list of contexts that contain user information for the specified user.
-     *
-     * @param collection $collection
-     * @return collection
-     */
-    public static function get_metadata(collection $collection): collection {
-        $collection->add_external_location_link(
-            'videoconnect',
-            [
-                    'course' => 'privacy:metadata:courseid',
-                ],
-            'privacy:metadata:externalpurpose'
-        );
-        return $collection;
-    }
+    public static function get_reason(): string {
+    return 'privacy:metadata';
+}
 }
