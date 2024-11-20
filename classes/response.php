@@ -24,10 +24,6 @@
  */
 
 namespace mod_videoconnect;
-use curl;
-use dml_exception;
-use moodle_exception;
-use stdClass;
 
 /**
  * Response
@@ -39,19 +35,20 @@ use stdClass;
  */
 class response {
     /** @var bool Success */
-    public $success;
+    public bool $success;
 
     /** @var string Data response */
-    public $data;
+    public string $data;
 
     /** @var error Error object */
-    public $error;
+    public error $error;
 
     /**
      * Response constructor.
+     *
      * @param bool $success
-     * @param string|null $data
-     * @param error|null $error $error
+     * @param string $data
+     * @param error $error
      */
     public function __construct(bool $success, string $data, error $error) {
         $this->success = $success;
