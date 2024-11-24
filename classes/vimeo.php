@@ -27,6 +27,7 @@ namespace mod_videoconnect;
 
 use curl;
 use dml_exception;
+use Exception;
 use moodle_exception;
 use moodle_url;
 use Vimeo\Exceptions\VimeoRequestException;
@@ -48,25 +49,25 @@ require_once($CFG->dirroot . '/mod/videoconnect/.extlib/vendor/autoload.php');
  */
 class vimeo {
     /** @var int Timeout */
-    const TIMEOUT = 30;
+    public const TIMEOUT = 30;
 
     /** @var string Client ID */
-    protected $clientid;
+    protected mixed $clientid;
 
     /** @var string Client Secret */
-    protected $clientsecret;
+    protected mixed $clientsecret;
 
     /** @var string Is authenticated? */
-    protected $isauthenticated;
+    protected mixed $isauthenticated;
 
     /** @var string[] Scopes */
-    protected $scopes = ['public', 'private', 'upload'];
+    protected array $scopes = ['public', 'private', 'upload'];
 
     /** @var \Vimeo\Vimeo Vimeo */
-    protected $vimeo;
+    protected \Vimeo\Vimeo $vimeo;
 
     /** @var string Access Token */
-    protected $accesstoken;
+    protected string $accesstoken;
 
     /**
      * vimeo constructor.
@@ -75,10 +76,9 @@ class vimeo {
      * @throws moodle_exception
      */
     public function __construct() {
-        $this->client_id = get_config('mod_videoconnect', 'client_id');
-        $this->client_secret = get_config('mod_videoconnect', 'client_secret');
-        $this->is_authenticated = get_config('mod_videoconnect', 'is_authenticated');
-        $this->is_authenticated = get_config('mod_videoconnect', 'is_authenticated');
+        $this->clientid = get_config('mod_videoconnect', 'client_id');
+        $this->clientsecret = get_config('mod_videoconnect', 'client_secret');
+        $this->isauthenticated = get_config('mod_videoconnect', 'is_authenticated');
         $this->set_scopes();
         $this->init_vimeo();
     }
@@ -89,15 +89,15 @@ class vimeo {
      * @throws dml_exception
      * @throws moodle_exception
      */
-    protected function set_scopes() {
+    protected function set_scopes(): void {
         $scopes = get_config('mod_videoconnect', 'scopes');
         if (!empty($scopes)) {
             $this->scopes = explode(',', $scopes);
         } else {
             $moodleurl = new moodle_url('/admin/settings.php?section=modsettingvideoconnect');
             throw new moodle_exception(
-                get_string('scopes_not_exist', 'mod_videoconnect') .
-                '. ' . $moodleurl->out(false)
+                    get_string('scopes_not_exist', 'mod_videoconnect') .
+                    '. ' . $moodleurl->out(false)
             );
         }
     }
@@ -108,16 +108,16 @@ class vimeo {
      * @throws dml_exception
      * @throws moodle_exception
      */
-    protected function init_vimeo() {
-        if ($this->is_authenticated) {
-            $this->access_token = get_config('mod_videoconnect', 'access_token');
-            $this->vimeo = new \Vimeo\Vimeo($this->client_id, $this->client_secret, $this->access_token);
+    protected function init_vimeo(): void {
+        if ($this->isauthenticated) {
+            $this->accesstoken = get_config('mod_videoconnect', 'access_token');
+            $this->vimeo = new \Vimeo\Vimeo($this->clientid, $this->clientsecret, $this->accesstoken);
         } else {
-            $this->vimeo = new \Vimeo\Vimeo($this->client_id, $this->client_secret);
+            $this->vimeo = new \Vimeo\Vimeo($this->clientid, $this->clientsecret);
             $token = $this->vimeo->clientCredentials($this->scopes);
             if (isset($token['body']['access_token'])) {
-                $this->access_token = $token['body']['access_token'];
-                $this->vimeo->setToken($this->access_token);
+                $this->accesstoken = $token['body']['access_token'];
+                $this->vimeo->setToken($this->accesstoken);
             } else {
                 throw new moodle_exception($token["body"]["error_code"] . ': ' . $token["body"]["error"]);
             }
@@ -137,15 +137,15 @@ class vimeo {
             return new response(true, $response, new error(0, ''));
         } catch (VimeoRequestException $e) {
             return new response(
-                false,
-                '',
-                new error(3001, $e->getMessage())
+                    false,
+                    '',
+                    new error(3001, $e->getMessage())
             );
         } catch (VimeoUploadException $e) {
             return new response(
-                false,
-                '',
-                new error(3000, $e->getMessage())
+                    false,
+                    '',
+                    new error(3000, $e->getMessage())
             );
         }
     }
@@ -183,29 +183,28 @@ class vimeo {
      * @param array $params
      * @return response
      */
-    private function curl_request(string $url, $params = []) {
+    private function curl_request(string $url, array $params = []): response {
         try {
             $curl = new curl();
             $headers = [];
             $headers[] = 'Content-type: application/json';
-            $headers[] = 'Authorization: Bearer ' . $this->access_token;
+            $headers[] = 'Authorization: Bearer ' . $this->accesstoken;
             $curl->setHeader($headers);
-            $result = $curl->put($url, json_encode($params), $this->get_options_curl());
-            $result = json_decode($result, true);
+            $result = $curl->put($url, json_encode($params, JSON_THROW_ON_ERROR), $this->get_options_curl());
+            $result = json_decode($result, true, 512, JSON_THROW_ON_ERROR);
             if ($result['error']) {
                 return new response(
+                        false,
+                        '',
+                        new error(4002, $result['error'])
+                );
+            }
+            return new response(true, '', new error(0, ''));
+        } catch (Exception $e) {
+            return new response(
                     false,
                     '',
-                    new error(4002, $result['error'])
-                );
-            } else {
-                return new response(true, '', new error(0, ''));
-            }
-        } catch (\Exception $e) {
-            return new response(
-                false,
-                '',
-                new error(4001, $e->getMessage())
+                    new error(4001, $e->getMessage())
             );
         }
     }
@@ -217,11 +216,10 @@ class vimeo {
      */
     private function get_options_curl(): array {
         return [
-            'CURLOPT_RETURNTRANSFER' => true,
-            'CURLOPT_TIMEOUT' => self::TIMEOUT,
-            'CURLOPT_HTTP_VERSION' => CURL_HTTP_VERSION_1_1,
-            'CURLOPT_SSLVERSION' => CURL_SSLVERSION_TLSv1_2,
-            'CURLOPT_USERPWD' => "{$this->user}:{$this->token}",
+                'CURLOPT_RETURNTRANSFER' => true,
+                'CURLOPT_TIMEOUT' => self::TIMEOUT,
+                'CURLOPT_HTTP_VERSION' => CURL_HTTP_VERSION_1_1,
+                'CURLOPT_SSLVERSION' => CURL_SSLVERSION_TLSv1_2,
         ];
     }
 }
