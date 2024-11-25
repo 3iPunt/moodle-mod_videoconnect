@@ -68,6 +68,8 @@ if ($cmfound) {
 
     $modulecontext = context_module::instance($cm->id);
 
+    require_capability('mod/videoconnect:view', $modulecontext);
+
     $event = \mod_videoconnect\event\course_module_viewed::create([
         'objectid' => $moduleinstance->id,
             'context' => $modulecontext,
