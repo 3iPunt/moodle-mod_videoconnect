@@ -26,7 +26,6 @@
 use mod_videoconnect\output\view_page;
 use mod_videoconnect\uploads;
 
-defined('MOODLE_INTERNAL') || die();
 /**
  * Return if the plugin supports $feature.
  *
