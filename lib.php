@@ -116,20 +116,14 @@ function videoconnect_update_instance(object $moduleinstance, mod_videoconnect_m
 function videoconnect_delete_instance(int $id): bool {
     global $DB;
 
-    $sql = "UPDATE {videoconnect_uploads}
-            SET status = :newstatus
-            WHERE instance = :instance AND status = :statuscurrent";
-
-    $params = [
-        'newstatus' => uploads::STATUS_DELETED,
-        'instance' => $id,
-            'statuscurrent' => uploads::STATUS_NOT_EXECUTED];
-    $DB->execute($sql, $params);
-
-    $exists = $DB->get_record('videoconnect', ['id' => $id]);
-    if (!$exists) {
+    if (!$DB->record_exists('videoconnect', ['id' => $id])) {
         return false;
     }
+
+    $DB->delete_records('videoconnect_uploads', [
+        'instance' => $id,
+    ]);
+
     $DB->delete_records('videoconnect', ['id' => $id]);
     return true;
 }
