@@ -43,6 +43,8 @@ class mod_videoconnect_mod_form extends moodleform_mod {
     public function definition() {
         global $CFG;
 
+        $course = $this->_course;
+
         $mform = $this->_form;
 
         // Adding the "general" fieldset, where all the common settings are shown.
@@ -97,8 +99,8 @@ class mod_videoconnect_mod_form extends moodleform_mod {
         $mform->addHelpButton('idvideo', 'idvideo', 'mod_videoconnect');
 
         $filemanageroptions['accepted_types'] = ['.mp4', '.mov', '.wmv', '.avi', '.flv'];
-        $filemanageroptions['maxbytes'] = 0;
-        $filemanageroptions['maxfiles'] = -1;
+        $filemanageroptions['maxbytes'] = $course->maxbytes;
+        $filemanageroptions['maxfiles'] = 1;
         $filemanageroptions['mainfile'] = true;
 
         $mform->addElement(
