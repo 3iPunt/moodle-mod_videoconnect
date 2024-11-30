@@ -22,6 +22,7 @@
  * @author     3IPUNT <contacte@tresipunt.com>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+defined('MOODLE_INTERNAL') || die();
 
 use mod_videoconnect\output\view_page;
 use mod_videoconnect\uploads;
