@@ -26,8 +26,8 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'mod_videoconnect';
-$plugin->release = '2.2.0';
-$plugin->version = 2026112700;
+$plugin->release = '2.2.1';
+$plugin->version = 2026112701;
 $plugin->requires = 2024100700; // Moodle 4.5.0+.
 $plugin->supported = [405, 503]; // Moodle 4.5 to 5.3.
 $plugin->maturity = MATURITY_STABLE;

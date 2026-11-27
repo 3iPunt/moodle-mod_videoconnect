@@ -1,5 +1,24 @@
 # Changelog — mod_videoconnect
 
+## Versión 2.2.1 — 2026-11-27 (`2026112701`)
+
+### Objetivo
+Librerías HTTP al día: corrige los avisos de seguridad publicados para Guzzle y PSR-7.
+
+### Seguridad
+
+- **`guzzlehttp/guzzle` 7.11.0 → 7.17.0** y **`guzzlehttp/psr7` 2.11.0 → 2.13.6**, con
+  sus dependencias (`guzzlehttp/promises` 2.6.2, `symfony/deprecation-contracts` 3.8.1 y
+  `symfony/polyfill-php80` 1.43.0). Corrigen los avisos publicados entre junio y agosto
+  de 2026: validación de hosts no canónicos, ámbito de las cookies, degradación de un
+  proxy HTTPS, `Proxy-Authorization` enviado al origen, fragmentos en el `Referer` y CRLF
+  en la línea de petición. `composer audit` no encuentra ningún aviso con estas versiones.
+- El plugin usa Guzzle solo en la subida de vídeos a Vimeo (protocolo *tus* de
+  `vimeo/vimeo-api`), contra la dirección de subida que devuelve la propia API de Vimeo,
+  sin cookies ni proxy: la exposición era baja.
+
+Sin cambios en el código del plugin, ajustes, textos, permisos ni base de datos.
+
 ## Versión 2.2.0 — 2026-11-27 (`2026112700`)
 
 ### Objetivo

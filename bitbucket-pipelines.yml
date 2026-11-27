@@ -47,6 +47,10 @@ definitions:
           - cp -a "$BITBUCKET_CLONE_DIR" /opt/ci-workspace/plugin
           - cd /opt/ci-workspace
           - if ! command -v composer >/dev/null 2>&1; then curl -fsSL https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer; fi
+          # Third-party PHP libraries bundled with the plugin (composer.lock): stop on any published
+          # security advisory for those versions (Packagist). Seconds, and it is how an outdated
+          # vendor/ shows up before a release. Plugins without composer.lock skip it.
+          - if [ -f plugin/composer.lock ]; then composer audit --locked --no-dev --abandoned=report --working-dir=plugin; fi
           - composer create-project -n --no-dev --prefer-dist moodlehq/moodle-plugin-ci ci ^4
           - export PATH="/opt/ci-workspace/ci/bin:/opt/ci-workspace/ci/vendor/bin:$PATH"
           # Only if the plugin declares $plugin->dependencies: add each one,
