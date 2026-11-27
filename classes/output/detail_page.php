@@ -74,8 +74,13 @@ class detail_page implements renderable, templatable {
      * @param stdClass|null $lastlive Last non-discarded attempt, if any.
      * @param provider_interface|null $provider Provider connector of the activity.
      */
-    public function __construct(stdClass $activity, array $attempts, moodle_url $backurl,
-            ?stdClass $lastlive = null, ?provider_interface $provider = null) {
+    public function __construct(
+        stdClass $activity,
+        array $attempts,
+        moodle_url $backurl,
+        ?stdClass $lastlive = null,
+        ?provider_interface $provider = null
+    ) {
         $this->activity = $activity;
         $this->attempts = $attempts;
         $this->backurl = $backurl;
@@ -176,26 +181,50 @@ class detail_page implements renderable, templatable {
 
         if ($state === uploads::STATE_INCIDENT) {
             $variant = ($status === uploads::STATUS_UPLOADING_ERROR_FOLDER) ? 'folder' : 'whitelist';
-            return $this->diag('warning', 'fa-triangle-exclamation', false,
-                'diag_incident_title', 'diag_incident_body_' . $variant);
+            return $this->diag(
+                'warning',
+                'fa-triangle-exclamation',
+                false,
+                'diag_incident_title',
+                'diag_incident_body_' . $variant
+            );
         }
         if ($state === uploads::STATE_ERROR) {
             if ($status === uploads::STATUS_UPLOADING_VIDEOID_MISSING) {
-                return $this->diag('danger', 'fa-circle-xmark', false,
-                    'diag_error_noid_title', 'diag_error_noid_body');
+                return $this->diag(
+                    'danger',
+                    'fa-circle-xmark',
+                    false,
+                    'diag_error_noid_title',
+                    'diag_error_noid_body'
+                );
             }
             if (!$fileavailable) {
-                return $this->diag('danger', 'fa-circle-xmark', false,
-                    'diag_error_norecover_title', 'diag_error_norecover_body');
+                return $this->diag(
+                    'danger',
+                    'fa-circle-xmark',
+                    false,
+                    'diag_error_norecover_title',
+                    'diag_error_norecover_body'
+                );
             }
-            return $this->diag('warning', 'fa-triangle-exclamation', false,
-                'diag_error_retryable_title', 'diag_error_retryable_body');
+            return $this->diag(
+                'warning',
+                'fa-triangle-exclamation',
+                false,
+                'diag_error_retryable_title',
+                'diag_error_retryable_body'
+            );
         }
         if ($state === uploads::STATE_PENDING) {
             $uploading = ($status === uploads::STATUS_UPLOADING);
-            return $this->diag('teal', $uploading ? 'fa-rotate' : 'fa-clock', $uploading,
+            return $this->diag(
+                'teal',
+                $uploading ? 'fa-rotate' : 'fa-clock',
+                $uploading,
                 $uploading ? 'diag_pending_uploading_title' : 'diag_pending_queued_title',
-                $uploading ? 'diag_pending_uploading_body' : 'diag_pending_queued_body');
+                $uploading ? 'diag_pending_uploading_body' : 'diag_pending_queued_body'
+            );
         }
         return $this->diag('muted', 'fa-minus', false, 'diag_novideo_title', 'diag_novideo_body');
     }

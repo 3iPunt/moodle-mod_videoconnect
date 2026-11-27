@@ -1,0 +1,19 @@
+# El código se guarda con finales de línea LF, se clone donde se clone. Sin esto,
+# un clon en Windows con core.autocrlf=true convierte todo a CRLF y el siguiente
+# commit aparece como si hubieran cambiado todos los ficheros.
+* text=auto eol=lf
+
+*.png       binary
+*.jpg       binary
+*.gif       binary
+
+# Fuera de los archivos que se descarguen del repositorio (git archive y el ZIP del
+# Marketplace): el Marketplace pide paquetes sin ficheros de desarrollo. El .github
+# vive en GitHub, que es donde corre el CI que mira el Marketplace. Las
+# dependencias ya van en .extlib/vendor, así que composer.* no hace falta para instalar.
+.gitattributes          export-ignore
+.gitignore              export-ignore
+.github                 export-ignore
+bitbucket-pipelines.yml export-ignore
+composer.json           export-ignore
+composer.lock           export-ignore

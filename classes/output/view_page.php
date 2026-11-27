@@ -98,9 +98,15 @@ class view_page implements renderable, templatable {
      *        instance was created with (resolved by the caller); required to
      *        embed when the instance has a published video.
      */
-    public function __construct(stdClass $instance, bool $ithasname = true, ?stdClass $lastupload = null,
-            int $cmid = 0, bool $showdescription = true, bool $canmanage = false,
-            ?provider_interface $provider = null) {
+    public function __construct(
+        stdClass $instance,
+        bool $ithasname = true,
+        ?stdClass $lastupload = null,
+        int $cmid = 0,
+        bool $showdescription = true,
+        bool $canmanage = false,
+        ?provider_interface $provider = null
+    ) {
         $this->instance = $instance;
         $this->hasname = $ithasname;
         $this->lastupload = $lastupload;
@@ -189,8 +195,10 @@ class view_page implements renderable, templatable {
         $card->hascause = !empty($card->cause);
         $card->showdetail = $this->canmanage && $variant !== self::CARD_NOVIDEO;
         if ($card->showdetail) {
-            $card->detailurl = (new moodle_url('/mod/videoconnect/panel.php',
-                ['instanceid' => $this->instance->id]))->out(false);
+            $card->detailurl = (new moodle_url(
+                '/mod/videoconnect/panel.php',
+                ['instanceid' => $this->instance->id]
+            ))->out(false);
         }
         return $card;
     }

@@ -24,7 +24,8 @@
     * data-region="mod_videoconnect-detail"
 
     Context variables required for this template:
-    * logotresipunt, logoprovider, providername: strings - Header logos.
+    * logotresipunt, logotresipuntwhite, logoprovider, providername: strings - Header logos
+      (logotresipuntwhite replaces logotresipunt in dark mode).
     * backurl: string - URL back to the panel list.
     * name: string - Activity name. activityurl: string - Its view page.
     * coursename, courseurl: string - Course of the activity.
@@ -41,7 +42,7 @@
 
     Example context (json):
     {
-        "logotresipunt": "#", "logoprovider": "#", "providername": "Vimeo",
+        "logotresipunt": "#", "logotresipuntwhite": "#", "logoprovider": "#", "providername": "Vimeo",
         "backurl": "#",
         "name": "My video", "activityurl": "#",
         "coursename": "My course", "courseurl": "#",
@@ -67,7 +68,8 @@
 
     <div class="vc-header">
         <div class="vc-header-brand">
-            <img src="{{logotresipunt}}" alt="Tresipunt" class="vc-header-logo">
+            <img src="{{logotresipunt}}" alt="Tresipunt" class="vc-header-logo vc-logo-light">
+            <img src="{{logotresipuntwhite}}" alt="Tresipunt" class="vc-header-logo vc-logo-dark">
             <span class="vc-header-divider" aria-hidden="true"></span>
             <img src="{{logoprovider}}" alt="{{#str}} provideralt, mod_videoconnect, {{providername}} {{/str}}" class="vc-header-logo">
         </div>

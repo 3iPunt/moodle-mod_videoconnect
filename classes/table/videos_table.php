@@ -68,8 +68,15 @@ class videos_table extends table_sql {
      * @param int $dateto Maximum modification timestamp (0 = none).
      * @throws coding_exception|dml_exception
      */
-    public function __construct(string $uniqueid, moodle_url $baseurl, string $state = '', int $courseid = 0,
-            string $search = '', int $datefrom = 0, int $dateto = 0) {
+    public function __construct(
+        string $uniqueid,
+        moodle_url $baseurl,
+        string $state = '',
+        int $courseid = 0,
+        string $search = '',
+        int $datefrom = 0,
+        int $dateto = 0
+    ) {
         global $DB;
         parent::__construct($uniqueid);
 

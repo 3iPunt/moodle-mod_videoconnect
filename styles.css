@@ -20,7 +20,7 @@
     --vc-neutral-fg: #545457;
     --vc-muted-bg: #f4f4f5;
     --vc-muted-fg: #6f6f73;
-    --vc-border: #ddddDF;
+    --vc-border: #dddddf;
     --vc-radius: 0.75rem;
 }
 
@@ -34,12 +34,15 @@
 }
 
 /* Algunos temas pintan #region-main como tarjeta blanca con !important;
-   nuestra pantalla ya trae la suya. Doble id para ganar especificidad. */
+   nuestra pantalla ya trae la suya. Doble id para ganar especificidad, y
+   !important porque es la única forma de ganar a otro !important. */
+/* stylelint-disable declaration-no-important */
 #page-mod-videoconnect-panel #region-main {
     background-color: transparent !important;
     box-shadow: none !important;
     padding: 0 !important;
 }
+/* stylelint-enable declaration-no-important */
 
 .mod_videoconnect-panel {
     font-size: 0.95rem;
@@ -110,18 +113,46 @@
     padding: 0.125rem 0.5rem 0.125rem 0.4rem;
 }
 
-.vc-badge-success { background: var(--vc-success-bg); color: var(--vc-success-fg); }
-.vc-badge-warning { background: var(--vc-warning-bg); color: var(--vc-warning-fg); }
-.vc-badge-danger { background: var(--vc-danger-bg); color: var(--vc-danger-fg); }
-.vc-badge-teal { background: var(--vc-teal-bg); color: var(--vc-teal-fg); }
-.vc-badge-neutral { background: var(--vc-neutral-bg); color: var(--vc-neutral-fg); }
-.vc-badge-muted { background: var(--vc-muted-bg); color: var(--vc-muted-fg); }
+.vc-badge-success {
+    background: var(--vc-success-bg);
+    color: var(--vc-success-fg);
+}
+.vc-badge-warning {
+    background: var(--vc-warning-bg);
+    color: var(--vc-warning-fg);
+}
+.vc-badge-danger {
+    background: var(--vc-danger-bg);
+    color: var(--vc-danger-fg);
+}
+.vc-badge-teal {
+    background: var(--vc-teal-bg);
+    color: var(--vc-teal-fg);
+}
+.vc-badge-neutral {
+    background: var(--vc-neutral-bg);
+    color: var(--vc-neutral-fg);
+}
+.vc-badge-muted {
+    background: var(--vc-muted-bg);
+    color: var(--vc-muted-fg);
+}
 
-.vc-tone-success { color: var(--vc-success-fg); }
-.vc-tone-danger { color: var(--vc-danger-fg); }
-.vc-tone-teal { color: var(--vc-teal-fg); }
-.vc-tone-neutral { color: var(--vc-neutral-fg); }
-.vc-tone-brand { color: var(--vc-primary); }
+.vc-tone-success {
+    color: var(--vc-success-fg);
+}
+.vc-tone-danger {
+    color: var(--vc-danger-fg);
+}
+.vc-tone-teal {
+    color: var(--vc-teal-fg);
+}
+.vc-tone-neutral {
+    color: var(--vc-neutral-fg);
+}
+.vc-tone-brand {
+    color: var(--vc-primary);
+}
 
 /* ------------------------------------------------- view page (player/C3) */
 
@@ -163,6 +194,9 @@
     color: #fff;
 }
 
+/* clamp() es CSS válido en todos los navegadores que soporta Moodle 4.5, pero el
+   validador csstree de la configuración de stylelint de Moodle no lo reconoce. */
+/* stylelint-disable csstree/validator */
 .mod_videoconnect-view .vc-statecard-icon {
     display: flex;
     align-items: center;
@@ -174,9 +208,17 @@
     font-size: 1.75rem;
 }
 
-.mod_videoconnect-view .vc-statecard-icon.vc-tone-teal { color: #54c9cf; background: rgba(0, 166, 176, 0.18); }
-.mod_videoconnect-view .vc-statecard-icon.vc-tone-danger { color: #ff8a75; background: rgba(226, 59, 46, 0.18); }
-.mod_videoconnect-view .vc-statecard-icon.vc-tone-neutral { color: #c6c6c9; }
+.mod_videoconnect-view .vc-statecard-icon.vc-tone-teal {
+    color: #54c9cf;
+    background: rgba(0, 166, 176, 0.18);
+}
+.mod_videoconnect-view .vc-statecard-icon.vc-tone-danger {
+    color: #ff8a75;
+    background: rgba(226, 59, 46, 0.18);
+}
+.mod_videoconnect-view .vc-statecard-icon.vc-tone-neutral {
+    color: #c6c6c9;
+}
 
 .mod_videoconnect-view .vc-statecard-title {
     font-weight: 700;
@@ -197,6 +239,7 @@
     color: rgba(255, 255, 255, 0.6);
     max-width: 46ch;
 }
+/* stylelint-enable csstree/validator */
 
 .mod_videoconnect-view .vc-statecard-link {
     display: inline-flex;
@@ -210,7 +253,9 @@
     text-underline-offset: 3px;
 }
 
-.mod_videoconnect-view .vc-statecard-link:hover { color: #ffbca6; }
+.mod_videoconnect-view .vc-statecard-link:hover {
+    color: #ffbca6;
+}
 
 .mod_videoconnect-view .vc-view-intro {
     max-width: 60rem;
@@ -358,7 +403,10 @@
     margin-bottom: 0.9rem;
 }
 
-.mod_videoconnect-panel .vc-back:hover { color: var(--vc-primary); text-decoration: none; }
+.mod_videoconnect-panel .vc-back:hover {
+    color: var(--vc-primary);
+    text-decoration: none;
+}
 
 /* -------------------------------------------------------- panel: alert */
 
@@ -397,13 +445,32 @@
     transition: border-color 0.12s ease-in-out, box-shadow 0.12s ease-in-out;
 }
 
-.mod_videoconnect-panel .vc-kpi:hover { text-decoration: none; }
-.mod_videoconnect-panel .vc-kpi-success:hover, .mod_videoconnect-panel .vc-kpi-success.active { border-color: var(--vc-success-fg); }
-.mod_videoconnect-panel .vc-kpi-warning:hover, .mod_videoconnect-panel .vc-kpi-warning.active { border-color: var(--vc-warning-fg); }
-.mod_videoconnect-panel .vc-kpi-danger:hover, .mod_videoconnect-panel .vc-kpi-danger.active { border-color: var(--vc-danger-fg); }
-.mod_videoconnect-panel .vc-kpi-neutral:hover, .mod_videoconnect-panel .vc-kpi-neutral.active { border-color: var(--vc-neutral-fg); }
-.mod_videoconnect-panel .vc-kpi-muted:hover, .mod_videoconnect-panel .vc-kpi-muted.active { border-color: var(--vc-muted-fg); }
-.mod_videoconnect-panel .vc-kpi.active { box-shadow: 0 0.375rem 1.125rem rgba(0, 0, 0, 0.08); }
+.mod_videoconnect-panel .vc-kpi:hover {
+    text-decoration: none;
+}
+.mod_videoconnect-panel .vc-kpi-success:hover,
+.mod_videoconnect-panel .vc-kpi-success.active {
+    border-color: var(--vc-success-fg);
+}
+.mod_videoconnect-panel .vc-kpi-warning:hover,
+.mod_videoconnect-panel .vc-kpi-warning.active {
+    border-color: var(--vc-warning-fg);
+}
+.mod_videoconnect-panel .vc-kpi-danger:hover,
+.mod_videoconnect-panel .vc-kpi-danger.active {
+    border-color: var(--vc-danger-fg);
+}
+.mod_videoconnect-panel .vc-kpi-neutral:hover,
+.mod_videoconnect-panel .vc-kpi-neutral.active {
+    border-color: var(--vc-neutral-fg);
+}
+.mod_videoconnect-panel .vc-kpi-muted:hover,
+.mod_videoconnect-panel .vc-kpi-muted.active {
+    border-color: var(--vc-muted-fg);
+}
+.mod_videoconnect-panel .vc-kpi.active {
+    box-shadow: 0 0.375rem 1.125rem rgba(0, 0, 0, 0.08);
+}
 
 .mod_videoconnect-panel .vc-kpi-count {
     font-size: 1.75rem;
@@ -468,10 +535,18 @@
     color: var(--vc-muted-fg);
 }
 
-.mod_videoconnect-panel .vc-filter-course { grid-column: span 2; }
-.mod_videoconnect-panel .vc-filter-state { grid-column: span 2; }
-.mod_videoconnect-panel .vc-filter-search { grid-column: span 2; }
-.mod_videoconnect-panel .vc-filter-date { grid-column: span 1; }
+.mod_videoconnect-panel .vc-filter-course {
+    grid-column: span 2;
+}
+.mod_videoconnect-panel .vc-filter-state {
+    grid-column: span 2;
+}
+.mod_videoconnect-panel .vc-filter-search {
+    grid-column: span 2;
+}
+.mod_videoconnect-panel .vc-filter-date {
+    grid-column: span 1;
+}
 
 .mod_videoconnect-panel .vc-filters .form-control,
 .mod_videoconnect-panel .vc-filters .form-select,
@@ -492,9 +567,15 @@
         grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 
-    .mod_videoconnect-panel .vc-filter-search { grid-column: span 4; }
-    .mod_videoconnect-panel .vc-filter-date { grid-column: span 2; }
-    .mod_videoconnect-panel .vc-filter-actions { grid-column: span 4; }
+    .mod_videoconnect-panel .vc-filter-search {
+        grid-column: span 4;
+    }
+    .mod_videoconnect-panel .vc-filter-date {
+        grid-column: span 2;
+    }
+    .mod_videoconnect-panel .vc-filter-actions {
+        grid-column: span 4;
+    }
 }
 
 /* El widget de autocompletado del core se inyecta como hermano del select:
@@ -586,7 +667,9 @@
     text-decoration: none;
 }
 
-.mod_videoconnect-panel .vc-row-sub { margin-top: 0.125rem; }
+.mod_videoconnect-panel .vc-row-sub {
+    margin-top: 0.125rem;
+}
 
 .mod_videoconnect-panel .vc-action-btn {
     display: inline-flex;
@@ -643,14 +726,38 @@
     margin-bottom: 1.125rem;
 }
 
-.mod_videoconnect-panel .vc-diag > .fa { margin-top: 0.125rem; }
-.mod_videoconnect-panel .vc-diag-title { display: block; font-size: 0.84375rem; }
-.mod_videoconnect-panel .vc-diag-body { margin: 0.125rem 0 0; font-size: 0.8125rem; line-height: 1.5; }
+.mod_videoconnect-panel .vc-diag > .fa {
+    margin-top: 0.125rem;
+}
+.mod_videoconnect-panel .vc-diag-title {
+    display: block;
+    font-size: 0.84375rem;
+}
+.mod_videoconnect-panel .vc-diag-body {
+    margin: 0.125rem 0 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+}
 
-.mod_videoconnect-panel .vc-diag-warning { background: var(--vc-warning-bg); border-color: var(--vc-warning-border); color: var(--vc-warning-fg); }
-.mod_videoconnect-panel .vc-diag-danger { background: var(--vc-danger-bg); border-color: #f3b4ae; color: #9a241b; }
-.mod_videoconnect-panel .vc-diag-teal { background: var(--vc-teal-bg); border-color: #a9e0e4; color: #00757e; }
-.mod_videoconnect-panel .vc-diag-muted { background: var(--vc-muted-bg); color: var(--vc-muted-fg); }
+.mod_videoconnect-panel .vc-diag-warning {
+    background: var(--vc-warning-bg);
+    border-color: var(--vc-warning-border);
+    color: var(--vc-warning-fg);
+}
+.mod_videoconnect-panel .vc-diag-danger {
+    background: var(--vc-danger-bg);
+    border-color: #f3b4ae;
+    color: #9a241b;
+}
+.mod_videoconnect-panel .vc-diag-teal {
+    background: var(--vc-teal-bg);
+    border-color: #a9e0e4;
+    color: #00757e;
+}
+.mod_videoconnect-panel .vc-diag-muted {
+    background: var(--vc-muted-bg);
+    color: var(--vc-muted-fg);
+}
 
 /* ------------------------------------------------------- empty states */
 
@@ -681,7 +788,9 @@
     margin-bottom: 0.5rem;
 }
 
-.mod_videoconnect-panel .vc-empty-icon.vc-tone-brand { background: #fff1ed; }
+.mod_videoconnect-panel .vc-empty-icon.vc-tone-brand {
+    background: #fff1ed;
+}
 
 .mod_videoconnect-panel .vc-empty-title {
     font-weight: 600;
@@ -746,4 +855,87 @@
     .mod_videoconnect-panel .vc-attempt-note {
         max-width: 12rem;
     }
+}
+
+/* ---------- Modo oscuro de Boost (Moodle 5.3, MDL-68037) ----------
+   Solo cuando el usuario lo elige: nunca en 4.5 ni 5.1. Las reglas de arriba no cambian, así que el
+   modo claro queda igual. Aquí la paleta --vc-* apunta a la de Boost, que en oscuro invierte su escala
+   de grises y calcula los colores de estado para que se lean sobre fondo oscuro. Además, cada color
+   escrito a mano tiene su regla oscura. La tarjeta de estado del reproductor ya es oscura en los dos
+   modos y no cambia; tampoco el naranja de marca ni las sombras. */
+
+[data-bs-theme="dark"] .mod_videoconnect-view,
+[data-bs-theme="dark"] .mod_videoconnect-panel {
+    --vc-success-bg: var(--mds-bg-feedback-success-light, var(--bs-success-bg-subtle));
+    --vc-success-fg: var(--bs-success-text-emphasis);
+    --vc-warning-bg: var(--mds-bg-feedback-warning-light, var(--bs-warning-bg-subtle));
+    --vc-warning-fg: var(--bs-warning-text-emphasis);
+    --vc-warning-border: var(--bs-warning-border-subtle);
+    --vc-danger-bg: var(--mds-bg-feedback-danger-light, var(--bs-danger-bg-subtle));
+    --vc-danger-fg: var(--bs-danger-text-emphasis);
+    --vc-teal-bg: var(--mds-bg-feedback-info-light, var(--bs-info-bg-subtle));
+    --vc-teal-fg: var(--bs-info-text-emphasis);
+    --vc-neutral-bg: var(--bs-gray-200);
+    --vc-neutral-fg: var(--bs-gray-700);
+    --vc-muted-bg: var(--bs-gray-100);
+    --vc-muted-fg: var(--bs-gray-600);
+    --vc-border: var(--bs-gray-300);
+}
+
+/* Superficies blancas escritas a mano. */
+[data-bs-theme="dark"] .mod_videoconnect-panel,
+[data-bs-theme="dark"] .mod_videoconnect-panel .vc-kpi,
+[data-bs-theme="dark"] .mod_videoconnect-panel .vc-empty-dashed {
+    background: var(--bs-white);
+}
+
+[data-bs-theme="dark"] .mod_videoconnect-panel .btn-link {
+    color: var(--vc-neutral-fg);
+}
+
+[data-bs-theme="dark"] .mod_videoconnect-panel .btn-link:hover {
+    background: var(--vc-muted-bg);
+    color: var(--bs-gray-900);
+}
+
+[data-bs-theme="dark"] .mod_videoconnect-panel .generaltable tbody td {
+    border-bottom-color: var(--bs-gray-200);
+}
+
+[data-bs-theme="dark"] .mod_videoconnect-panel .generaltable tbody tr:hover td {
+    background: var(--bs-gray-100);
+}
+
+[data-bs-theme="dark"] .mod_videoconnect-panel .vc-row-title {
+    color: var(--bs-gray-900);
+}
+
+/* El hover de la regla anterior: misma especificidad, así que se vuelve a declarar más abajo. */
+[data-bs-theme="dark"] .mod_videoconnect-panel .vc-row-title:hover {
+    color: var(--vc-primary);
+}
+
+[data-bs-theme="dark"] .mod_videoconnect-panel .vc-diag-danger {
+    border-color: var(--bs-danger-border-subtle);
+    color: var(--bs-danger-text-emphasis);
+}
+
+[data-bs-theme="dark"] .mod_videoconnect-panel .vc-diag-teal {
+    border-color: var(--bs-info-border-subtle);
+    color: var(--bs-info-text-emphasis);
+}
+
+/* Tinte de marca: fondo al 20 % del naranja sobre la superficie oscura. */
+[data-bs-theme="dark"] .mod_videoconnect-panel .vc-empty-icon.vc-tone-brand {
+    background: #33302f;
+}
+
+/* Logo de Tresipunt: el normal tiene el texto oscuro; en oscuro se cambia por el blanco. */
+.mod_videoconnect-panel .vc-header-logo.vc-logo-dark,
+[data-bs-theme="dark"] .mod_videoconnect-panel .vc-header-logo.vc-logo-light {
+    display: none;
+}
+
+[data-bs-theme="dark"] .mod_videoconnect-panel .vc-header-logo.vc-logo-dark {
+    display: block;
 }

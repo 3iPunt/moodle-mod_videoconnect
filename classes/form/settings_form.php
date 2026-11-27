@@ -85,11 +85,20 @@ class settings_form extends moodleform {
 
         // Test de conectividad, junto a las credenciales que valida. Ojo:
         // prueba lo GUARDADO, no lo tecleado sin guardar.
-        $testurl = new moodle_url('/mod/videoconnect/testconnection.php',
-            ['return' => 'manage', 'sesskey' => sesskey()]);
-        $mform->addElement('static', 'testconnection', '',
-            html_writer::link($testurl, get_string('testconnection', 'mod_videoconnect'),
-                ['class' => 'btn btn-secondary']));
+        $testurl = new moodle_url(
+            '/mod/videoconnect/testconnection.php',
+            ['return' => 'manage', 'sesskey' => sesskey()]
+        );
+        $mform->addElement(
+            'static',
+            'testconnection',
+            '',
+            html_writer::link(
+                $testurl,
+                get_string('testconnection', 'mod_videoconnect'),
+                ['class' => 'btn btn-secondary']
+            )
+        );
 
         $scopesoptions = array_combine(self::SCOPES, self::SCOPES);
         $scopes = $mform->addElement(

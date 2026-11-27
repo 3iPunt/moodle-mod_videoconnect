@@ -49,7 +49,7 @@ use core_privacy\local\request\userlist;
  * @author      3IPUNT <contacte@tresipunt.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class provider implements metadata_provider, core_userlist_provider, request_provider {
+class provider implements core_userlist_provider, metadata_provider, request_provider {
     /**
      * Returns metadata about this plugin: data sent to the video provider.
      *

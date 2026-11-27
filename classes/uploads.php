@@ -230,6 +230,7 @@ class uploads {
      * Every upload attempt of an instance, newest first.
      *
      * @param int $instanceid {videoconnect} id.
+     * @param int $limit Maximum number of attempts returned.
      * @return stdClass[]
      * @throws dml_exception
      */

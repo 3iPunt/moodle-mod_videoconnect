@@ -89,8 +89,10 @@ final class provider_manager {
      */
     public static function get_provider(string $name): provider_interface {
         if (!isset(self::CONNECTORS[$name])) {
-            debugging("mod_videoconnect: unknown provider '{$name}', falling back to '" . self::DEFAULT . "'",
-                DEBUG_DEVELOPER);
+            debugging(
+                "mod_videoconnect: unknown provider '{$name}', falling back to '" . self::DEFAULT . "'",
+                DEBUG_DEVELOPER
+            );
             $name = self::DEFAULT;
         }
         if (!isset(self::$instances[$name])) {

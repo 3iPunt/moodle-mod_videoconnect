@@ -142,8 +142,10 @@ class mod_videoconnect_mod_form extends moodleform_mod {
      */
     public function validation($data, $files) {
         $errors = parent::validation($data, $files);
-        if (!empty($data['idvideo'])
-                && provider_manager::get_active()->parse_video_reference($data['idvideo']) === null) {
+        if (
+            !empty($data['idvideo'])
+                && provider_manager::get_active()->parse_video_reference($data['idvideo']) === null
+        ) {
             $errors['idvideo'] = get_string('idvideo_invalid', 'mod_videoconnect');
         }
         return $errors;

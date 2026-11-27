@@ -108,8 +108,11 @@ if ($ADMIN->fulltree) {
     $settings->add(new admin_setting_heading(
         'mod_videoconnect/testconnection',
         '',
-        html_writer::link($testurl, get_string('testconnection', 'mod_videoconnect'),
-            ['class' => 'btn btn-secondary'])
+        html_writer::link(
+            $testurl,
+            get_string('testconnection', 'mod_videoconnect'),
+            ['class' => 'btn btn-secondary']
+        )
     ));
 
     // Lista de scopes con fuente única en el conector (evita la divergencia

@@ -174,8 +174,10 @@ class upload_videos_task extends scheduled_task {
                             $domains = videoconnect::get_whitelist_domains();
                             if (empty($domains)) {
                                 $whitelistok = false;
-                                $whitelisterror = new error(4003,
-                                    get_string('error_whitelist_nodomains', 'mod_videoconnect'));
+                                $whitelisterror = new error(
+                                    4003,
+                                    get_string('error_whitelist_nodomains', 'mod_videoconnect')
+                                );
                                 mtrace("* Whitelist enabled but no domains configured");
                             }
                             foreach ($domains as $domain) {

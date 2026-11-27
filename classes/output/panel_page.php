@@ -89,9 +89,16 @@ class panel_page implements renderable, templatable {
      * @param moodle_url|null $settingsurl Plugin settings URL when the user may configure.
      * @param provider_interface|null $provider Active provider connector.
      */
-    public function __construct(array $summary, array $filters, string $table, int $totalrows,
-            bool $hasactivities, ?string $warning = null, ?moodle_url $settingsurl = null,
-            ?provider_interface $provider = null) {
+    public function __construct(
+        array $summary,
+        array $filters,
+        string $table,
+        int $totalrows,
+        bool $hasactivities,
+        ?string $warning = null,
+        ?moodle_url $settingsurl = null,
+        ?provider_interface $provider = null
+    ) {
         $this->summary = $summary;
         $this->filters = $filters + [
             'state' => '', 'courseid' => 0, 'coursename' => '', 'search' => '',
@@ -128,8 +135,10 @@ class panel_page implements renderable, templatable {
         $data->headertitle = get_string('panel', 'mod_videoconnect');
         $data->headerdesc = get_string('panel_desc', 'mod_videoconnect');
         $data->updated = userdate(time(), get_string('strftimedatetimeshort', 'langconfig'));
-        $data->refreshurl = (new moodle_url('/mod/videoconnect/panel.php',
-            $baseparams + ($currentstate !== '' ? ['state' => $currentstate] : [])))->out(false);
+        $data->refreshurl = (new moodle_url(
+            '/mod/videoconnect/panel.php',
+            $baseparams + ($currentstate !== '' ? ['state' => $currentstate] : [])
+        ))->out(false);
         $data->settingsurl = $this->settingsurl?->out(false);
 
         $data->warning = $this->warning;

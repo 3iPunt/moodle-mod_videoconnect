@@ -5,7 +5,7 @@
 <h1 align="center">Video Connect</h1>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-2.1.0-informational" alt="Version">
+  <img src="https://img.shields.io/badge/version-2.2.0-informational" alt="Version">
   <a href="https://moodle.org"><img src="https://img.shields.io/badge/Moodle-4.5%2B-orange?logo=moodle" alt="Moodle"></a>
   <img src="https://img.shields.io/badge/PHP-8.1%2B-777BB4?logo=php&logoColor=white" alt="PHP">
   <img src="https://img.shields.io/badge/License-GPL--3.0-green" alt="License">
@@ -63,7 +63,7 @@ Moodle core nor the theme.
 
 | Requirement | Version |
 |---|---|
-| Moodle | 4.5+ (including 5.x — tested up to 5.1) |
+| Moodle | 4.5 to 5.3 (tested on 4.5, 5.1 and 5.3) |
 | PHP | 8.1+ |
 | Vimeo account | Paid plan with domain-level embed privacy (Starter or higher) |
 | Vimeo API app | Scopes: `public`, `private`, `upload`, `edit`, `interact` |
@@ -78,7 +78,7 @@ Moodle core nor the theme.
 ## 🚀 Installation
 
 1. Copy the code into `mod/videoconnect/` (`public/mod/videoconnect/` on
-   Moodle 5.x).
+   Moodle 5.1 and later).
 2. Complete the installation from **Site administration › Notifications**
    (or CLI: `php admin/cli/upgrade.php --non-interactive`).
 3. Purge the caches (**Site administration › Development › Purge caches**

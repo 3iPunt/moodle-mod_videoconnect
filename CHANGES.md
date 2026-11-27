@@ -1,5 +1,30 @@
 # Changelog — mod_videoconnect
 
+## Versión 2.2.0 — 2026-11-27 (`2026112700`)
+
+### Objetivo
+Moodle 5.3 y modo oscuro.
+
+### Novedades
+
+- **Moodle 5.3**: el plugin declara Moodle 4.5 a 5.3 (`supported = [405, 503]`).
+  Nada de lo que usa se ha retirado ni deprecado en Moodle 5.2 ni 5.3, así que el
+  comportamiento no cambia.
+- **Modo oscuro**: cuando la administración activa los modos de color de Boost
+  (Moodle 5.3) y alguien elige el oscuro, la vista de la actividad, el panel de
+  control y el detalle de cada vídeo lo siguen, y la cabecera muestra el logo
+  blanco de Tresipunt. En modo claro se ve igual que antes.
+
+### Cambios internos
+
+- **CI en Bitbucket**: `moodle-plugin-ci` en Moodle 4.5, 5.1 y 5.3 en paralelo.
+- **Paquete sin ficheros de desarrollo**: `.gitattributes` deja fuera de
+  `git archive` `composer.json`, `composer.lock`, `.gitignore`, `.gitattributes`
+  y el pipeline. Las dependencias siguen en `.extlib/vendor`.
+
+Sin cambios en ajustes, textos, permisos ni base de datos: desde la 2.1.0 se
+actualiza con la actualización normal.
+
 ## Versión 2.1.0 — 2026-07-29 (`2026072900`)
 
 ### Objetivo

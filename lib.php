@@ -22,10 +22,12 @@
  * @author     3IPUNT <contacte@tresipunt.com>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
 use mod_videoconnect\output\view_page;
 use mod_videoconnect\provider\provider_manager;
 use mod_videoconnect\uploads;
 use mod_videoconnect\videoconnect;
+
 /**
  * Return if the plugin supports $feature.
  *

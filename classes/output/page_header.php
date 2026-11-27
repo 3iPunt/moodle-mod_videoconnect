@@ -44,11 +44,12 @@ final class page_header {
      *
      * @param renderer_base $output
      * @param provider_interface|null $provider Active/instance provider connector.
-     * @return array logotresipunt, logoprovider, providername.
+     * @return array logotresipunt, logotresipuntwhite, logoprovider, providername.
      */
     public static function export_branding(renderer_base $output, ?provider_interface $provider): array {
         return [
             'logotresipunt' => $output->image_url('tresipunt_logo', 'mod_videoconnect')->out(false),
+            'logotresipuntwhite' => $output->image_url('tresipunt_logo_white', 'mod_videoconnect')->out(false),
             'logoprovider' => $output->image_url(
                 $provider ? $provider->get_logo_pix() : 'icon',
                 'mod_videoconnect'

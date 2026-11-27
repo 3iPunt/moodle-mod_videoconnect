@@ -25,6 +25,7 @@
 
     Context variables required for this template:
     * logotresipunt: string - URL of the Tresipunt logo.
+    * logotresipuntwhite: string - URL of the white Tresipunt logo, shown instead in dark mode.
     * logoprovider: string - URL of the active provider logo.
     * providername: string - Name of the active video provider.
     * headertitle: string - Page title.
@@ -33,6 +34,7 @@
     Example context (json):
     {
         "logotresipunt": "#",
+        "logotresipuntwhite": "#",
         "logoprovider": "#",
         "providername": "Vimeo",
         "headertitle": "Video Connect control panel",
@@ -40,7 +42,8 @@
     }
 }}
 <div class="vc-header-brand">
-    <img src="{{logotresipunt}}" alt="Tresipunt" class="vc-header-logo">
+    <img src="{{logotresipunt}}" alt="Tresipunt" class="vc-header-logo vc-logo-light">
+    <img src="{{logotresipuntwhite}}" alt="Tresipunt" class="vc-header-logo vc-logo-dark">
     <span class="vc-header-divider" aria-hidden="true"></span>
     <img src="{{logoprovider}}" alt="{{#str}} provideralt, mod_videoconnect, {{providername}} {{/str}}" class="vc-header-logo">
 </div>

@@ -145,15 +145,15 @@ class vimeo {
             return new response(true, $response, new error(0, ''));
         } catch (VimeoRequestException $e) {
             return new response(
-                    false,
-                    '',
-                    new error(3001, $e->getMessage())
+                false,
+                '',
+                new error(3001, $e->getMessage())
             );
         } catch (VimeoUploadException $e) {
             return new response(
-                    false,
-                    '',
-                    new error(3000, $e->getMessage())
+                false,
+                '',
+                new error(3000, $e->getMessage())
             );
         }
     }
@@ -248,15 +248,15 @@ class vimeo {
                 ?? $decoded['error']
                 ?? ('HTTP ' . $httpcode . ': ' . substr((string) $result, 0, 200));
             return new response(
-                    false,
-                    '',
-                    new error(4002, $message)
+                false,
+                '',
+                new error(4002, $message)
             );
         } catch (Exception $e) {
             return new response(
-                    false,
-                    '',
-                    new error(4001, $e->getMessage())
+                false,
+                '',
+                new error(4001, $e->getMessage())
             );
         }
     }
